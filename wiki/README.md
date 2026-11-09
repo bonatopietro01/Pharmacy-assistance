@@ -1,0 +1,13 @@
+# Wiki della farmacia
+
+Le schede in `schede/` hanno un’intestazione TOML tra due righe `+++` e un corpo Markdown. Il nome del file identifica la scheda. `termini` raccoglie parole e locuzioni curate per trovare la scheda; `prodotto` collega una scheda al codice esatto in SQLite. `collegamenti` serve alla navigazione dei casi demo. Un’associazione con un prodotto reale viene dal catalogo SQLite: nel flusso live può apparire prima della revisione solo se è una relazione `indicazione_etichetta` candidata, con fonte ufficiale, claim esplicita e stato non revisionato visibile. Non è un consiglio approvato. Nessuna associazione può derivare da un collegamento editoriale, dal formato, dalla categoria o dalla co-occorrenza nel dialogo.
+
+Gli stati previsti sono `demo`, `bozza` e `pubblicata`. Una scheda clinica reale resta bozza finché contiene una fonte identificabile, la sua versione o data, il farmacista revisore e contenuti coerenti con quella fonte. Per i medicinali autorizzati in Italia, le fonti di prodotto comprendono il riassunto delle caratteristiche del prodotto e il foglio illustrativo. [AIFA](https://www.aifa.gov.it/riassunto-caratteristiche-e-foglio-illustrativo)
+
+Il backend costruisce l’indice in memoria dai dati correnti del catalogo e dalle schede consultabili. La ricerca comprende nome, codici, alias registrati, principi attivi medicinali e componenti degli integratori tipizzati separatamente. Il campo `principi_attivi` non contiene nutrienti o ceppi di integratori. Un termine può trovare un prodotto, ma da solo non prova che quel prodotto sia indicato per un sintomo o associabile a un altro.
+
+Nel database le relazioni `candidata` non diventano approvate: alcune `indicazione_etichetta` possono essere mostrate come corrispondenze documentali non revisionate se hanno fonte e contesto registrati. Gli altri complementi clinici o di vendita restano esclusi dal flusso live finché non sono revisionati e approvati. Le relazioni `demo` sono contenuti di prova e devono rimanere chiaramente distinguibili.
+
+Prezzo e quantità possono essere nulli. Un valore mancante significa dato sconosciuto e non equivale a prezzo zero o scorta esaurita. Fonti, data di verifica e provenienza del dato accompagnano i campi di catalogo quando disponibili.
+
+La ricerca restituisce pertinenza testuale e collegamenti documentati per la consultazione del farmacista. Le evidenze del dialogo sono temporanee: menzione, richiesta, proposta, accettazione, negazione, uso passato e correzione hanno significati distinti. Una fase `closing` o la frase «serve altro?» non prova una vendita né crea un abbinamento clinico. Vedi [glossario](GLOSSARIO.md) e [scenari e fonti](SCENARI_E_FONTI.md).

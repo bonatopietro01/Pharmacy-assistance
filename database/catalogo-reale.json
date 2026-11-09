@@ -1,0 +1,4399 @@
+{
+  "schema_version": 1,
+  "researched_at": "2026-11-08",
+  "country": "IT",
+  "sources_policy": [
+    "Medicinali: usare la banca dati AIFA e i fogli illustrativi/atti AIFA per composizione, confezione, stato e regime di fornitura. La pagina del produttore documenta solo identità, forma e contenuto dichiarati.",
+    "Le schede interattive AIFA individuali non sono risultate leggibili in questo controllo. Tutti i medicinali restano regulatory_status=non_verificato ed esclusi dal conteggio eleggibile, anche quando il prodotto è documentato dal produttore.",
+    "Integratori: una pagina attuale del produttore documenta l'offerta di mercato e gli ingredienti dichiarati. Il registro ministeriale è fonte contestuale; non sono stati verificati i codici individuali. La notifica non è approvazione o autorizzazione.",
+    "Dispositivi: le pagine attuali del produttore documentano identità, forma e i codici CE che dichiarano; non è stato verificato un record regolatorio indipendente.",
+    "Deduplicazione: registrati prodotti/formule distinte; differenze di solo numero unità o formato confezione non diventano record separati.",
+    "Non sono incluse indicazioni terapeutiche, dosi d'uso, relazioni cliniche o suggerimenti tra prodotti. Prezzo e scorte di farmacia sono null.",
+    "Espansione 2026-11-08: le nuove relazioni sintomo-prodotto sono candidate e limitate alle indicazioni testuali di fonti ufficiali; il contesto immunitario e' distinto dai sintomi e non associa integratori a medicinali. I dati di prezzo e scorte dei prodotti reali restano null."
+  ],
+  "products": [
+    {
+      "code": "REAL-MED-001",
+      "name": "Tachipirina 500 mg compresse",
+      "category": "medicinale",
+      "manufacturer": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+      "form": "compresse",
+      "active_ingredients": [
+        "paracetamolo"
+      ],
+      "ingredient_details": [
+        {
+          "name": "paracetamolo",
+          "amount": 500,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "500 mg per compressa",
+      "route": "orale",
+      "regulatory_identifier": "012745028",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "012745028",
+      "aic_scope": "confezione",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=012745",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "012745",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "Screenshot Banca Dati Farmaci — Tachipirina",
+          "url": "https://www.aifa.gov.it/sites/default/files/Screenshot_Banca_Dati_Farmaci.pdf",
+          "owner": "AIFA",
+          "source_date": "2013 circa",
+          "note": "Fonte ufficiale storica o PAR; documenta l'identificativo/record al momento della pubblicazione, non lo stato attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tachipirina 500 mg compresse",
+        "url": "https://www.tachipirina.it/prodotti/compresse/",
+        "owner": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo aggiornato aprile 2022",
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tachipirina 500 mg compresse",
+        "url": "https://www.tachipirina.it/prodotti/compresse/",
+        "owner": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo aggiornato aprile 2022",
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-002",
+      "name": "Tachipirina 500 mg granulato effervescente",
+      "category": "medicinale",
+      "manufacturer": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+      "form": "granulato effervescente in bustine",
+      "active_ingredients": [
+        "paracetamolo"
+      ],
+      "ingredient_details": [
+        {
+          "name": "paracetamolo",
+          "amount": 500,
+          "unit": "mg/bustina"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "500 mg per bustina",
+      "route": "orale",
+      "regulatory_identifier": "012745117",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "012745117",
+      "aic_scope": "confezione",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=012745",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "012745",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "Screenshot Banca Dati Farmaci — Tachipirina",
+          "url": "https://www.aifa.gov.it/sites/default/files/Screenshot_Banca_Dati_Farmaci.pdf",
+          "owner": "AIFA",
+          "source_date": "2013 circa",
+          "note": "Fonte ufficiale storica o PAR; documenta l'identificativo/record al momento della pubblicazione, non lo stato attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tachipirina 500 mg granulato effervescente",
+        "url": "https://www.tachipirina.it/prodotti/granulato-effervescente/",
+        "owner": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tachipirina 500 mg granulato effervescente",
+        "url": "https://www.tachipirina.it/prodotti/granulato-effervescente/",
+        "owner": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-003",
+      "name": "Tachipirina Orosolubile 500 mg granulato gusto fragola-vaniglia",
+      "category": "medicinale",
+      "manufacturer": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+      "form": "granulato orosolubile in bustine",
+      "active_ingredients": [
+        "paracetamolo"
+      ],
+      "ingredient_details": [
+        {
+          "name": "paracetamolo",
+          "amount": 500,
+          "unit": "mg/bustina"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "500 mg per bustina",
+      "route": "orale",
+      "regulatory_identifier": "040313049",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "040313049",
+      "aic_scope": "confezione 500 mg, 12 bustine",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=040313",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "040313",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "Autorizzazione all'immissione in commercio del medicinale Tachipirina Orosolubile",
+          "url": "https://www.gazzettaufficiale.it/eli/gu/2011/05/16/112/so/122/sg/pdf",
+          "owner": "AIFA / Gazzetta Ufficiale",
+          "source_date": "2011-05-16",
+          "note": "Identifica AIC di specialità 040313 e le confezioni 500 mg gusto fragola-vaniglia, inclusa quella da 12 bustine AIC 040313049; non prova lo stato AIFA corrente.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "additional_source": {
+          "title": "Tracciabilità del farmaco — II semestre 2024",
+          "url": "https://www.salute.gov.it/new/sites/default/files/2025-12/II%20semestre%202024.pdf",
+          "owner": "Ministero della Salute",
+          "source_date": "2024-12",
+          "note": "Il rapporto include la confezione AIC 040313049 tra le confezioni fornite; è un dato storico di filiera e non uno stato AIC attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "fornitura_farmacia_storica"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tachipirina Orosolubile 500 mg granulato Gusto fragola-vaniglia",
+        "url": "https://www.tachipirina.it/prodotti/orosolubile-500-mg",
+        "owner": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tachipirina Orosolubile 500 mg granulato Gusto fragola-vaniglia",
+        "url": "https://www.tachipirina.it/prodotti/orosolubile-500-mg",
+        "owner": "A.C.R.A.F. S.p.A. (Angelini Pharma)",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-004",
+      "name": "Aspirina Dolore e Infiammazione 500 mg compresse rivestite",
+      "category": "medicinale",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "compresse rivestite",
+      "active_ingredients": [
+        "acido acetilsalicilico"
+      ],
+      "ingredient_details": [
+        {
+          "name": "acido acetilsalicilico",
+          "amount": 500,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "500 mg per compressa",
+      "route": "orale",
+      "regulatory_identifier": "041962010",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "041962010",
+      "aic_scope": "confezione",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=041962",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "041962",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "Elenco medicinali carenti aggiornato al 02/11/2018",
+          "url": "https://www.aifa.gov.it/sites/default/files/elenco_medicinali_carenti_02-11-2018.pdf",
+          "owner": "AIFA",
+          "source_date": "2018-11-02",
+          "note": "Fonte ufficiale storica o PAR; documenta l'identificativo/record al momento della pubblicazione, non lo stato attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Aspirina Dolore e Infiammazione",
+        "url": "https://www.aspirina.it/prodotti/aspirina-dolore-infiammazione/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo rivisto 06/2026",
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Aspirina Dolore e Infiammazione",
+        "url": "https://www.aspirina.it/prodotti/aspirina-dolore-infiammazione/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo rivisto 06/2026",
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-005",
+      "name": "Aspirina C 400 mg/240 mg compresse effervescenti",
+      "category": "medicinale",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "compresse effervescenti",
+      "active_ingredients": [
+        "acido acetilsalicilico",
+        "acido ascorbico"
+      ],
+      "ingredient_details": [
+        {
+          "name": "acido acetilsalicilico",
+          "amount": 400,
+          "unit": "mg/compressa"
+        },
+        {
+          "name": "acido ascorbico",
+          "amount": 240,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "400 mg + 240 mg per compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Aspirina C",
+        "url": "https://www.aspirina.it/prodotti/aspirina-c/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo rivisto 06/2026",
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Aspirina C",
+        "url": "https://www.aspirina.it/prodotti/aspirina-c/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo rivisto 06/2026",
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-006",
+      "name": "Aspirina Influenza e Naso Chiuso 500 mg/30 mg granulato",
+      "category": "medicinale",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "granulato per sospensione orale in bustine",
+      "active_ingredients": [
+        "acido acetilsalicilico",
+        "pseudoefedrina cloridrato"
+      ],
+      "ingredient_details": [
+        {
+          "name": "acido acetilsalicilico",
+          "amount": 500,
+          "unit": "mg/bustina"
+        },
+        {
+          "name": "pseudoefedrina cloridrato",
+          "amount": 30,
+          "unit": "mg/bustina"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "500 mg + 30 mg per bustina",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Aspirina Influenza e Naso Chiuso 500 mg",
+        "url": "https://www.aspirina.it/prodotti/aspirina-influenza-e-naso-chiuso/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo aggiornato 06/2026",
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Aspirina Influenza e Naso Chiuso 500 mg",
+        "url": "https://www.aspirina.it/prodotti/aspirina-influenza-e-naso-chiuso/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": "Foglio illustrativo aggiornato 06/2026",
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-007",
+      "name": "AspirinaACT Dolore e Infiammazione 1000 mg compresse",
+      "category": "medicinale",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "compresse rivestite",
+      "active_ingredients": [
+        "acido acetilsalicilico"
+      ],
+      "ingredient_details": [
+        {
+          "name": "acido acetilsalicilico",
+          "amount": 1000,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1000 mg per compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "AspirinaACT Dolore e Infiammazione",
+        "url": "https://www.aspirina.it/prodotti/aspirina-act-dolore-infiammazione/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "AspirinaACT Dolore e Infiammazione",
+        "url": "https://www.aspirina.it/prodotti/aspirina-act-dolore-infiammazione/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-008",
+      "name": "Nurofen 200 mg compresse rivestite",
+      "category": "medicinale",
+      "manufacturer": "Reckitt Benckiser Healthcare (Italia) S.p.A.",
+      "form": "compresse rivestite",
+      "active_ingredients": [
+        "ibuprofene"
+      ],
+      "ingredient_details": [
+        {
+          "name": "ibuprofene",
+          "amount": 200,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "200 mg per compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Nurofen 200 mg Compresse Rivestite",
+        "url": "https://www.nurofen.it/prodotti/adulti/nurofen-200mg-compresse-rivestite/",
+        "owner": "Reckitt Benckiser Healthcare (Italia) S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Nurofen 200 mg Compresse Rivestite",
+        "url": "https://www.nurofen.it/prodotti/adulti/nurofen-200mg-compresse-rivestite/",
+        "owner": "Reckitt Benckiser Healthcare (Italia) S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-009",
+      "name": "Actigrip 2,5 mg/60 mg/500 mg compresse",
+      "category": "medicinale",
+      "manufacturer": "Titolare nel record AIFA 2019: Johnson & Johnson S.p.A. (assetto corrente da verificare)",
+      "form": "compresse",
+      "active_ingredients": [
+        "triprolidina cloridrato",
+        "pseudoefedrina cloridrato",
+        "paracetamolo"
+      ],
+      "ingredient_details": [
+        {
+          "name": "triprolidina cloridrato",
+          "amount": 2.5,
+          "unit": "mg/compressa"
+        },
+        {
+          "name": "pseudoefedrina cloridrato",
+          "amount": 60,
+          "unit": "mg/compressa"
+        },
+        {
+          "name": "paracetamolo",
+          "amount": 500,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "2,5 mg + 60 mg + 500 mg per compressa",
+      "route": "orale",
+      "regulatory_identifier": "024823080",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "024823080",
+      "aic_scope": "confezione",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=024823",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "024823",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "Autorizzazione AIC del medicinale Actigrip",
+          "url": "https://www.gazzettaufficiale.it/eli/gu/2019/09/20/221/sg/pdf",
+          "owner": "AIFA / Gazzetta Ufficiale",
+          "source_date": "2019-09-20",
+          "note": "Fonte ufficiale storica o PAR; documenta l'identificativo/record al momento della pubblicazione, non lo stato attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Actigrip Compresse",
+        "url": "https://www.actigrip.it/prodotti/actigrip-compresse",
+        "owner": "Actigrip official product website",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Autorizzazione AIC del medicinale Actigrip — confezione e composizione",
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2019/09/20/221/sg/pdf",
+        "owner": "AIFA / Gazzetta Ufficiale",
+        "consulted_at": "2026-11-07",
+        "version": "pubblicazione 2019-09-20; aggiornamento AIC pubblicato 2022-10-19",
+        "note": "Fonte ufficiale usata per verificare i principi attivi e le quantità per compressa; la pagina di marketing contiene un'incongruenza sulla quantità di triprolidina.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-010",
+      "name": "Tantum Verde Gola Spray 0,25%",
+      "category": "medicinale",
+      "manufacturer": "Angelini Pharma",
+      "form": "spray per mucosa orale",
+      "active_ingredients": [
+        "flurbiprofene"
+      ],
+      "ingredient_details": [
+        {
+          "name": "flurbiprofene",
+          "amount": 0.25,
+          "unit": "%"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "0,25%",
+      "route": "oromucosale",
+      "regulatory_identifier": "034015",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "034015",
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=034015",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "034015",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "PAR AIC nazionali — Tantum verde gola",
+          "url": "https://www.aifa.gov.it/it/par-aic-nazionali",
+          "owner": "AIFA",
+          "source_date": "2019-12-02",
+          "note": "Fonte ufficiale storica o PAR; documenta l'identificativo/record al momento della pubblicazione, non lo stato attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tantum Verde Gola Spray 0,25%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-gola-spray-0-25/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tantum Verde Gola Spray 0,25%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-gola-spray-0-25/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-011",
+      "name": "Tantum Verde Gola Collutorio 0,25%",
+      "category": "medicinale",
+      "manufacturer": "Angelini Pharma",
+      "form": "collutorio",
+      "active_ingredients": [
+        "flurbiprofene"
+      ],
+      "ingredient_details": [
+        {
+          "name": "flurbiprofene",
+          "amount": 0.25,
+          "unit": "%"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "0,25%",
+      "route": "oromucosale",
+      "regulatory_identifier": "034015",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "034015",
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=034015",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "034015",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "PAR AIC nazionali — Tantum verde gola",
+          "url": "https://www.aifa.gov.it/it/par-aic-nazionali",
+          "owner": "AIFA",
+          "source_date": "2019-12-02",
+          "note": "Fonte ufficiale storica o PAR; documenta l'identificativo/record al momento della pubblicazione, non lo stato attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tantum Verde Gola Collutorio 0,25%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-gola-collutorio-0-25/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tantum Verde Gola Collutorio 0,25%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-gola-collutorio-0-25/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-012",
+      "name": "Tantum Verde Spray 0,15%",
+      "category": "medicinale",
+      "manufacturer": "Angelini Pharma",
+      "form": "spray per mucosa orale",
+      "active_ingredients": [
+        "benzidamina cloridrato"
+      ],
+      "ingredient_details": [
+        {
+          "name": "benzidamina cloridrato",
+          "amount": 0.15,
+          "unit": "%"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "0,15%",
+      "route": "oromucosale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tantum Verde Spray 0,15%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-spray-0-15/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tantum Verde Spray 0,15%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-spray-0-15/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-013",
+      "name": "Tantum Verde Spray 0,30%",
+      "category": "medicinale",
+      "manufacturer": "Angelini Pharma",
+      "form": "spray per mucosa orale",
+      "active_ingredients": [
+        "benzidamina cloridrato"
+      ],
+      "ingredient_details": [
+        {
+          "name": "benzidamina cloridrato",
+          "amount": 0.3,
+          "unit": "%"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "0,30%",
+      "route": "oromucosale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tantum Verde Spray 0,30%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-spray-0-30/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tantum Verde Spray 0,30%",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-spray-0-30/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-014",
+      "name": "Tantum Verde Antisettico e Antinfiammatorio 1,5 mg/ml + 5 mg/ml",
+      "category": "medicinale",
+      "manufacturer": "Angelini Pharma",
+      "form": "spray per mucosa orale",
+      "active_ingredients": [
+        "benzidamina cloridrato",
+        "cetilpiridinio cloruro"
+      ],
+      "ingredient_details": [
+        {
+          "name": "benzidamina cloridrato",
+          "amount": 1.5,
+          "unit": "mg/ml"
+        },
+        {
+          "name": "cetilpiridinio cloruro",
+          "amount": 5,
+          "unit": "mg/ml"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1,5 mg/ml + 5 mg/ml",
+      "route": "oromucosale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Tantum Verde Antisettico e Antinfiammatorio",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-antisettico-e-antinfiammatorio/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Tantum Verde Antisettico e Antinfiammatorio",
+        "url": "https://www.tantumverde.it/prodotti/tantum-verde-antisettico-e-antinfiammatorio/",
+        "owner": "Angelini Pharma",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-015",
+      "name": "Rinazina Spray Nasale 1 mg/ml",
+      "category": "medicinale",
+      "manufacturer": "Non dichiarato nella pagina prodotto consultata",
+      "form": "spray nasale",
+      "active_ingredients": [
+        "nafazolina"
+      ],
+      "ingredient_details": [
+        {
+          "name": "nafazolina",
+          "amount": 1,
+          "unit": "mg/ml"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1 mg/ml",
+      "route": "nasale",
+      "regulatory_identifier": "000590",
+      "regulatory_identifier_type": "AIC",
+      "regulatory_status": "non_verificato",
+      "aic": "000590",
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/?farmaco=000590",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": "000590",
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": {
+          "title": "PAR AIC nazionali 2016 — Rinazina spray nasale",
+          "url": "https://www.aifa.gov.it/en/par-aic-nazionali-2016",
+          "owner": "AIFA",
+          "source_date": "2016-06-08",
+          "note": "Fonte ufficiale storica o PAR; documenta l'identificativo/record al momento della pubblicazione, non lo stato attuale.",
+          "supports": [
+            "identificativo_AIC",
+            "composizione",
+            "dato_storico_non_corrente"
+          ]
+        },
+        "supports": []
+      },
+      "market_source": {
+        "title": "Rinazina Spray Nasale",
+        "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-spray-nasale/",
+        "owner": "Non dichiarato nella pagina prodotto consultata",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Rinazina Spray Nasale",
+        "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-spray-nasale/",
+        "owner": "Non dichiarato nella pagina prodotto consultata",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-016",
+      "name": "Rinazina Antiallergica Spray Nasale 1 mg/ml",
+      "category": "medicinale",
+      "manufacturer": "Non dichiarato nella pagina prodotto consultata",
+      "form": "spray nasale",
+      "active_ingredients": [
+        "azelastina cloridrato"
+      ],
+      "ingredient_details": [
+        {
+          "name": "azelastina cloridrato",
+          "amount": 1,
+          "unit": "mg/ml"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1 mg/ml",
+      "route": "nasale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Rinazina Antiallergica Spray Nasale",
+        "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-antiallergica-spray-nasale/",
+        "owner": "Non dichiarato nella pagina prodotto consultata",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Rinazina Antiallergica Spray Nasale",
+        "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-antiallergica-spray-nasale/",
+        "owner": "Non dichiarato nella pagina prodotto consultata",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-017",
+      "name": "Rinazina Doppia Azione Spray Nasale",
+      "category": "medicinale",
+      "manufacturer": "Non dichiarato nella pagina prodotto consultata",
+      "form": "spray nasale",
+      "active_ingredients": [
+        "xilometazolina cloridrato",
+        "ipratropio bromuro"
+      ],
+      "ingredient_details": [
+        {
+          "name": "xilometazolina cloridrato",
+          "amount": 0.5,
+          "unit": "mg/ml"
+        },
+        {
+          "name": "ipratropio bromuro",
+          "amount": 0.6,
+          "unit": "mg/ml"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "0,5 mg/ml + 0,6 mg/ml",
+      "route": "nasale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": "AIC di specialità o confezione non verificata",
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "AIFA Medicinali — Ricerca Farmaco",
+        "url": "https://medicinali.aifa.gov.it/",
+        "owner": "Agenzia Italiana del Farmaco (AIFA)",
+        "consulted_at": "2026-11-07",
+        "lookup_key": null,
+        "current_record_rendered": false,
+        "status_note": "Scheda interattiva AIFA individuale non leggibile in questo controllo; autorizzazione e regime correnti non verificati.",
+        "supporting_source": null,
+        "supports": []
+      },
+      "market_source": {
+        "title": "Rinazina Doppia Azione Spray Nasale",
+        "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-doppia-azione-spray-nasale/",
+        "owner": "Non dichiarato nella pagina prodotto consultata",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "Pagina ufficiale del prodotto consultata direttamente.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Rinazina Doppia Azione Spray Nasale",
+        "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-doppia-azione-spray-nasale/",
+        "owner": "Non dichiarato nella pagina prodotto consultata",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": "La composizione qui riportata è stata verificata sulla pagina del produttore o sul foglio illustrativo collegato.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "parziale: pagina prodotto corrente del produttore verificata; specifica scheda AIFA e stato/regime correnti da verificare",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-001",
+      "name": "Grintuss Adulti Sciroppo",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "sciroppo; flacone 180 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "Poliresin: polisaccaridi, resine e flavonoidi da piantaggine, grindelia ed elicriso",
+        "miele",
+        "oli essenziali di eucalipto, anice stellato e limone"
+      ],
+      "strength": "180 g",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0373; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Grintuss Adulti Sciroppo",
+        "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "Grintuss Adulti Sciroppo",
+        "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-002",
+      "name": "Grintuss Adulti Compresse",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "compresse",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "miele",
+        "complessi molecolari Poliresin"
+      ],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0373; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Grintuss Adulti Compresse",
+        "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "Grintuss Adulti Compresse",
+        "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-003",
+      "name": "Fitonasal Spray Concentrato",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "spray nasale; flacone 30 ml",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "Tannisal-FL: tannini e flavonoidi da amamelide e timo",
+        "salgemma",
+        "glicerina vegetale"
+      ],
+      "strength": "30 ml",
+      "route": "nasale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Fitonasal Spray concentrato",
+        "url": "https://www.aboca.com/it/prodotto/fitonasal-spray-concentrato/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "Fitonasal Spray concentrato",
+        "url": "https://www.aboca.com/it/prodotto/fitonasal-spray-concentrato/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-004",
+      "name": "Fitonasal Pediatric",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "spray nebulizzatore; flacone 125 ml",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "125 ml",
+      "route": "nasale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Fitonasal Pediatric",
+        "url": "https://www.aboca.com/it/prodotto/fitonasal-pediatric-spray-it/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": null,
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-005",
+      "name": "LenoDiar Pediatric",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "granuli monodose in bustine da 2 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "2 g/bustina",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "LenoDiar Pediatric",
+        "url": "https://www.aboca.com/it/prodotto/lenodiar-pediatric-it/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": null,
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-006",
+      "name": "Melilax Adulti",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "microclismi monouso da 10 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "complesso Promelaxin"
+      ],
+      "strength": "10 g/microclisma",
+      "route": "rettale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0373; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Melilax Adulti",
+        "url": "https://www.aboca.com/it/prodotto/melilax-it/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "Melilax Adulti",
+        "url": "https://www.aboca.com/it/prodotto/melilax-it/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-007",
+      "name": "Colilen IBS 96 Opercoli",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "opercoli da 587 mg",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "587 mg/opercolo",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Colilen IBS 96 Opercoli",
+        "url": "https://www.aboca.com/it/prodotto/colilen-ibs-96-opercoli/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": null,
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-008",
+      "name": "Propolgemma Spray forte adulti",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "spray per mucosa orale; flacone 30 ml",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "Propolgemma: resine, polisaccaridi e lignine da gemme di pioppo nero e propoli europea"
+      ],
+      "strength": "30 ml",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Propolgemma - Spray forte adulti",
+        "url": "https://www.aboca.com/it/prodotto/propolgemma-spray-forte-adulti/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "Propolgemma - Spray forte adulti",
+        "url": "https://www.aboca.com/it/prodotto/propolgemma-spray-forte-adulti/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-009",
+      "name": "Propolgemma Compresse Orosolubili Adulti",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "20 compresse orosolubili da 1,5 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "Propolgemma: resine, polisaccaridi e lignine da gemme di pioppo nero e propoli europea"
+      ],
+      "strength": "1,5 g/compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Propolgemma - Compresse orosolubili adulti",
+        "url": "https://www.aboca.com/it/prodotto/propolgemma-compresse-orosolubili-adulti/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "Propolgemma - Compresse orosolubili adulti",
+        "url": "https://www.aboca.com/it/prodotto/propolgemma-compresse-orosolubili-adulti/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-010",
+      "name": "Golamir Spray no alcool",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "spray per mucosa orofaringea; flacone 30 ml",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "30 ml",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Golamir Spray no alcool",
+        "url": "https://www.aboca.com/it/prodotto/golamir-spray-no-alcool/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": null,
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-011",
+      "name": "Libramed Compresse",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "138 compresse da 725 mg",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "Policaptil Gel Retard"
+      ],
+      "strength": "725 mg/compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0373; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Libramed Compresse",
+        "url": "https://www.aboca.com/it/prodotto/libramed-compresse/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "Libramed Compresse",
+        "url": "https://www.aboca.com/it/prodotto/libramed-compresse/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-012",
+      "name": "NeoBianacid 70 Compresse",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "70 compresse da 1,55 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "Poliprotect"
+      ],
+      "strength": "1,55 g/compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0373; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "NeoBianacid 70 Compresse",
+        "url": "https://www.aboca.com/it/prodotto/neobianacid-70-compresse/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "NeoBianacid 70 Compresse",
+        "url": "https://www.aboca.com/it/prodotto/neobianacid-70-compresse/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-013",
+      "name": "NeoBianacid Pediatric 36 bustine granulari",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "36 bustine granulari da 775 mg",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [
+        "Poliprotect"
+      ],
+      "strength": "775 mg/bustina",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0373; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "NeoBianacid Pediatric 36 bustine granulari",
+        "url": "https://www.aboca.com/it/prodotto/neobianacid-pediatric-36-bustine-granulari/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": {
+        "title": "NeoBianacid Pediatric 36 bustine granulari",
+        "url": "https://www.aboca.com/it/prodotto/neobianacid-pediatric-36-bustine-granulari/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-014",
+      "name": "NeoFitoroid BioPomata",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "tubo 40 ml con applicatore endorettale",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "40 ml",
+      "route": "rettale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0373; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "NeoFitoroid BioPomata",
+        "url": "https://www.aboca.com/it/prodotto/neofitoroid-biopomata/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": null,
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-015",
+      "name": "GastroDiger Sciroppo",
+      "category": "dispositivo_medico",
+      "manufacturer": "Aboca S.p.A.",
+      "form": "sciroppo; flacone 180 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "180 g",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "CE_notified_body_reference",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "manufacturer_regulatory_claim": "La pagina del produttore dichiara dispositivo medico 0477; non è stata verificata una registrazione indipendente.",
+      "regulatory_source": null,
+      "market_source": {
+        "title": "GastroDiger Sciroppo",
+        "url": "https://www.aboca.com/it/prodotto/gastrodiger-sciroppo-180g/",
+        "owner": "Aboca S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "classificazione_dichiarata_produttore",
+          "claim_ce_pagina_produttore"
+        ]
+      },
+      "composition_source": null,
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e contenuti dichiarati documentati sulla pagina corrente del produttore; riscontro indipendente della registrazione non effettuato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-001",
+      "name": "Multicentrum Adulti",
+      "category": "integratore_alimentare",
+      "manufacturer": "Haleon Italy S.r.l.",
+      "form": "compresse; anche effervescenti",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamine",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "minerali",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Multicentrum Adulti",
+        "url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-adulti/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Multicentrum Adulti",
+        "url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-adulti/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-002",
+      "name": "Multicentrum Adulti 50+",
+      "category": "integratore_alimentare",
+      "manufacturer": "Haleon Italy S.r.l.",
+      "form": "compresse",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamine",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "minerali",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Multicentrum Adulti 50+",
+        "url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-adulti-50-plus/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Multicentrum Adulti 50+",
+        "url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-adulti-50-plus/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-003",
+      "name": "Multicentrum Donna",
+      "category": "integratore_alimentare",
+      "manufacturer": "Haleon Italy S.r.l.",
+      "form": "compresse",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamine",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "minerali",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Multicentrum Donna",
+        "url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-donna/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Multicentrum Donna",
+        "url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-donna/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-004",
+      "name": "Multicentrum Immunità e Difesa",
+      "category": "integratore_alimentare",
+      "manufacturer": "Haleon Italy S.r.l.",
+      "form": "compresse",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamine",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "minerali",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        },
+        {
+          "name": "sambuco nero",
+          "amount": null,
+          "unit": null,
+          "type": "estratto botanico"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Multicentrum Immunità e Difesa",
+        "url": "https://www.multicentrum.it/prodotti/benefici-specifici/multicentrum-immunita-e-difesa/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Multicentrum Immunità e Difesa",
+        "url": "https://www.multicentrum.it/prodotti/benefici-specifici/multicentrum-immunita-e-difesa/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-005",
+      "name": "Multicentrum Mamma DHA",
+      "category": "integratore_alimentare",
+      "manufacturer": "Haleon Italy S.r.l.",
+      "form": "compresse e capsule",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamine",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "minerali",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        },
+        {
+          "name": "DHA",
+          "amount": null,
+          "unit": null,
+          "type": "acido grasso omega-3"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Multicentrum Mamma DHA",
+        "url": "https://www.multicentrum.it/prodotti/gravidanza/multicentrum-mamma-dha/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Multicentrum Mamma DHA",
+        "url": "https://www.multicentrum.it/prodotti/gravidanza/multicentrum-mamma-dha/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-006",
+      "name": "Multicentrum Age Science Mente",
+      "category": "integratore_alimentare",
+      "manufacturer": "Haleon Italy S.r.l.",
+      "form": "compresse",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamina B6",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B5",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B12",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "iodio",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        },
+        {
+          "name": "Bacopa",
+          "amount": null,
+          "unit": null,
+          "type": "estratto botanico"
+        },
+        {
+          "name": "fosfatidilserina",
+          "amount": null,
+          "unit": null,
+          "type": "fosfolipide"
+        },
+        {
+          "name": "fosfatidilcolina",
+          "amount": null,
+          "unit": null,
+          "type": "fosfolipide"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Multicentrum Age Science Mente",
+        "url": "https://www.multicentrum.it/prodotti/alleatidellatuaeta/multicentrum-agescience-mente/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Multicentrum Age Science Mente",
+        "url": "https://www.multicentrum.it/prodotti/alleatidellatuaeta/multicentrum-agescience-mente/",
+        "owner": "Haleon Italy S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-007",
+      "name": "Dicoflor 60 capsule",
+      "category": "integratore_alimentare",
+      "manufacturer": "Dicofarm S.p.A.",
+      "form": "capsule; confezione 30 capsule",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "Lactobacillus rhamnosus GG",
+          "amount": null,
+          "unit": "UFC",
+          "type": "ceppo probiotico"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Dicoflor 60 capsule",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-capsule/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Dicoflor 60 capsule",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-capsule/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-008",
+      "name": "Dicoflor 60 bustine",
+      "category": "integratore_alimentare",
+      "manufacturer": "Dicofarm S.p.A.",
+      "form": "bustine",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "Lactobacillus rhamnosus GG",
+          "amount": null,
+          "unit": "UFC",
+          "type": "ceppo probiotico"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Dicoflor 60 bustine",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-bustine/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Dicoflor 60 bustine",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-bustine/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-009",
+      "name": "Dicoflor Complex",
+      "category": "integratore_alimentare",
+      "manufacturer": "Dicofarm S.p.A.",
+      "form": "12 flaconcini monodose",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "Lactobacillus rhamnosus GG",
+          "amount": null,
+          "unit": "UFC",
+          "type": "ceppo probiotico"
+        },
+        {
+          "name": "vitamine del gruppo B",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "zinco",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Dicoflor Complex",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-complex/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Dicoflor Complex",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-complex/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-010",
+      "name": "Dicoflor IBDImmuno",
+      "category": "integratore_alimentare",
+      "manufacturer": "Dicofarm S.p.A.",
+      "form": "capsule",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "Lactobacillus rhamnosus GG",
+          "amount": null,
+          "unit": "UFC",
+          "type": "ceppo probiotico"
+        },
+        {
+          "name": "vitamina D3",
+          "amount": 50,
+          "unit": "µg/capsula",
+          "type": "vitamina"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Dicoflor IBDImmuno",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-ibdimmuno/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Dicoflor IBDImmuno",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-ibdimmuno/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-011",
+      "name": "Dicoflor IBSPlus bustine orosolubili",
+      "category": "integratore_alimentare",
+      "manufacturer": "Dicofarm S.p.A.",
+      "form": "bustine orosolubili",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "Lactobacillus rhamnosus GG",
+          "amount": null,
+          "unit": "UFC",
+          "type": "ceppo probiotico"
+        },
+        {
+          "name": "Lactobacillus plantarum 299V",
+          "amount": null,
+          "unit": "UFC",
+          "type": "ceppo probiotico"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Dicoflor IBSPlus bustine orosolubili",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-ibsplus-bustine-orosolubili/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Dicoflor IBSPlus bustine orosolubili",
+        "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-ibsplus-bustine-orosolubili/",
+        "owner": "Dicofarm S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-012",
+      "name": "Supradyn Ricarica",
+      "category": "integratore_alimentare",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "compresse effervescenti o rivestite",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamine",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "minerali",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Supradyn Ricarica",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-ricarica/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Supradyn Ricarica",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-ricarica/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-013",
+      "name": "Supradyn Energy",
+      "category": "integratore_alimentare",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "70 caramelle gommose",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamina A",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina D",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina E",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B6",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B12",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina C",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "coenzima Q10",
+          "amount": null,
+          "unit": null,
+          "type": "coenzima"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Supradyn Energy",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-energy/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Supradyn Energy",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-energy/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-014",
+      "name": "Supradyn Difese",
+      "category": "integratore_alimentare",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "compresse effervescenti",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamina C",
+          "amount": 1000,
+          "unit": "mg/compressa",
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina D",
+          "amount": 10,
+          "unit": "µg/compressa",
+          "type": "vitamina"
+        },
+        {
+          "name": "zinco",
+          "amount": 10,
+          "unit": "mg/compressa",
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Supradyn Difese",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Supradyn Difese",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-015",
+      "name": "Supradyn Magnesio e Potassio",
+      "category": "integratore_alimentare",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "granulato effervescente in bustine",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamina B1",
+          "amount": 2.1,
+          "unit": "mg/bustina",
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B12",
+          "amount": 9,
+          "unit": "µg/bustina",
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B6",
+          "amount": 3,
+          "unit": "mg/bustina",
+          "type": "vitamina"
+        },
+        {
+          "name": "acido folico",
+          "amount": 200,
+          "unit": "µg/bustina",
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina C",
+          "amount": 250,
+          "unit": "mg/bustina",
+          "type": "vitamina"
+        },
+        {
+          "name": "magnesio",
+          "amount": 225,
+          "unit": "mg/bustina",
+          "type": "minerale"
+        },
+        {
+          "name": "potassio",
+          "amount": 300,
+          "unit": "mg/bustina",
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Supradyn Magnesio e Potassio",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-magnesio-e-potassio/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Supradyn Magnesio e Potassio",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-magnesio-e-potassio/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-016",
+      "name": "Magnesio Supremo 150g",
+      "category": "integratore_alimentare",
+      "manufacturer": "Natural Point S.r.l.",
+      "form": "polvere; barattolo 150 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "magnesio",
+          "amount": 430,
+          "unit": "mg/2 dosi",
+          "type": "minerale"
+        },
+        {
+          "name": "magnesio carbonato",
+          "amount": null,
+          "unit": null,
+          "type": "sale minerale"
+        },
+        {
+          "name": "acido citrico",
+          "amount": null,
+          "unit": null,
+          "type": "acidificante"
+        }
+      ],
+      "declared_components": [],
+      "strength": "150 g",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Magnesio Supremo 150g",
+        "url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-150g/",
+        "owner": "Natural Point S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Magnesio Supremo 150g",
+        "url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-150g/",
+        "owner": "Natural Point S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-017",
+      "name": "Magnesio Supremo Donna",
+      "category": "integratore_alimentare",
+      "manufacturer": "Natural Point S.r.l.",
+      "form": "polvere; barattolo 150 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "magnesio",
+          "amount": 405,
+          "unit": "mg/2 dosi",
+          "type": "minerale"
+        },
+        {
+          "name": "vitamina B6",
+          "amount": 2.8,
+          "unit": "mg/2 dosi",
+          "type": "vitamina"
+        },
+        {
+          "name": "folato",
+          "amount": 400,
+          "unit": "µg/2 dosi",
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B12",
+          "amount": 75,
+          "unit": "µg/2 dosi",
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina K2",
+          "amount": 20,
+          "unit": "µg/2 dosi",
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina D3",
+          "amount": 10,
+          "unit": "µg/2 dosi",
+          "type": "vitamina"
+        }
+      ],
+      "declared_components": [],
+      "strength": "150 g",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Magnesio Supremo Donna",
+        "url": "https://www.magnesiosupremo.it/linea-benessere-supremo/magnesio-supremo-donna/",
+        "owner": "Natural Point S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Magnesio Supremo Donna",
+        "url": "https://www.magnesiosupremo.it/linea-benessere-supremo/magnesio-supremo-donna/",
+        "owner": "Natural Point S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-018",
+      "name": "Magnesio Supremo Notte Relax",
+      "category": "integratore_alimentare",
+      "manufacturer": "Natural Point S.r.l.",
+      "form": "polvere; barattolo 150 g",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "magnesio",
+          "amount": 195,
+          "unit": "mg/dose",
+          "type": "minerale"
+        },
+        {
+          "name": "camomilla",
+          "amount": 100,
+          "unit": "mg/dose",
+          "type": "estratto botanico"
+        },
+        {
+          "name": "melissa",
+          "amount": 100,
+          "unit": "mg/dose",
+          "type": "estratto botanico"
+        },
+        {
+          "name": "vitamina B6",
+          "amount": 1.4,
+          "unit": "mg/dose",
+          "type": "vitamina"
+        },
+        {
+          "name": "melatonina",
+          "amount": 1,
+          "unit": "mg/dose",
+          "type": "componente"
+        }
+      ],
+      "declared_components": [],
+      "strength": "150 g",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": "codice_notifica_ministeriale",
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "notified_code": null,
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": {
+        "title": "Registro degli integratori alimentari",
+        "url": "https://www.salute.gov.it/new/it/tema/alimenti-fini-medici-speciali-ed-integratori/registro-degli-integratori-alimentari/",
+        "owner": "Ministero della Salute",
+        "consulted_at": "2026-11-07",
+        "page_updated_at": "2026-10-06",
+        "product_level_record_verified": false,
+        "note": "Pagina generale; codice individuale di notifica non verificato. La notifica non equivale ad approvazione o autorizzazione.",
+        "supports": [
+          "contesto_normativo_notifica"
+        ]
+      },
+      "market_source": {
+        "title": "Magnesio Supremo Notte Relax",
+        "url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-notte-relax/",
+        "owner": "Natural Point S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Magnesio Supremo Notte Relax",
+        "url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-notte-relax/",
+        "owner": "Natural Point S.r.l.",
+        "consulted_at": "2026-11-07",
+        "version": null,
+        "note": null,
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "identità e componenti dichiarati documentati sulla pagina corrente del produttore; codice individuale del registro ministeriale non verificato",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-018",
+      "name": "Maalox 400 mg + 400 mg compresse masticabili",
+      "category": "medicinale",
+      "manufacturer": "Opella Healthcare Italy S.r.l.",
+      "form": "compresse masticabili",
+      "active_ingredients": [
+        "idrossido di magnesio",
+        "ossido di alluminio idrato"
+      ],
+      "ingredient_details": [
+        {
+          "name": "idrossido di magnesio",
+          "amount": 400,
+          "unit": "mg/compressa"
+        },
+        {
+          "name": "ossido di alluminio idrato",
+          "amount": 400,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "400 mg + 400 mg per compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Maalox 400",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Maalox 400 compresse masticabili",
+        "url": "https://www.maalox.com/it-it/prodotti/maalox/compresse-masticabili",
+        "owner": "Opella Healthcare Italy S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Foglio illustrativo Maalox 400 mg + 400 mg compresse masticabili",
+        "url": "https://www.maalox.com/it-it/prodotti/maalox/compresse-masticabili/foglietto-illustrativo-compresse",
+        "owner": "Opella Healthcare Italy S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Pagina e foglio illustrativo del titolare documentano forma, principi attivi e acidita' occasionale; stato regolatorio corrente non verificato.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-019",
+      "name": "Geffer granulato effervescente 24 bustine",
+      "category": "medicinale",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "granulato effervescente; confezione da 24 bustine",
+      "active_ingredients": [
+        "metoclopramide cloridrato",
+        "dimeticone"
+      ],
+      "ingredient_details": [
+        {
+          "name": "metoclopramide cloridrato",
+          "amount": 5,
+          "unit": "mg/bustina"
+        },
+        {
+          "name": "dimeticone",
+          "amount": 50,
+          "unit": "mg/bustina"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "5 mg metoclopramide cloridrato + 50 mg dimeticone per bustina",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Geffer granulato",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Geffer granulato effervescente",
+        "url": "https://www.geffer.it/geffer-granulato-effervescente-bruciore-e-mal-di-stomaco/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Geffer granulato effervescente - composizione dichiarata dal titolare",
+        "url": "https://www.geffer.it/geffer-granulato-effervescente-bruciore-e-mal-di-stomaco/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "La pagina del titolare documenta granulato, composizione e indicazione condizionata a iperacidita' associata a rallentato transito, nausea, aerofagia e meteorismo; stato regolatorio corrente non verificato.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-016",
+      "name": "Maalox RefluRAPID compresse masticabili",
+      "category": "dispositivo_medico",
+      "manufacturer": "Opella Healthcare Italy S.r.l.",
+      "form": "compresse masticabili; confezione da 40",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Maalox RefluRAPID",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Maalox RefluRAPID compresse masticabili",
+        "url": "https://www.maalox.com/it-it/prodotti/maalox-reflurapid/compresse-masticabili",
+        "owner": "Opella Healthcare Italy S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Foglio illustrativo Maalox RefluRAPID compresse masticabili",
+        "url": "https://www.maalox.com/it-it/prodotti/maalox-reflurapid/compresse-masticabili/foglietto-illustrativo-compresse",
+        "owner": "Opella Healthcare Italy S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "La pagina e le istruzioni del dispositivo documentano la forma, i componenti dichiarati e il reflusso gastroesofageo; classe/stato e commercializzazione effettiva nel singolo banco da verificare.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-020",
+      "name": "FlectorMove 20 mg/g gel 2%",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "gel cutaneo; tubo da 100 g",
+      "active_ingredients": [
+        "diclofenac"
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac",
+          "amount": 20,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "20 mg/g diclofenac",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "FlectorMove",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "FlectorMove 2% gel",
+        "url": "https://flector.it/flectormove/",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Foglio illustrativo FlectorMove 20 mg/g gel",
+        "url": "https://flector.it/wp-content/uploads/FI-FlectorMove.pdf",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Pagina ufficiale corrente e foglio illustrativo documentano gel, diclofenac e dolore associato a contusioni/distorsioni/stiramenti; stato regolatorio corrente non verificato.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-021",
+      "name": "Flectorartro 1% gel",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "gel cutaneo; flacone da 100 g",
+      "active_ingredients": [
+        "diclofenac"
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "10 mg/g diclofenac",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Flectorartro",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Flectorartro 1% gel",
+        "url": "https://flector.it/flectorartro/",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Foglio illustrativo Flectorartro 1% gel",
+        "url": "https://www.flector.it/wp-content/uploads/FLECTORARTRO.pdf",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Pagina ufficiale e foglio illustrativo documentano gel al diclofenac e lesioni post-traumatiche, incluse contusioni; stato regolatorio corrente non verificato.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-017",
+      "name": "Thealoz Duo collirio soluzione 10 ml",
+      "category": "dispositivo_medico",
+      "manufacturer": "Théa Farma S.p.A.",
+      "form": "collirio soluzione; flacone da 10 ml",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "oculare",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Thealoz Duo",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Dispositivi medici Théa - Thealoz Duo",
+        "url": "https://www.thea.it/prodotti/dispositivi-medici/",
+        "owner": "Théa Farma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Istruzioni per l'uso Thealoz Duo 10 e 15 ml",
+        "url": "https://www.thea.it/media/1616/080223_fi-thealoz-duo_10-e-15ml.pdf",
+        "owner": "Théa Farma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Pagina ufficiale di gamma e istruzioni del fabbricante documentano il dispositivo, forma e uso per secchezza/fastidio/irritazione oculare; prezzo al pubblico citato nel foglio escluso dal catalogo commerciale.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-018",
+      "name": "Hyabak collirio soluzione 10 ml",
+      "category": "dispositivo_medico",
+      "manufacturer": "Théa Farma S.p.A.",
+      "form": "collirio soluzione; flacone da 10 ml",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "oculare",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Hyabak",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Dispositivi medici Théa - Hyabak",
+        "url": "https://www.thea.it/prodotti/dispositivi-medici/",
+        "owner": "Théa Farma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Istruzioni per l'uso Hyabak 10 e 15 ml",
+        "url": "https://www.thea.it/media/1614/070222_fi-hyabak_10-e-15-ml.pdf",
+        "owner": "Théa Farma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Pagina ufficiale di gamma e istruzioni del fabbricante documentano il dispositivo e l'idratazione/lubrificazione oculare in caso di secchezza e affaticamento da fattori esterni; prezzo al pubblico escluso.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-019",
+      "name": "Hydrabak collirio soluzione 10 ml",
+      "category": "dispositivo_medico",
+      "manufacturer": "Théa Farma S.p.A.",
+      "form": "collirio soluzione; flacone da 10 ml",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "oculare",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Hydrabak",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Dispositivi medici Théa - Hydrabak",
+        "url": "https://www.thea.it/prodotti/dispositivi-medici/",
+        "owner": "Théa Farma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Istruzioni per l'uso Hydrabak",
+        "url": "https://www.thea.it/media/1296/090719_fi-hydrabak.pdf",
+        "owner": "Théa Farma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Pagina ufficiale di gamma e istruzioni del fabbricante documentano il dispositivo per idratazione oculare e sensazioni di bruciore/affaticamento non patologiche legate a fattori esterni; prezzo al pubblico escluso.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-DM-020",
+      "name": "Arnikind gel",
+      "category": "dispositivo_medico",
+      "manufacturer": "Schwabe Pharma Italia S.r.l.",
+      "form": "gel per uso cutaneo",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Arnikind",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Arnikind gel - Schwabe Italia",
+        "url": "https://www.schwabe.it/prodotti/arnikind-gel/",
+        "owner": "Schwabe Pharma Italia S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Arnikind gel - informazioni del fabbricante",
+        "url": "https://www.schwabe.it/prodotti/arnikind-gel/",
+        "owner": "Schwabe Pharma Italia S.r.l.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Il fabbricante documenta il dispositivo in gel e l'uso dichiarato per contusioni, ematomi e abrasioni superficiali; composizione quantitativa e classe attuale non verificate.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-022",
+      "name": "Cetirizina dicloridato (Zirtec) gocce orali",
+      "category": "medicinale",
+      "manufacturer": "UCB Pharma S.p.A.",
+      "form": "gocce orali, soluzione",
+      "active_ingredients": [
+        "cetirizina"
+      ],
+      "ingredient_details": [
+        {
+          "name": "cetirizina",
+          "amount": null,
+          "unit": null
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Zirtec gocce",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Cetirizina dicloridato (Zirtec) - UCB Pharma",
+        "url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+        "owner": "UCB Pharma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Cetirizina dicloridato (Zirtec) - forme e principio attivo",
+        "url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+        "owner": "UCB Pharma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "La pagina UCB documenta forma, principio attivo e indicazioni nasali/oculari della rinite allergica e orticaria cronica idiopatica; concentrazione/AIC della confezione e stato regolatorio corrente non verificati.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-023",
+      "name": "Cetirizina dicloridato (Zirtec) soluzione orale",
+      "category": "medicinale",
+      "manufacturer": "UCB Pharma S.p.A.",
+      "form": "soluzione orale",
+      "active_ingredients": [
+        "cetirizina"
+      ],
+      "ingredient_details": [
+        {
+          "name": "cetirizina",
+          "amount": null,
+          "unit": null
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Zirtec soluzione orale",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Cetirizina dicloridato (Zirtec) - UCB Pharma",
+        "url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+        "owner": "UCB Pharma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Cetirizina dicloridato (Zirtec) - forme e principio attivo",
+        "url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+        "owner": "UCB Pharma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "La pagina UCB documenta forma, principio attivo e indicazioni nasali/oculari della rinite allergica e orticaria cronica idiopatica; concentrazione/AIC della confezione e stato regolatorio corrente non verificati.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-024",
+      "name": "Cetirizina dicloridato (Zirtec) compresse rivestite",
+      "category": "medicinale",
+      "manufacturer": "UCB Pharma S.p.A.",
+      "form": "compresse rivestite con film",
+      "active_ingredients": [
+        "cetirizina"
+      ],
+      "ingredient_details": [
+        {
+          "name": "cetirizina",
+          "amount": null,
+          "unit": null
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Zirtec compresse",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Cetirizina dicloridato (Zirtec) - UCB Pharma",
+        "url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+        "owner": "UCB Pharma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Cetirizina dicloridato (Zirtec) - forme e principio attivo",
+        "url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+        "owner": "UCB Pharma S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "La pagina UCB documenta forma, principio attivo e indicazioni nasali/oculari della rinite allergica e orticaria cronica idiopatica; concentrazione/AIC della confezione e stato regolatorio corrente non verificati.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-SUP-019",
+      "name": "Supradyn Difese Gummy",
+      "category": "integratore_alimentare",
+      "manufacturer": "Bayer S.p.A.",
+      "form": "caramelle gommose; confezioni da 60 o 120",
+      "active_ingredients": [],
+      "ingredient_details": [],
+      "supplement_ingredients": [
+        {
+          "name": "vitamina A",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina D",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina E",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B6",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina B12",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "biotina",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "vitamina C",
+          "amount": null,
+          "unit": null,
+          "type": "vitamina"
+        },
+        {
+          "name": "zinco",
+          "amount": null,
+          "unit": null,
+          "type": "minerale"
+        }
+      ],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "aliases": [
+        {
+          "name": "Supradyn Difese Gummy",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "title": "Supradyn Difese Gummy",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese-gummy/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Pagina ufficiale del prodotto consultata 2026-11-08",
+        "note": "Fonte del titolare; commercializzazione e composizione regolatoria correnti non si deducono dalla pagina.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ]
+      },
+      "composition_source": {
+        "title": "Supradyn Difese Gummy - composizione dichiarata",
+        "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese-gummy/",
+        "owner": "Bayer S.p.A.",
+        "consulted_at": "2026-11-08",
+        "version": "Fonte ufficiale consultata 2026-11-08",
+        "note": "Composizione dichiarata nella fonte del produttore/foglio illustrativo; non equivale a revisione del farmacista.",
+        "supports": [
+          "composizione"
+        ]
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Pagina corrente Bayer documenta composizione dichiarata e claim fisiologico sul normale sistema immunitario; notifica ministeriale individuale, prezzo e scorte non verificati.",
+      "price_cents": null,
+      "stock": null
+    }
+  ],
+  "research_notes": {
+    "records_total": 50,
+    "by_category": {
+      "medicinale": 17,
+      "dispositivo_medico": 15,
+      "integratore_alimentare": 18
+    },
+    "eligible_for_target_count": 33,
+    "eligible_by_category": {
+      "dispositivo_medico": 15,
+      "integratore_alimentare": 18
+    },
+    "partial_candidates": 17,
+    "partial_by_category": {
+      "medicinale": 17
+    },
+    "current_aifa_product_status_verified": 0,
+    "ministry_supplement_codes_verified": 0,
+    "independent_device_registry_matches": 0,
+    "excluded_count": 17,
+    "excluded_scope": "Candidati medicinale esclusi dal conteggio eleggibile/pienamente verificato, ma mantenuti nel file come record parziali.",
+    "excluded_by_category": {
+      "medicinale": 17
+    },
+    "records_omitted_from_file": 0,
+    "evidence_limitations": [
+      {
+        "category": "medicinale",
+        "count": 17,
+        "reason": "Pagine correnti dei produttori verificate; schede AIFA individuali e regime corrente non leggibili, quindi candidati parziali e non eleggibili al conteggio."
+      },
+      {
+        "category": "integratore_alimentare",
+        "count": 18,
+        "reason": "Pagine correnti dei produttori e composizione dichiarata verificate; codice di notifica individuale non verificato e nessuna approvazione implicata."
+      },
+      {
+        "category": "dispositivo_medico",
+        "count": 15,
+        "reason": "Pagine correnti del produttore e classificazione dichiarata verificate; registro regolatorio indipendente non interrogato."
+      },
+      {
+        "category": "packaging_variants",
+        "count": 0,
+        "reason": "Le varianti solo per quantità/confezione sono consolidate."
+      }
+    ],
+    "next_verification_steps": [
+      "Per ogni medicinale aprire la scheda AIFA attuale e verificare confezione, principio attivo, stato AIC e regime di fornitura; aggiornare AIC e conteggio solo se confermati.",
+      "Verificare nel registro ministeriale i codici individuali degli integratori senza descriverli come approvazioni.",
+      "Verificare gli identificativi dei dispositivi in una fonte regolatoria indipendente prima di considerarli verificati sul piano regolatorio."
+    ]
+  }
+}

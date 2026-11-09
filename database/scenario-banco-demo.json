@@ -1,0 +1,12 @@
+{
+  "stock_overrides": {
+    "REAL-MED-015": 11,
+    "REAL-DM-003": 2,
+    "REAL-MED-001": 0
+  },
+  "offers": [
+    {"code": "BANCO-DEMO-ATTIVA", "sku": "REAL-MED-015", "title": "Promozione demo banco", "discount_cents": 150, "starts": 0, "ends": 30, "quantity": 5},
+    {"code": "BANCO-DEMO-SCADUTA", "sku": "REAL-DM-003", "title": "Promozione demo scaduta", "discount_cents": 100, "starts": -30, "ends": -1, "quantity": 2},
+    {"code": "BANCO-DEMO-ESAURITA", "sku": "REAL-MED-001", "title": "Promozione demo esaurita", "discount_cents": 150, "starts": 0, "ends": 30, "quantity": 0}
+  ]
+}

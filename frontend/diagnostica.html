@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnostica del banco · Sales Agents</title>
+  <link rel="stylesheet" href="/desk.css">
+  <script src="/diagnostica.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">Sales Agents · stato tecnico</p><h1>Diagnostica del banco</h1></div>
+    <a href="/">Vai al banco</a>
+  </header>
+  <main>
+    <section aria-labelledby="checks-title">
+      <h2 id="checks-title">Stato dei componenti</h2>
+      <p id="check" role="status">Controllo del server…</p>
+      <dl id="components" class="diag-status"></dl>
+      <p class="muted">Per i problemi audio controlla il dispositivo predefinito di Windows e il modello Vosk. Per i problemi di ricerca verifica catalogo SQLite e schede Markdown. Controlla gli indirizzi pubblici nella configurazione del banco.</p>
+    </section>
+    <section class="management" aria-labelledby="events-title">
+      <h2 id="events-title">Eventi tecnici</h2>
+      <p class="muted">Le spiegazioni temporanee delle schede sono nel banco. Qui trovi solo componenti, codici, orari e durate.</p>
+      <div class="controls">
+        <button id="refresh" type="button">Aggiorna</button>
+        <button id="copy" type="button" disabled>Copia eventi tecnici</button>
+        <span id="feedback" role="status"></span>
+      </div>
+      <div class="table-scroll" tabindex="0" aria-label="Tabella degli eventi tecnici">
+        <table>
+          <thead><tr><th scope="col">Ora (UTC)</th><th scope="col">Livello</th><th scope="col">Componente</th><th scope="col">Codice</th><th scope="col">Durata</th></tr></thead>
+          <tbody id="events"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

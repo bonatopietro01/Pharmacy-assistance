@@ -1,0 +1,840 @@
+{
+  "version": 1,
+  "concepts": [
+    {
+      "id": "raffreddore",
+      "name": "Raffreddore",
+      "type": "sintomo"
+    },
+    {
+      "id": "congestione-nasale",
+      "name": "Congestione nasale",
+      "type": "sintomo"
+    },
+    {
+      "id": "tosse",
+      "name": "Tosse",
+      "type": "sintomo"
+    },
+    {
+      "id": "acidita-stomaco",
+      "name": "Acidita' e bruciore di stomaco",
+      "type": "sintomo"
+    },
+    {
+      "id": "reflusso",
+      "name": "Reflusso gastroesofageo",
+      "type": "condizione"
+    },
+    {
+      "id": "mal-di-testa",
+      "name": "Mal di testa",
+      "type": "sintomo"
+    },
+    {
+      "id": "contusioni",
+      "name": "Contusioni",
+      "type": "sintomo"
+    },
+    {
+      "id": "irritazione-oculare",
+      "name": "Irritazione oculare",
+      "type": "sintomo"
+    },
+    {
+      "id": "allergia-nasale",
+      "name": "Sintomi nasali della rinite allergica",
+      "type": "sintomo"
+    },
+    {
+      "id": "allergia-oculare",
+      "name": "Sintomi oculari della rinite allergica",
+      "type": "sintomo"
+    },
+    {
+      "id": "allergia-cutanea",
+      "name": "Orticaria cronica idiopatica (indicazione specifica)",
+      "type": "sintomo"
+    },
+    {
+      "id": "supporto-immunitario",
+      "name": "Supporto del normale funzionamento del sistema immunitario",
+      "type": "bisogno"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.aspirina.it/prodotti/aspirina-influenza-e-naso-chiuso/foglietto-illustrativo-aspirina-influenza-e-naso-chiuso/",
+      "title": "Foglio illustrativo Aspirina Influenza e Naso Chiuso",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-07",
+      "version": "Foglio illustrativo aggiornato 06/2026",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.maalox.com/it-it/prodotti/maalox/compresse-masticabili",
+      "title": "Maalox 400 compresse masticabili",
+      "owner": "Opella Healthcare Italy S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/neobianacid-70-compresse-gusto-limone/",
+      "title": "NeoBianacid 70 compresse - Aboca",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/neobianacid-pediatric-36-bustine-granulari/",
+      "title": "NeoBianacid Pediatric 36 bustine granulari - Aboca",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.geffer.it/geffer-granulato-effervescente-bruciore-e-mal-di-stomaco/",
+      "title": "Geffer granulato effervescente - Bayer",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.maalox.com/it-it/prodotti/maalox-reflurapid/compresse-masticabili",
+      "title": "Maalox RefluRAPID compresse masticabili",
+      "owner": "Opella Healthcare Italy S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.tachipirina.it/prodotti/compresse/",
+      "title": "Tachipirina 500 mg compresse - foglio illustrativo",
+      "owner": "A.C.R.A.F. S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.aspirina.it/prodotti/aspirina-dolore-infiammazione/foglietto-illustrativo-aspirina-dolore-infiammazione/",
+      "title": "Foglio illustrativo Aspirina Dolore e Infiammazione 500 mg",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.nurofen.it/prodotti/adulti/nurofen-200mg-compresse-rivestite/",
+      "title": "Nurofen 200 mg compresse rivestite",
+      "owner": "Reckitt Benckiser Healthcare (Italia) S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://flector.it/flectormove/",
+      "title": "FlectorMove 2% gel - indicazioni del titolare",
+      "owner": "IBSA Farmaceutici Italia S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.flector.it/wp-content/uploads/FLECTORARTRO.pdf",
+      "title": "Foglio illustrativo Flectorartro 1% gel",
+      "owner": "IBSA Farmaceutici Italia S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.schwabe.it/prodotti/arnikind-gel/",
+      "title": "Arnikind gel - contusioni ed ematomi",
+      "owner": "Schwabe Pharma Italia S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.thea.it/media/1616/080223_fi-thealoz-duo_10-e-15ml.pdf",
+      "title": "Istruzioni per l'uso Thealoz Duo",
+      "owner": "Théa Farma S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.thea.it/media/1614/070222_fi-hyabak_10-e-15-ml.pdf",
+      "title": "Istruzioni per l'uso Hyabak 10 e 15 ml",
+      "owner": "Théa Farma S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.thea.it/media/1296/090719_fi-hydrabak.pdf",
+      "title": "Istruzioni per l'uso Hydrabak",
+      "owner": "Théa Farma S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-antiallergica-spray-nasale/",
+      "title": "Rinazina Antiallergica spray nasale",
+      "owner": "Haleon Italy S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "title": "Cetirizina dicloridato (Zirtec) - UCB Pharma",
+      "owner": "UCB Pharma S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "associazione_clinica",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.multicentrum.it/prodotti/benefici-specifici/multicentrum-immunita-e-difesa/",
+      "title": "Multicentrum Immunita' e Difesa",
+      "owner": "Haleon Italy S.r.l.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina del produttore consultata 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "claim_supporto_fisiologico",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese-immunity/",
+      "title": "Supradyn Difese Immunity",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina del produttore consultata 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "claim_supporto_fisiologico",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese-gummy/",
+      "title": "Supradyn Difese Gummy",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-08",
+      "version": "Pagina del produttore consultata 2026-11-08",
+      "kind": "produttore",
+      "supports": [
+        "claim_supporto_fisiologico",
+        "commercializzazione",
+        "identita"
+      ]
+    },
+    {
+      "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-spray-nasale/",
+      "title": "Rinazina Spray Nasale",
+      "owner": "Non dichiarato nella pagina prodotto consultata",
+      "consulted_at": "2026-11-07",
+      "version": null,
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.rinazina.it/prodotti/medicinali/rinazina-doppia-azione-spray-nasale/",
+      "title": "Rinazina Doppia Azione Spray Nasale",
+      "owner": "Non dichiarato nella pagina prodotto consultata",
+      "consulted_at": "2026-11-07",
+      "version": null,
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/fitonasal-spray-concentrato/",
+      "title": "Fitonasal Spray concentrato",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-07",
+      "version": null,
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+      "title": "Grintuss Adulti Sciroppo",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-07",
+      "version": null,
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+      "title": "Grintuss Adulti Compresse",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-07",
+      "version": null,
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://assets.ctfassets.net/hcd109vfxzqs/46uAxThECMNgO2RWcF2nEr/66298543d72019cbe3fcd61f4eac4fd3/12-2022_fi_actigrip_500.pdf",
+      "title": "Actigrip compresse – foglio illustrativo",
+      "owner": "Titolare AIC Actigrip",
+      "consulted_at": "2026-11-09",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "associazione_clinica"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "concept_id": "raffreddore",
+      "product_code": "REAL-MED-006",
+      "type": "indicazione_etichetta",
+      "context": "L'associazione sintomo-prodotto e' riportata solo come informazione documentale: il foglio illustrativo descrive il trattamento sintomatico della congestione nasale e dei seni nasali e degli stati dolorosi e febbrili associati a sintomi influenzali o da raffreddamento. Se e' presente un solo sintomo, il foglio indica che potrebbe essere piu' indicato un medicinale con un solo principio attivo.",
+      "claim": "Indicazione riportata nel foglio illustrativo: congestione nasale/sinusale e stati dolorosi o febbrili associati a sintomi influenzali o da raffreddamento.",
+      "prerequisites": "Verificare destinatario, eta' minima prevista nel foglio (16 anni), sintomi effettivamente presenti e tutte le avvertenze prima di qualsiasi proposta.",
+      "exclusions": "Non dedurre idoneita' dal solo termine raffreddore; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.aspirina.it/prodotti/aspirina-influenza-e-naso-chiuso/foglietto-illustrativo-aspirina-influenza-e-naso-chiuso/",
+      "source_version": "Foglio illustrativo aggiornato 06/2026; consultato 2026-11-07"
+    },
+    {
+      "concept_id": "raffreddore",
+      "product_code": "REAL-MED-015",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale descrive il prodotto per liberare il naso chiuso causato dal comune raffreddore; corrispondenza limitata alla congestione nasale descritta dalla fonte.",
+      "claim": "Indicazione commerciale riportata dal produttore: naso chiuso causato dal comune raffreddore.",
+      "prerequisites": "Verificare il foglio illustrativo vigente, il destinatario e tutte le avvertenze prima di qualsiasi proposta.",
+      "exclusions": "Non dedurre idoneita' dal solo termine raffreddore; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.rinazina.it/prodotti/medicinali/rinazina-spray-nasale/",
+      "source_version": "Pagina ufficiale del prodotto; autorizzazione pagina 27/05/2026; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "raffreddore",
+      "product_code": "REAL-MED-017",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale descrive il trattamento della congestione nasale con rinorrea associata ai comuni raffreddori.",
+      "claim": "Indicazione commerciale riportata dal produttore: congestione nasale con rinorrea associata ai comuni raffreddori.",
+      "prerequisites": "Verificare il foglio illustrativo vigente, il destinatario e tutte le avvertenze prima di qualsiasi proposta.",
+      "exclusions": "Non dedurre idoneita' dal solo termine raffreddore; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.rinazina.it/prodotti/medicinali/rinazina-doppia-azione-spray-nasale/",
+      "source_version": "Pagina ufficiale del prodotto; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "raffreddore",
+      "product_code": "REAL-DM-003",
+      "type": "indicazione_etichetta",
+      "context": "Il produttore indica il dispositivo in caso di congestione e irritazione delle cavita' nasali dovute a raffreddore. La stessa fonte indica l'utilizzo a partire da 6 anni.",
+      "claim": "Indicazione del produttore: congestione/irritazione nasale dovuta a raffreddore.",
+      "prerequisites": "Verificare che l'eta' dichiarata sia almeno 6 anni e leggere avvertenze e istruzioni del dispositivo.",
+      "exclusions": "Non dedurre idoneita' o eta' dalla voce; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.aboca.com/it/prodotto/fitonasal-spray-concentrato/",
+      "source_version": "Autorizzazione ministeriale riportata 25/07/2025; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "congestione-nasale",
+      "product_code": "REAL-MED-006",
+      "type": "indicazione_etichetta",
+      "context": "Il foglio illustrativo descrive l'uso sintomatico per congestione del naso e dei seni nasali; l'associazione combina due principi attivi e non equivale a indicazione per la sola congestione.",
+      "claim": "Indicazione riportata nel foglio illustrativo: trattamento sintomatico della congestione del naso e dei seni nasali, con stati dolorosi o febbrili associati a sintomi influenzali o da raffreddamento.",
+      "prerequisites": "Verificare destinatario, eta' minima prevista nel foglio (16 anni), eventuali altri sintomi e tutte le avvertenze.",
+      "exclusions": "Non dedurre idoneita' dal solo termine naso chiuso; il foglio segnala che per un solo sintomo potrebbe essere piu' indicato un prodotto con un solo principio attivo.",
+      "source_url": "https://www.aspirina.it/prodotti/aspirina-influenza-e-naso-chiuso/foglietto-illustrativo-aspirina-influenza-e-naso-chiuso/",
+      "source_version": "Foglio illustrativo aggiornato 06/2026; consultato 2026-11-07"
+    },
+    {
+      "concept_id": "congestione-nasale",
+      "product_code": "REAL-MED-015",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale descrive il prodotto come decongestionante per il naso chiuso causato da comune raffreddore, rinite allergica e sinusite acuta.",
+      "claim": "Indicazione commerciale riportata dal produttore: sollievo dal naso chiuso; la pagina cita comune raffreddore, rinite allergica e sinusite acuta.",
+      "prerequisites": "Verificare il foglio illustrativo vigente, il destinatario e tutte le avvertenze prima di qualsiasi proposta.",
+      "exclusions": "Non dedurre la causa della congestione o idoneita' dal solo termine; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.rinazina.it/prodotti/medicinali/rinazina-spray-nasale/",
+      "source_version": "Pagina ufficiale del prodotto; autorizzazione pagina 27/05/2026; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "congestione-nasale",
+      "product_code": "REAL-MED-017",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale descrive il trattamento della congestione nasale con rinorrea associata ai comuni raffreddori.",
+      "claim": "Indicazione commerciale riportata dal produttore: congestione nasale con rinorrea associata ai comuni raffreddori.",
+      "prerequisites": "Verificare il foglio illustrativo vigente, il destinatario e tutte le avvertenze prima di qualsiasi proposta.",
+      "exclusions": "Non dedurre la causa della congestione o idoneita' dal solo termine; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.rinazina.it/prodotti/medicinali/rinazina-doppia-azione-spray-nasale/",
+      "source_version": "Pagina ufficiale del prodotto; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "congestione-nasale",
+      "product_code": "REAL-DM-003",
+      "type": "indicazione_etichetta",
+      "context": "Il produttore indica il dispositivo per congestione e irritazione nasale acute o croniche dovute, tra le altre cause elencate, a raffreddore. La fonte indica l'utilizzo a partire da 6 anni.",
+      "claim": "Indicazione del produttore: congestione/irritazione delle cavita' nasali; tra le cause citate compare il raffreddore.",
+      "prerequisites": "Verificare che l'eta' dichiarata sia almeno 6 anni e leggere avvertenze e istruzioni del dispositivo.",
+      "exclusions": "Non dedurre idoneita' o eta' dalla voce; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.aboca.com/it/prodotto/fitonasal-spray-concentrato/",
+      "source_version": "Autorizzazione ministeriale riportata 25/07/2025; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "tosse",
+      "product_code": "REAL-DM-001",
+      "type": "indicazione_etichetta",
+      "context": "Il produttore indica il dispositivo per tosse secca o grassa in adulti e ragazzi a partire da 12 anni; la pagina lo descrive anche per tosse acuta o persistente.",
+      "claim": "Indicazione del produttore: trattamento della tosse secca e grassa, acuta o persistente.",
+      "prerequisites": "Verificare che l'eta' dichiarata sia almeno 12 anni e leggere avvertenze e istruzioni del dispositivo.",
+      "exclusions": "Non dedurre tipo di tosse o eta' dalla voce; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+      "source_version": "Autorizzazione ministeriale riportata 29/08/2025; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "tosse",
+      "product_code": "REAL-DM-002",
+      "type": "indicazione_etichetta",
+      "context": "Il produttore indica il dispositivo per tosse secca o grassa in adulti e ragazzi a partire da 12 anni; la pagina lo descrive anche per tosse acuta o persistente.",
+      "claim": "Indicazione del produttore: trattamento della tosse secca e grassa, acuta o persistente.",
+      "prerequisites": "Verificare che l'eta' dichiarata sia almeno 12 anni e leggere avvertenze e istruzioni del dispositivo.",
+      "exclusions": "Non dedurre tipo di tosse o eta' dalla voce; non mostrare come scelta o consiglio approvato.",
+      "source_url": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+      "source_version": "Pagina ufficiale del prodotto; consultata 2026-11-07"
+    },
+    {
+      "concept_id": "acidita-stomaco",
+      "product_code": "REAL-MED-018",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale indica Maalox 400 per acidita' di stomaco occasionale; il collegamento riguarda solo bruciore/acidita' esplicitamente descritti.",
+      "claim": "Indicazione del titolare: trattamento dell'acidita' di stomaco occasionale.",
+      "prerequisites": "Confermare che la richiesta sia acidita' o bruciore occasionale; verificare destinatario e foglio illustrativo, che indica la fascia adulta dai 18 anni.",
+      "exclusions": "Non collegare a dolore addominale generico, persistente o non chiarito; la relazione e' candidata e non e' un consiglio.",
+      "source_url": "https://www.maalox.com/it-it/prodotti/maalox/compresse-masticabili",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "acidita-stomaco",
+      "product_code": "REAL-DM-012",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale riporta acidita', pesantezza e gonfiore dopo i pasti tra i sintomi associati a difficolta' di digestione.",
+      "claim": "Indicazione riportata dal produttore: sintomi di difficolta' digestiva quali acidita', pesantezza e gonfiore dopo i pasti.",
+      "prerequisites": "Confermare il disturbo descritto; la pagina indica la forma in compresse a partire dai 6 anni; leggere le istruzioni del dispositivo.",
+      "exclusions": "Non associare alla frase generica 'mal di stomaco' senza chiarimento; non inferire diagnosi o consiglio.",
+      "source_url": "https://www.aboca.com/it/prodotto/neobianacid-70-compresse-gusto-limone/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "acidita-stomaco",
+      "product_code": "REAL-DM-013",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale riporta acidita', bruciore e dolore nel quadro pediatrico dichiarato, con eventuali altri sintomi associati; il collegamento non vale per un dolore addominale non chiarito.",
+      "claim": "Indicazione riportata dal produttore: reflusso/acidita' con rigurgito, vomito, tosse irritativa o dolore addominale e dispepsia con bruciore, pesantezza o gonfiore dopo i pasti.",
+      "prerequisites": "Verificare che il destinatario sia oltre 1 anno e consultare avvertenze e istruzioni pediatriche del dispositivo.",
+      "exclusions": "Non associare a dolore addominale generico o a sintomi non chiariti; non trasformare la pagina in una scelta automatica.",
+      "source_url": "https://www.aboca.com/it/prodotto/neobianacid-pediatric-36-bustine-granulari/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "acidita-stomaco",
+      "product_code": "REAL-MED-019",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale limita l'indicazione a iperacidita', dolore/bruciore di stomaco quando accompagnati da rallentamento del transito gastrico, nausea, aerofagia o meteorismo.",
+      "claim": "Indicazione riportata dal titolare: iperacidita' con dolore/bruciore solo se accompagnata dal quadro combinato specificato nella fonte.",
+      "prerequisites": "Chiarire presenza dei sintomi combinati descritti e verificare il foglio illustrativo completo, destinatario e avvertenze; la pagina segnala possibile sonnolenza.",
+      "exclusions": "Non associare al solo bruciore o a 'mal di stomaco' generico; non mostrare come suggerimento o trattamento ideale.",
+      "source_url": "https://www.geffer.it/geffer-granulato-effervescente-bruciore-e-mal-di-stomaco/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "reflusso",
+      "product_code": "REAL-DM-012",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale indica il dispositivo per reflusso gastroesofageo con rigurgito acido, bruciore, dolore o sintomi associati; la scheda non identifica una diagnosi.",
+      "claim": "Indicazione riportata dal produttore: trattamento del reflusso gastroesofageo e dei sintomi descritti dalla fonte.",
+      "prerequisites": "Confermare che la richiesta riguardi reflusso; verificare destinatario e istruzioni del dispositivo, inclusa l'eta' minima dichiarata di 6 anni.",
+      "exclusions": "Non collegare un mal di stomaco non specificato o un dolore oculare; non inferire una diagnosi dal solo termine.",
+      "source_url": "https://www.aboca.com/it/prodotto/neobianacid-70-compresse-gusto-limone/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "reflusso",
+      "product_code": "REAL-DM-013",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale descrive NeoBianacid Pediatric per reflusso/acidita' con sintomi pediatrici espressamente elencati.",
+      "claim": "Indicazione riportata dal produttore: reflusso gastroesofageo e acidita' con rigurgito, vomito, tosse irritativa o dolore addominale.",
+      "prerequisites": "Verificare che il destinatario sia oltre 1 anno e leggere le istruzioni pediatriche del dispositivo.",
+      "exclusions": "Non associare a generico dolore addominale senza contesto; non dedurre idoneita' o dose.",
+      "source_url": "https://www.aboca.com/it/prodotto/neobianacid-pediatric-36-bustine-granulari/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "reflusso",
+      "product_code": "REAL-DM-016",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale indica il dispositivo per reflusso gastroesofageo e rigurgito acido; le compresse masticabili sono una delle forme elencate.",
+      "claim": "Indicazione riportata dal produttore: reflusso gastroesofageo e sintomi correlati come bruciore, rigurgito acido e sintomi notturni.",
+      "prerequisites": "Confermare reflusso dichiarato; verificare istruzioni e destinatario, con fascia indicata dal produttore dai 12 anni.",
+      "exclusions": "Non associare a dolore gastrico generico o a causa non chiarita; non sostituisce valutazione farmacista/medica.",
+      "source_url": "https://www.maalox.com/it-it/prodotti/maalox-reflurapid/compresse-masticabili",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "mal-di-testa",
+      "product_code": "REAL-MED-001",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale include il mal di testa fra i dolori di varia origine per cui e' riportato il trattamento sintomatico.",
+      "claim": "Indicazione riportata dal titolare: dolori di varia origine, incluso mal di testa.",
+      "prerequisites": "Verificare eta'/peso, dose e avvertenze solo sul foglio illustrativo e con il farmacista; la formulazione da 500 mg non seleziona da sola la persona.",
+      "exclusions": "Non dedurre causa, gravita' o trattamento dal sintomo; non fornire dosaggi automatici.",
+      "source_url": "https://www.tachipirina.it/prodotti/compresse/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "mal-di-testa",
+      "product_code": "REAL-MED-004",
+      "type": "indicazione_etichetta",
+      "context": "Il foglio illustrativo nomina il mal di testa fra gli esempi di dolore lieve o moderato; l'indicazione e' riservata ad adulti e ragazzi dai 16 anni.",
+      "claim": "Indicazione riportata nel foglio: trattamento sintomatico di dolore lieve/moderato, come mal di testa.",
+      "prerequisites": "Verificare il limite di eta' (16 anni), controindicazioni, interazioni e foglio aggiornato prima di qualsiasi proposta.",
+      "exclusions": "Non usare la sola parola per selezionare Aspirina; la fonte segnala esclusioni e rischi importanti, inclusi sanguinamento e allergie a FANS.",
+      "source_url": "https://www.aspirina.it/prodotti/aspirina-dolore-infiammazione/foglietto-illustrativo-aspirina-dolore-infiammazione/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "mal-di-testa",
+      "product_code": "REAL-MED-008",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale descrive sollievo da mal di testa e dolore lieve o moderato per Nurofen 200 mg compresse.",
+      "claim": "Indicazione commerciale riportata dal titolare: mal di testa e dolori di intensita' lieve o moderata.",
+      "prerequisites": "Verificare il destinatario (pagina: adulti e adolescenti dai 12 anni), foglio illustrativo, avvertenze e altri farmaci assunti.",
+      "exclusions": "Non ordinare il prodotto ne' dedurre idoneita' dalla sola menzione; non fornire un dosaggio automatico.",
+      "source_url": "https://www.nurofen.it/prodotti/adulti/nurofen-200mg-compresse-rivestite/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "contusioni",
+      "product_code": "REAL-MED-020",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale specifica dolore locale associato a contusioni, distorsioni o stiramenti dopo trauma da impatto.",
+      "claim": "Indicazione riportata dal titolare: trattamento sintomatico locale del dolore associato a contusioni da trauma da impatto.",
+      "prerequisites": "Verificare cute integra, limite di eta' indicato (14 anni), foglio illustrativo, gravidanza e altre avvertenze.",
+      "exclusions": "Non collegare dolore non traumatico, ferite o contusioni gravi; la relazione documentale non e' una proposta approvata.",
+      "source_url": "https://flector.it/flectormove/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "contusioni",
+      "product_code": "REAL-MED-021",
+      "type": "indicazione_etichetta",
+      "context": "Il foglio illustrativo indica sollievo locale del dolore e dell'infiammazione da lesioni post-traumatiche, citando contusioni, distorsioni e tendiniti.",
+      "claim": "Indicazione del foglio illustrativo: lesioni post-traumatiche, incluse contusioni.",
+      "prerequisites": "Verificare limite di eta' (non sotto i 15 anni), cute integra, allergie ai FANS e avvertenze del foglio.",
+      "exclusions": "Non associare a trauma non chiarito, ferita aperta o problema non locale; non inferire una terapia.",
+      "source_url": "https://www.flector.it/wp-content/uploads/FLECTORARTRO.pdf",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "contusioni",
+      "product_code": "REAL-DM-020",
+      "type": "indicazione_etichetta",
+      "context": "Il fabbricante descrive Arnikind gel, dispositivo medico, utile in caso di contusioni, ematomi e abrasioni superficiali.",
+      "claim": "Indicazione dichiarata dal fabbricante: contusioni, ematomi e abrasioni superficiali.",
+      "prerequisites": "Verificare che si tratti di una lesione superficiale e consultare le istruzioni; il fabbricante indica l'uso da 1 anno.",
+      "exclusions": "Non associare a trauma grave, lesione profonda o ferita che richieda valutazione; claim del fabbricante, non consiglio.",
+      "source_url": "https://www.schwabe.it/prodotti/arnikind-gel/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "irritazione-oculare",
+      "product_code": "REAL-DM-017",
+      "type": "indicazione_etichetta",
+      "context": "Le istruzioni d'uso riportano fastidio, bruciore o irritazione oculare dovuti a fattori esterni e l'uso nel contesto di occhio secco.",
+      "claim": "Indicazione riportata dal fabbricante: idratazione/lubrificazione oculare e fastidio, bruciore o irritazione da fattori esterni.",
+      "prerequisites": "Chiarire se si parla di secchezza/fastidio legati a fattori esterni; verificare istruzioni, lenti a contatto e controindicazioni.",
+      "exclusions": "Il dolore oculare da solo, alterazioni della vista, secrezioni, trauma o sospetta infezione non sono collegati a questo prodotto.",
+      "source_url": "https://www.thea.it/media/1616/080223_fi-thealoz-duo_10-e-15ml.pdf",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "irritazione-oculare",
+      "product_code": "REAL-DM-018",
+      "type": "indicazione_etichetta",
+      "context": "Le istruzioni d'uso riportano secchezza/affaticamento oculare da fattori esterni e umettazione della superficie oculare.",
+      "claim": "Indicazione riportata dal fabbricante: umettare e idratare la superficie oculare in caso di secchezza o affaticamento da fattori esterni.",
+      "prerequisites": "Verificare l'uso dichiarato (adulti, portatori di lenti secondo fonte) e le istruzioni del dispositivo.",
+      "exclusions": "Dolore oculare non chiarito, disturbi della vista, secrezioni, trauma o sospetta infezione non sono collegati a questa scheda.",
+      "source_url": "https://www.thea.it/media/1614/070222_fi-hyabak_10-e-15-ml.pdf",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "irritazione-oculare",
+      "product_code": "REAL-DM-019",
+      "type": "indicazione_etichetta",
+      "context": "Le istruzioni d'uso indicano idratazione oculare e sensazioni di bruciore, formicolio o affaticamento non patologico attribuite a fattori esterni.",
+      "claim": "Indicazione riportata dal fabbricante: idratazione oculare per lenti a contatto o sensazioni non patologiche da fattori esterni.",
+      "prerequisites": "Chiarire che i disturbi descritti corrispondano alle istruzioni del dispositivo; leggere le precauzioni d'uso.",
+      "exclusions": "Dolore oculare isolato, disturbo visivo, secrezioni, trauma o sospetta infezione non sono collegati a questa scheda.",
+      "source_url": "https://www.thea.it/media/1296/090719_fi-hydrabak.pdf",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-nasale",
+      "product_code": "REAL-MED-016",
+      "type": "indicazione_etichetta",
+      "context": "La pagina ufficiale descrive azelastina spray per sintomi della rinite allergica, come prurito nasale e starnuti da pollini, animali o acari.",
+      "claim": "Indicazione commerciale del titolare: sintomi della rinite allergica, inclusi prurito nasale e starnuti.",
+      "prerequisites": "Verificare il foglio illustrativo, la natura dei sintomi e le avvertenze prima di una proposta.",
+      "exclusions": "Non associare a raffreddore o naso chiuso senza indicazione allergica; non dedurre allergia dalla sola congestione.",
+      "source_url": "https://www.rinazina.it/prodotti/medicinali/rinazina-antiallergica-spray-nasale/",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-nasale",
+      "product_code": "REAL-MED-022",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB riporta questa forma di cetirizina per sintomi nasali della rinite allergica stagionale e perenne.",
+      "claim": "Indicazione riportata da UCB: trattamento dei sintomi nasali della rinite allergica stagionale e perenne.",
+      "prerequisites": "Verificare la forma e l'eta' minima indicata dalla fonte (2 anni per gocce orali) e il foglio illustrativo specifico.",
+      "exclusions": "Non collegare congestione senza evidenza di rinite allergica; non dedurre idoneita' dalla categoria o dall'eta' sola.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-oculare",
+      "product_code": "REAL-MED-022",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB include i sintomi oculari della rinite allergica stagionale e perenne per questa forma orale.",
+      "claim": "Indicazione riportata da UCB: sintomi oculari della rinite allergica stagionale e perenne.",
+      "prerequisites": "Verificare la forma e l'eta' minima indicata dalla fonte (2 anni per gocce orali) e il foglio illustrativo specifico.",
+      "exclusions": "Il dolore oculare isolato, trauma, secrezione o disturbo visivo non corrispondono a questa indicazione.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-cutanea",
+      "product_code": "REAL-MED-022",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB riporta l'uso sintomatico nell'orticaria cronica idiopatica; il termine non equivale a tutte le eruzioni o allergie cutanee.",
+      "claim": "Indicazione riportata da UCB: trattamento sintomatico dell'orticaria cronica idiopatica.",
+      "prerequisites": "Usare questo collegamento solo se e' stata dichiarata/precisata l'orticaria cronica idiopatica; verificare forma, eta' minima e foglio.",
+      "exclusions": "Non collegare a prurito, rash, eczema, reazione cutanea o 'allergia' non specificata; non formulare una diagnosi.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-nasale",
+      "product_code": "REAL-MED-023",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB riporta questa forma di cetirizina per sintomi nasali della rinite allergica stagionale e perenne.",
+      "claim": "Indicazione riportata da UCB: trattamento dei sintomi nasali della rinite allergica stagionale e perenne.",
+      "prerequisites": "Verificare la forma e l'eta' minima indicata dalla fonte (2 anni per soluzione orale) e il foglio illustrativo specifico.",
+      "exclusions": "Non collegare congestione senza evidenza di rinite allergica; non dedurre idoneita' dalla categoria o dall'eta' sola.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-oculare",
+      "product_code": "REAL-MED-023",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB include i sintomi oculari della rinite allergica stagionale e perenne per questa forma orale.",
+      "claim": "Indicazione riportata da UCB: sintomi oculari della rinite allergica stagionale e perenne.",
+      "prerequisites": "Verificare la forma e l'eta' minima indicata dalla fonte (2 anni per soluzione orale) e il foglio illustrativo specifico.",
+      "exclusions": "Il dolore oculare isolato, trauma, secrezione o disturbo visivo non corrispondono a questa indicazione.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-cutanea",
+      "product_code": "REAL-MED-023",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB riporta l'uso sintomatico nell'orticaria cronica idiopatica; il termine non equivale a tutte le eruzioni o allergie cutanee.",
+      "claim": "Indicazione riportata da UCB: trattamento sintomatico dell'orticaria cronica idiopatica.",
+      "prerequisites": "Usare questo collegamento solo se e' stata dichiarata/precisata l'orticaria cronica idiopatica; verificare forma, eta' minima e foglio.",
+      "exclusions": "Non collegare a prurito, rash, eczema, reazione cutanea o 'allergia' non specificata; non formulare una diagnosi.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-nasale",
+      "product_code": "REAL-MED-024",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB riporta questa forma di cetirizina per sintomi nasali della rinite allergica stagionale e perenne.",
+      "claim": "Indicazione riportata da UCB: trattamento dei sintomi nasali della rinite allergica stagionale e perenne.",
+      "prerequisites": "Verificare la forma e l'eta' minima indicata dalla fonte (6 anni per compresse) e il foglio illustrativo specifico.",
+      "exclusions": "Non collegare congestione senza evidenza di rinite allergica; non dedurre idoneita' dalla categoria o dall'eta' sola.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-oculare",
+      "product_code": "REAL-MED-024",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB include i sintomi oculari della rinite allergica stagionale e perenne per questa forma orale.",
+      "claim": "Indicazione riportata da UCB: sintomi oculari della rinite allergica stagionale e perenne.",
+      "prerequisites": "Verificare la forma e l'eta' minima indicata dalla fonte (6 anni per compresse) e il foglio illustrativo specifico.",
+      "exclusions": "Il dolore oculare isolato, trauma, secrezione o disturbo visivo non corrispondono a questa indicazione.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "allergia-cutanea",
+      "product_code": "REAL-MED-024",
+      "type": "indicazione_etichetta",
+      "context": "La pagina UCB riporta l'uso sintomatico nell'orticaria cronica idiopatica; il termine non equivale a tutte le eruzioni o allergie cutanee.",
+      "claim": "Indicazione riportata da UCB: trattamento sintomatico dell'orticaria cronica idiopatica.",
+      "prerequisites": "Usare questo collegamento solo se e' stata dichiarata/precisata l'orticaria cronica idiopatica; verificare forma, eta' minima e foglio.",
+      "exclusions": "Non collegare a prurito, rash, eczema, reazione cutanea o 'allergia' non specificata; non formulare una diagnosi.",
+      "source_url": "https://www.ucbpharma.it/prodotti/cetirizina-dicloridato",
+      "source_version": "Pagina o foglio illustrativo ufficiale consultato 2026-11-08"
+    },
+    {
+      "concept_id": "supporto-immunitario",
+      "product_code": "REAL-SUP-004",
+      "type": "contesto_ricerca",
+      "context": "Scheda disponibile solo dopo una richiesta esplicita di supporto al normale funzionamento del sistema immunitario; non e' collegata a raffreddore o a un medicinale.",
+      "claim": "Il produttore dichiara vitamine A, C, D, zinco e selenio per il normale funzionamento del sistema immunitario. Non costituisce trattamento o prevenzione di malattie.",
+      "prerequisites": "Verificare ingredienti, quantita', avvertenze e necessita' dichiarata; leggere l'etichetta del prodotto.",
+      "exclusions": "Non associare a farmaci, raffreddore, influenza o infezioni; non presentare come prevenzione o cura.",
+      "source_url": "https://www.multicentrum.it/prodotti/benefici-specifici/multicentrum-immunita-e-difesa/",
+      "source_version": "Pagina del produttore consultata 2026-11-08"
+    },
+    {
+      "concept_id": "supporto-immunitario",
+      "product_code": "REAL-SUP-014",
+      "type": "contesto_ricerca",
+      "context": "Scheda disponibile solo dopo una richiesta esplicita di supporto al normale funzionamento del sistema immunitario; non e' collegata a raffreddore o a un medicinale.",
+      "claim": "Il produttore dichiara che vitamina C, vitamina D e zinco contribuiscono al normale funzionamento del sistema immunitario. Non costituisce trattamento o prevenzione di malattie.",
+      "prerequisites": "Verificare ingredienti, quantita', avvertenze e necessita' dichiarata; leggere l'etichetta del prodotto.",
+      "exclusions": "Non associare a farmaci, raffreddore, influenza o infezioni; non presentare come prevenzione o cura.",
+      "source_url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese-immunity/",
+      "source_version": "Pagina del produttore consultata 2026-11-08"
+    },
+    {
+      "concept_id": "supporto-immunitario",
+      "product_code": "REAL-SUP-019",
+      "type": "contesto_ricerca",
+      "context": "Scheda disponibile solo dopo una richiesta esplicita di supporto al normale funzionamento del sistema immunitario; non e' collegata a raffreddore o a un medicinale.",
+      "claim": "Il produttore dichiara vitamine e zinco per supportare il normale sistema immunitario. Non costituisce trattamento o prevenzione di malattie.",
+      "prerequisites": "Verificare ingredienti, quantita', avvertenze e necessita' dichiarata; leggere l'etichetta del prodotto.",
+      "exclusions": "Non associare a farmaci, raffreddore, influenza o infezioni; non presentare come prevenzione o cura.",
+      "source_url": "https://www.supradyn.it/la-gamma-supradyn/supradyn-difese-gummy/",
+      "source_version": "Pagina del produttore consultata 2026-11-08"
+    },
+    {
+      "concept_id": "raffreddore",
+      "product_code": "REAL-MED-009",
+      "type": "indicazione_etichetta",
+      "source_url": "https://assets.ctfassets.net/hcd109vfxzqs/46uAxThECMNgO2RWcF2nEr/66298543d72019cbe3fcd61f4eac4fd3/12-2022_fi_actigrip_500.pdf",
+      "source_version": "Foglio illustrativo consultato il 2026-11-09",
+      "claim": "Il foglio illustrativo riporta il trattamento dei sintomi da raffreddamento.",
+      "context": "Il foglio descrive ostruzione nasale, rinorrea acquosa, cefalea e/o febbre.",
+      "prerequisites": "Verificare destinatario, condizioni e avvertenze nel foglio illustrativo.",
+      "exclusions": "Non dedurre idoneità dal solo riferimento al raffreddore."
+    }
+  ],
+  "researched_at": "2026-11-08"
+}

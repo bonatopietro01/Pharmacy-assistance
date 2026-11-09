@@ -1,0 +1,15 @@
+{
+  "ritardo_secondi": 3,
+  "pausa_secondi": 4,
+  "fonti": {
+    "turni": "",
+    "orari": "",
+    "sito": ""
+  },
+  "agent": {
+    "enabled": false,
+    "provider": "local",
+    "model": "gpt-4.1-mini",
+    "word_threshold": 25
+  }
+}

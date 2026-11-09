@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Banco farmacia · Sales Agents</title>
+  <link rel="stylesheet" href="/desk.css">
+  <script src="/desk.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <p class="eyebrow">Sales Agents · postazione riservata</p>
+      <h1>Banco farmacia</h1>
+    </div>
+    <div class="controls" aria-label="Controlli della sessione">
+      <span id="status" class="badge" role="status">Collegamento al banco…</span>
+      <button id="listen" class="primary" type="button" disabled>Inizia ascolto</button>
+      <button id="reset" type="button" disabled>Azzera sessione</button>
+      <button id="open-cart" type="button" disabled>Carrello · 0 · —</button>
+      <button id="open-settings" type="button" disabled>Impostazioni</button>
+    </div>
+  </header>
+  <main>
+    <p id="message" class="message" role="status"></p>
+    <div class="desk-layout">
+      <section class="product-panel" aria-labelledby="product-title">
+        <h2 id="product-title">Prodotti pertinenti</h2>
+        <p id="result-state" class="result-state" role="status"></p>
+        <p id="review-label" class="result-state" hidden>Riferimenti documentali non revisionati</p>
+        <div id="products"></div>
+        <nav id="products-pages" class="pagination" aria-label="Pagine prodotti" hidden></nav>
+        <div id="supplement-section" hidden>
+          <h3>Integratori pertinenti</h3>
+          <div id="supplements"></div>
+          <nav id="supplements-pages" class="pagination" aria-label="Pagine integratori" hidden></nav>
+        </div>
+        <div id="offer-section" hidden>
+          <h3>Offerte della farmacia</h3>
+          <div id="offers"></div>
+          <nav id="offers-pages" class="pagination" aria-label="Pagine offerte" hidden></nav>
+        </div>
+      </section>
+      <aside class="sales-panel" aria-labelledby="sales-title">
+        <h2 id="sales-title">Prezzo e disponibilità</h2>
+        <div id="product-sales" aria-live="polite"></div>
+        <section id="cart-strip" class="cart-strip" aria-label="Nel carrello" hidden>
+          <h3>Nel carrello</h3>
+          <ul id="cart-strip-items" class="cart-strip-items"></ul>
+        </section>
+      </aside>
+    </div>
+    <section class="transcript-panel" aria-labelledby="transcript-title">
+      <div class="transcript-heading">
+        <h2 id="transcript-title">Trascrizione</h2>
+        <p id="phase-reason" class="result-state phase-reason" role="status"></p>
+        <p id="recognized-name" class="result-state" role="status"></p>
+        <button id="correct-name" type="button" class="small-button" disabled>Correggi nome</button>
+      </div>
+      <div id="transcript" class="transcript" tabindex="0" aria-label="Trascrizione in diretta"></div>
+    </section>
+  </main>
+  <dialog id="sources-dialog" class="desk-dialog" aria-labelledby="sources-title">
+    <h2 id="sources-title">Fonti e dettagli</h2>
+    <div id="sources-content"></div>
+    <form method="dialog"><button>Chiudi</button></form>
+  </dialog>
+  <dialog id="cart-dialog" class="desk-dialog cart-dialog" aria-labelledby="cart-title">
+    <h2 id="cart-title">Carrello della sessione</h2>
+    <div id="cart-content" aria-live="polite"></div>
+    <form method="dialog"><button>Chiudi</button></form>
+  </dialog>
+  <dialog id="correction-dialog" class="desk-dialog" aria-labelledby="correction-title">
+    <h2 id="correction-title">Correggi nome</h2>
+    <p class="result-state">Scegli la confezione del catalogo che intendevi. La trascrizione resta com’è.</p>
+    <div id="correction-options" class="correction-options"></div>
+    <form method="dialog"><button>Annulla</button></form>
+  </dialog>
+  <dialog id="settings-dialog" class="desk-dialog" aria-labelledby="settings-title">
+    <h2 id="settings-title">Impostazioni</h2>
+    <p class="result-state">L’agente locale è disponibile senza chiave API.</p>
+    <form id="settings-form" class="settings-form" autocomplete="off">
+      <label>Microfono di ingresso
+        <select id="settings-input-device">
+          <option value="">Predefinito del sistema</option>
+        </select>
+      </label>
+      <p id="settings-input-status" class="result-state" role="status"></p>
+      <label>Motore di trascrizione locale
+        <select id="settings-speech-engine">
+          <option value="vosk">Vosk</option>
+          <option value="whisper.cpp">Whisper.cpp</option>
+        </select>
+      </label>
+      <p id="settings-speech-status" class="result-state" role="status"></p>
+      <label>Provider
+        <select id="settings-provider">
+          <option value="local">Agente locale</option>
+          <option value="openai">OpenAI</option>
+        </select>
+      </label>
+      <label>Parole prima della richiesta
+        <input id="settings-threshold" type="number" min="5" max="200" step="1" value="25" required>
+      </label>
+      <div id="settings-remote" class="settings-remote" hidden>
+        <label>Modello
+          <input id="settings-model" type="text" value="gpt-4.1-mini" spellcheck="false" autocomplete="off">
+        </label>
+        <label>Chiave API
+          <input id="settings-key" type="password" autocomplete="new-password" spellcheck="false">
+        </label>
+        <label class="settings-checkbox">
+          <input id="settings-enabled" type="checkbox">
+          Consento l’invio a OpenAI dei frammenti di testo necessari all’analisi. L’audio resta sul PC.
+        </label>
+        <p class="result-state">La verifica usa testo di prova e la configurazione salvata.</p>
+      </div>
+      <p id="settings-key-state" class="result-state"></p>
+      <label id="settings-clear-label" class="settings-checkbox" hidden>
+        <input id="settings-clear-key" type="checkbox"> Rimuovi la chiave salvata al prossimo salvataggio
+      </label>
+      <div class="dialog-actions">
+        <button id="settings-save" type="submit" class="primary">Salva</button>
+        <button id="settings-check" type="button" disabled>Verifica connessione</button>
+        <button id="settings-close" type="button">Chiudi</button>
+      </div>
+    </form>
+    <p id="settings-status" role="status" class="result-state"></p>
+  </dialog>
+</body>
+</html>

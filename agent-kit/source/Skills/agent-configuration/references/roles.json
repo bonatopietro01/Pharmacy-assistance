@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "roles": {
+    "prompt-agent": {
+      "file": "PromptAgent_General.md",
+      "description": "Chiarisce e scrive prompt per il supporto visivo alle vendite su richiesta; resta in sola lettura.",
+      "readonly": true,
+      "paths": {
+        "codex": ".codex/agents/prompt-agent.toml"
+      }
+    },
+    "app-starter": {
+      "file": "AppStarterAgent_General.md",
+      "description": "Imposta Sales Agents dopo la discovery, distinguendo configurazione degli assistenti e applicazione reale.",
+      "readonly": false,
+      "paths": {
+        "codex": ".codex/agents/app-starter.toml"
+      }
+    },
+    "architect": {
+      "file": "ArchitectAgent_General.md",
+      "description": "Definisce in sola lettura i contratti fra conversazione, catalogo, regole, schermo e feedback.",
+      "readonly": true,
+      "paths": {
+        "codex": ".codex/agents/architect.toml"
+      }
+    },
+    "backend": {
+      "file": "BackendAgent_General.md",
+      "description": "Implementa catalogo, sessioni, regole versionate e aggiornamenti delle schede nei confini concordati.",
+      "readonly": false,
+      "paths": {
+        "codex": ".codex/agents/backend.toml"
+      }
+    },
+    "frontend": {
+      "file": "FrontendAgent_General.md",
+      "description": "Realizza lo schermo visivo e i controlli dell operatore dopo averne chiarito pubblico e flusso.",
+      "readonly": false,
+      "paths": {
+        "codex": ".codex/agents/frontend.toml"
+      }
+    },
+    "ai-engineer": {
+      "file": "AIEngineerAgent_General.md",
+      "description": "Definisce estrazione degli eventi, retrieval fondato sul catalogo e apprendimento dai feedback revisionati.",
+      "readonly": false,
+      "paths": {
+        "codex": ".codex/agents/ai-engineer.toml"
+      }
+    },
+    "reviewer": {
+      "file": "ReviewerAgent_General.md",
+      "description": "Esamina in sola lettura correttezza, provenienza, isolamento delle sessioni e limiti dei suggerimenti.",
+      "readonly": true,
+      "paths": {
+        "codex": ".codex/agents/reviewer.toml"
+      }
+    },
+    "evaluation": {
+      "file": "EvaluationAgent_General.md",
+      "description": "Valuta agenti nel progetto con benchmark autorizzati e report; distingue misure e analisi statica.",
+      "readonly": false,
+      "paths": {
+        "codex": ".codex/agents/evaluation.toml"
+      }
+    },
+    "agent-optimizer": {
+      "file": "AgentOptimizerAgent_General.md",
+      "description": "Analizza o migliora prompt canonici con evidenze dei progetti, mantenendo immutabili le varianti sotto benchmark.",
+      "readonly": false,
+      "paths": {
+        "codex": ".codex/agents/agent-optimizer.toml"
+      }
+    }
+  }
+}

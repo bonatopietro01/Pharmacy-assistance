@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "upstream_pack": "App_starter_pack",
+  "upstream_files": [
+    {
+      "path": "Agents/AIEngineerAgent_General.md",
+      "sha256": "ad4d93fcaf3779514b7f7796e0a427cec7f4e2a3c03b081ab49810098e86a079"
+    },
+    {
+      "path": "Agents/AppStarterAgent_General.md",
+      "sha256": "298d4bdccc342392c4d5c998276cef0ba7b8e3ec4fc00c00043204441bab3ed4"
+    },
+    {
+      "path": "Agents/ArchitectAgent_General.md",
+      "sha256": "a7f359e369b70e06aabf8310098a2f1865b942f17df32e261bb0182a2cb2e1f4"
+    },
+    {
+      "path": "Agents/BackendAgent_General.md",
+      "sha256": "4cf4641cbef8ab00cfe805bff414d2cf80279b82d1d979fd472ec220dca86ee8"
+    },
+    {
+      "path": "Agents/FrontendAgent_General.md",
+      "sha256": "be41e7a1c5087dfaf56140d27856a6628938ab4e19553a42a195f9941866ffd8"
+    },
+    {
+      "path": "Agents/PromptAgent_General.md",
+      "sha256": "b82c639ab7ac036e27e3cfc65805b82bf88fb61fe1ffc9da8b6e8c6397159bd6"
+    },
+    {
+      "path": "Agents/ReviewerAgent_General.md",
+      "sha256": "35ad3eb11f1b375e0a94673b29b301112d08b349b86d47308a18f3339d70e343"
+    },
+    {
+      "path": "pack.json",
+      "sha256": "c6eb145cb89257ea4c67e40ff7d890f97bc1f80d0a960657668c678c69a9507d"
+    },
+    {
+      "path": "PROMPTME.md",
+      "sha256": "975a0249065945ed3bfb24c41da85590386d639ff828892b2812dabc70b00555"
+    },
+    {
+      "path": "README.md",
+      "sha256": "354798b536928478f1c88d7279ce028433c28394e7cc7283206e49edd3de1d13"
+    },
+    {
+      "path": "Skills/agent-configuration/references/claude-code.md",
+      "sha256": "bc93ec62886e82c71c12b0672da88651aa11bb30488a9b8c7718d0e4b5ab6a5f"
+    },
+    {
+      "path": "Skills/agent-configuration/references/codex.md",
+      "sha256": "1ca554957b4f1c96a34e32a4ade2f47d30ecc70832deda5a3195ac91bd8be532"
+    },
+    {
+      "path": "Skills/agent-configuration/references/cursor.md",
+      "sha256": "0703fe4074da995f2e9ae7aeb93ecb25fb2bccfcc782303f96132a1502069a91"
+    },
+    {
+      "path": "Skills/agent-configuration/references/installation.md",
+      "sha256": "ccdd14d2cd53c6fe2c9cedefb2bc633d902f62de17c62d443f68d71479fec02f"
+    },
+    {
+      "path": "Skills/agent-configuration/references/roles.json",
+      "sha256": "d74029afd2c9ed7b5fc9e8d473acd9e015525da1c6261d9a0b1bc04bbb8de5d6"
+    },
+    {
+      "path": "Skills/agent-configuration/references/runtime-check.md",
+      "sha256": "83e1aba1eb4789891e4f68982ca90babd4a8e75dda2eb2d1ab85a0b42a3dc448"
+    },
+    {
+      "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+      "sha256": "5de4997122abe2722d5f2264761cb987b7066aab3655ee3eb67e38196ce68974"
+    },
+    {
+      "path": "Skills/agent-configuration/scripts/test_install_agent_pack.py",
+      "sha256": "3955f7d24a8db9c96c4356de5d310fa3067a47cdbe5e36fd58f08e3b159a38d0"
+    },
+    {
+      "path": "Skills/agent-configuration/SKILL.md",
+      "sha256": "37b28df006f479ed4b1921aed156938b95af354423bccabb30e46eba23dd4386"
+    },
+    {
+      "path": "Skills/codebase-design/agents/openai.yaml",
+      "sha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f"
+    },
+    {
+      "path": "Skills/codebase-design/DEEPENING.md",
+      "sha256": "203cd4a0d4930a9c535e32bf268b3b884cbd78131512c7c9b3017ff8fb3e0f26"
+    },
+    {
+      "path": "Skills/codebase-design/DESIGN-IT-TWICE.md",
+      "sha256": "f8c9665f9983c9b1d941191617deb2d8c3c5779418d4c3b4f752a747a574baef"
+    },
+    {
+      "path": "Skills/codebase-design/SKILL.md",
+      "sha256": "6a02df08270af30415d2d51542afcbf9fb3fe45fbb8c68d4d625f7bad3d38866"
+    },
+    {
+      "path": "Skills/grilling/agents/openai.yaml",
+      "sha256": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b"
+    },
+    {
+      "path": "Skills/grilling/SKILL.md",
+      "sha256": "9471ec199e123d039c55f7068776075b42ad0d9db0e13b2e23403f6c54717462"
+    },
+    {
+      "path": "Skills/handoff/agents/openai.yaml",
+      "sha256": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28"
+    },
+    {
+      "path": "Skills/handoff/SKILL.md",
+      "sha256": "d4d303eda0628931fd497caf2eeb258dbb559d9752e2f948c38965cdca46cb1d"
+    },
+    {
+      "path": "Skills/investigate-first/agents/openai.yaml",
+      "sha256": "9836c3e7e71564810abb1eeb66341e8ef180c457d4e121fe772cbf53e41a9268"
+    },
+    {
+      "path": "Skills/investigate-first/SKILL.md",
+      "sha256": "7cc19dd2fc457eb20d65c44dee4d1b72dcdfcd1617182f5bff666700f2a055d8"
+    },
+    {
+      "path": "Skills/pipeline-benchmark/SKILL.md",
+      "sha256": "127d60bbbf442b12498e7875a57e744a9dc5d564ee0c69dd53d0c818c2b6041f"
+    },
+    {
+      "path": "Skills/project-graph-context/references/obsidian-workflow.md",
+      "sha256": "67c440380b11f7ab668ddb083cdeab507b6a53fea4c9693e22f55e41bc1c06c1"
+    },
+    {
+      "path": "Skills/project-graph-context/SKILL.md",
+      "sha256": "dc489a1aecc841740b0076856aadf0e7a4907888b04ba279b13405617206586e"
+    },
+    {
+      "path": "Skills/README.md",
+      "sha256": "46beba4d30f4a202abbf3598476c5043536690568c4899c74053eed9c504f89d"
+    },
+    {
+      "path": "Skills/requirement-traceability/SKILL.md",
+      "sha256": "b991030fd1235d8ccee0639435bb65b100a12206d2ec6c496aa2a94108df3888"
+    },
+    {
+      "path": "Skills/retro/agents/openai.yaml",
+      "sha256": "cb6fb9d7e6b4be5975f41f6def1dd00a1255bad5d9b02696b124c924a8b8745c"
+    },
+    {
+      "path": "Skills/retro/SKILL.md",
+      "sha256": "3032f81289c68ae3ba467cadb2ba28e76a5132309c325ea747ceaf6bf543fe56"
+    },
+    {
+      "path": "Skills/safe-refactor/agents/openai.yaml",
+      "sha256": "df608465dc32de1926bfc91ea0beabe9bc61198c121ff1eef0d2e6d74dd67ac1"
+    },
+    {
+      "path": "Skills/safe-refactor/SKILL.md",
+      "sha256": "f4394a12f256ef32e8caa89b614cb6897195b8522cc284ca631da3b291161e96"
+    },
+    {
+      "path": "Skills/writing-for-agents/agents/openai.yaml",
+      "sha256": "eacb24b2a618cfb81dacb0416f4fdd75ddf3a8060f8ddb99aae1b1e301907e4b"
+    },
+    {
+      "path": "Skills/writing-for-agents/SKILL-MECHANICS.md",
+      "sha256": "a9f6b13de985d72e92ba4acf7ddec96cbac708b4696a8ff1a687de8225076a96"
+    },
+    {
+      "path": "Skills/writing-for-agents/SKILL.md",
+      "sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a"
+    },
+    {
+      "path": "WORKFLOW.md",
+      "sha256": "c6491bd2009f659270df951cbf6b3057b8055da6742498b7ab7dd8b35316ae8c"
+    }
+  ],
+  "adaptation": "Sales Agents: configurazione degli assistenti di sviluppo; prodotto ancora in discovery."
+}

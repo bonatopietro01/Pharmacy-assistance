@@ -1,0 +1,4 @@
+__pycache__/
+.audio-packages/
+models/
+database/reintegro.sqlite3*

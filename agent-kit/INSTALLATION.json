@@ -1,0 +1,721 @@
+{
+  "files": {
+    ".agents/skills/agent-configuration/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "e0096e01990039d826940a47772657ae4613023d1c4ee191454110c6f29f491f",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/SKILL.md",
+          "sha256": "e0096e01990039d826940a47772657ae4613023d1c4ee191454110c6f29f491f"
+        }
+      ]
+    },
+    ".agents/skills/agent-configuration/references/codex.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "1ca554957b4f1c96a34e32a4ade2f47d30ecc70832deda5a3195ac91bd8be532",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/codex.md",
+          "sha256": "1ca554957b4f1c96a34e32a4ade2f47d30ecc70832deda5a3195ac91bd8be532"
+        }
+      ]
+    },
+    ".agents/skills/agent-configuration/references/installation.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "fd6630ef2615b69a25976a936d59f27eafa4c223ece4e7a9ddb94f4d98d1424a",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/installation.md",
+          "sha256": "fd6630ef2615b69a25976a936d59f27eafa4c223ece4e7a9ddb94f4d98d1424a"
+        }
+      ]
+    },
+    ".agents/skills/agent-configuration/references/roles.json": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        }
+      ]
+    },
+    ".agents/skills/agent-configuration/references/runtime-check.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "9298038fac28e9dbcb863481fa644ca15a1b951bf75979cae497a22fa817b0c0",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/runtime-check.md",
+          "sha256": "9298038fac28e9dbcb863481fa644ca15a1b951bf75979cae497a22fa817b0c0"
+        }
+      ]
+    },
+    ".agents/skills/agent-configuration/references/sales-agents-project.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "7e3f48eb7f5f905eb15731d754aec935b8e3fd6a3df89cdc66fcc2bb0c4e5fe7",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/sales-agents-project.md",
+          "sha256": "7e3f48eb7f5f905eb15731d754aec935b8e3fd6a3df89cdc66fcc2bb0c4e5fe7"
+        }
+      ]
+    },
+    ".agents/skills/agent-configuration/scripts/install_agent_pack.py": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    ".agents/skills/agent-configuration/scripts/test_install_agent_pack.py": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "3955f7d24a8db9c96c4356de5d310fa3067a47cdbe5e36fd58f08e3b159a38d0",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/test_install_agent_pack.py",
+          "sha256": "3955f7d24a8db9c96c4356de5d310fa3067a47cdbe5e36fd58f08e3b159a38d0"
+        }
+      ]
+    },
+    ".agents/skills/codebase-design/DEEPENING.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "203cd4a0d4930a9c535e32bf268b3b884cbd78131512c7c9b3017ff8fb3e0f26",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/codebase-design/DEEPENING.md",
+          "sha256": "203cd4a0d4930a9c535e32bf268b3b884cbd78131512c7c9b3017ff8fb3e0f26"
+        }
+      ]
+    },
+    ".agents/skills/codebase-design/DESIGN-IT-TWICE.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "f8c9665f9983c9b1d941191617deb2d8c3c5779418d4c3b4f752a747a574baef",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/codebase-design/DESIGN-IT-TWICE.md",
+          "sha256": "f8c9665f9983c9b1d941191617deb2d8c3c5779418d4c3b4f752a747a574baef"
+        }
+      ]
+    },
+    ".agents/skills/codebase-design/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "6a02df08270af30415d2d51542afcbf9fb3fe45fbb8c68d4d625f7bad3d38866",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/codebase-design/SKILL.md",
+          "sha256": "6a02df08270af30415d2d51542afcbf9fb3fe45fbb8c68d4d625f7bad3d38866"
+        }
+      ]
+    },
+    ".agents/skills/codebase-design/agents/openai.yaml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/codebase-design/agents/openai.yaml",
+          "sha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f"
+        }
+      ]
+    },
+    ".agents/skills/folder-structure/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "638c17ba2ea3c24467397a5c85e81633cc05405607aed621dcbb819035c74cb8",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/folder-structure/SKILL.md",
+          "sha256": "638c17ba2ea3c24467397a5c85e81633cc05405607aed621dcbb819035c74cb8"
+        }
+      ]
+    },
+    ".agents/skills/grilling/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "9471ec199e123d039c55f7068776075b42ad0d9db0e13b2e23403f6c54717462",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/grilling/SKILL.md",
+          "sha256": "9471ec199e123d039c55f7068776075b42ad0d9db0e13b2e23403f6c54717462"
+        }
+      ]
+    },
+    ".agents/skills/grilling/agents/openai.yaml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/grilling/agents/openai.yaml",
+          "sha256": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b"
+        }
+      ]
+    },
+    ".agents/skills/handoff/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "d4d303eda0628931fd497caf2eeb258dbb559d9752e2f948c38965cdca46cb1d",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/handoff/SKILL.md",
+          "sha256": "d4d303eda0628931fd497caf2eeb258dbb559d9752e2f948c38965cdca46cb1d"
+        }
+      ]
+    },
+    ".agents/skills/handoff/agents/openai.yaml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/handoff/agents/openai.yaml",
+          "sha256": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28"
+        }
+      ]
+    },
+    ".agents/skills/investigate-first/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "7cc19dd2fc457eb20d65c44dee4d1b72dcdfcd1617182f5bff666700f2a055d8",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/investigate-first/SKILL.md",
+          "sha256": "7cc19dd2fc457eb20d65c44dee4d1b72dcdfcd1617182f5bff666700f2a055d8"
+        }
+      ]
+    },
+    ".agents/skills/investigate-first/agents/openai.yaml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "9836c3e7e71564810abb1eeb66341e8ef180c457d4e121fe772cbf53e41a9268",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/investigate-first/agents/openai.yaml",
+          "sha256": "9836c3e7e71564810abb1eeb66341e8ef180c457d4e121fe772cbf53e41a9268"
+        }
+      ]
+    },
+    ".agents/skills/pipeline-benchmark/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "127d60bbbf442b12498e7875a57e744a9dc5d564ee0c69dd53d0c818c2b6041f",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/pipeline-benchmark/SKILL.md",
+          "sha256": "127d60bbbf442b12498e7875a57e744a9dc5d564ee0c69dd53d0c818c2b6041f"
+        }
+      ]
+    },
+    ".agents/skills/project-graph-context/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "dc489a1aecc841740b0076856aadf0e7a4907888b04ba279b13405617206586e",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/project-graph-context/SKILL.md",
+          "sha256": "dc489a1aecc841740b0076856aadf0e7a4907888b04ba279b13405617206586e"
+        }
+      ]
+    },
+    ".agents/skills/project-graph-context/references/obsidian-workflow.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "67c440380b11f7ab668ddb083cdeab507b6a53fea4c9693e22f55e41bc1c06c1",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/project-graph-context/references/obsidian-workflow.md",
+          "sha256": "67c440380b11f7ab668ddb083cdeab507b6a53fea4c9693e22f55e41bc1c06c1"
+        }
+      ]
+    },
+    ".agents/skills/requirement-traceability/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "b991030fd1235d8ccee0639435bb65b100a12206d2ec6c496aa2a94108df3888",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/requirement-traceability/SKILL.md",
+          "sha256": "b991030fd1235d8ccee0639435bb65b100a12206d2ec6c496aa2a94108df3888"
+        }
+      ]
+    },
+    ".agents/skills/retro/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "3032f81289c68ae3ba467cadb2ba28e76a5132309c325ea747ceaf6bf543fe56",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/retro/SKILL.md",
+          "sha256": "3032f81289c68ae3ba467cadb2ba28e76a5132309c325ea747ceaf6bf543fe56"
+        }
+      ]
+    },
+    ".agents/skills/retro/agents/openai.yaml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "cb6fb9d7e6b4be5975f41f6def1dd00a1255bad5d9b02696b124c924a8b8745c",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/retro/agents/openai.yaml",
+          "sha256": "cb6fb9d7e6b4be5975f41f6def1dd00a1255bad5d9b02696b124c924a8b8745c"
+        }
+      ]
+    },
+    ".agents/skills/safe-refactor/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "f4394a12f256ef32e8caa89b614cb6897195b8522cc284ca631da3b291161e96",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/safe-refactor/SKILL.md",
+          "sha256": "f4394a12f256ef32e8caa89b614cb6897195b8522cc284ca631da3b291161e96"
+        }
+      ]
+    },
+    ".agents/skills/safe-refactor/agents/openai.yaml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "df608465dc32de1926bfc91ea0beabe9bc61198c121ff1eef0d2e6d74dd67ac1",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/safe-refactor/agents/openai.yaml",
+          "sha256": "df608465dc32de1926bfc91ea0beabe9bc61198c121ff1eef0d2e6d74dd67ac1"
+        }
+      ]
+    },
+    ".agents/skills/writing-for-agents/SKILL-MECHANICS.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "a9f6b13de985d72e92ba4acf7ddec96cbac708b4696a8ff1a687de8225076a96",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/writing-for-agents/SKILL-MECHANICS.md",
+          "sha256": "a9f6b13de985d72e92ba4acf7ddec96cbac708b4696a8ff1a687de8225076a96"
+        }
+      ]
+    },
+    ".agents/skills/writing-for-agents/SKILL.md": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/writing-for-agents/SKILL.md",
+          "sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a"
+        }
+      ]
+    },
+    ".agents/skills/writing-for-agents/agents/openai.yaml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "eacb24b2a618cfb81dacb0416f4fdd75ddf3a8060f8ddb99aae1b1e301907e4b",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/writing-for-agents/agents/openai.yaml",
+          "sha256": "eacb24b2a618cfb81dacb0416f4fdd75ddf3a8060f8ddb99aae1b1e301907e4b"
+        }
+      ]
+    },
+    ".codex/agents/ai-engineer.toml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "1e1b3c80b7a7625cc47c01c4835bcb945e5326bc90a3ea1db0f4cd295c8c76be",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Agents/AIEngineerAgent_General.md",
+          "sha256": "5cfc4784bdd3fb9d2254c3458408cd9677bb2504e4bc4337cc61977c974b171b"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    ".codex/agents/app-starter.toml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "78a769937696e1b17185f24c73657564f16197b646a80ad891e116caf4a9e609",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Agents/AppStarterAgent_General.md",
+          "sha256": "9d59f37c1b0d14f854d2aa3f474a2153cd6032b9d6279abf6fb6c885ab1f90ef"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    ".codex/agents/architect.toml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "0dc72d5aa7774f9f166b7de95bf2bb88ad7c26e62eaa4e0a6277f9d9cdc363b1",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Agents/ArchitectAgent_General.md",
+          "sha256": "36b0ad45f68ba6478e4e21eedadc79d81c974da27b1492580b414326d84b5e9b"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    ".codex/agents/backend.toml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "ff4dae4ce44953f72a832a1527585839badf78e46f5e2b600a8a23e65e7b7711",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Agents/BackendAgent_General.md",
+          "sha256": "3c59346f94e6a4561ae45a18d1782b3f0d85a29f0cf5a3b66cd848f996ed3cbb"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    ".codex/agents/frontend.toml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "79a12fd6fb2e8c8ab3592ba3bf280ab577490c348100b30286e603dca912effb",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Agents/FrontendAgent_General.md",
+          "sha256": "8431da21fc320763c20ed31e3bc9e472552bc3c8c8e183275556e625065fc8b0"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    ".codex/agents/prompt-agent.toml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "0046f6614e340edfd71ab55669ada27e8041293cbdfad547b0ae62d88ec9adc6",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Agents/PromptAgent_General.md",
+          "sha256": "8fc25a644b36c7359c305527635ddc8b792a93cc0571e2db67f381d1a5b3bd21"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    ".codex/agents/reviewer.toml": {
+      "kind": "file",
+      "managed": true,
+      "owners": [
+        "sales-agents-app-starter-pack:project"
+      ],
+      "sha256": "de7303491004a153f27d4e60aba2c1bd9cf93e389514630504108ae18fecc435",
+      "sources": [
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Agents/ReviewerAgent_General.md",
+          "sha256": "5ffe3e30901d36496967bccfbed2a39d8a56515caf939ac369ab82e2ad2b561d"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/references/roles.json",
+          "sha256": "f9819f16218ea1cf39e3d20c73bc5035bec1cea005e245eb1e3e3d024c7f67a5"
+        },
+        {
+          "pack": "sales-agents-app-starter-pack:project",
+          "path": "Skills/agent-configuration/scripts/install_agent_pack.py",
+          "sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b"
+        }
+      ]
+    },
+    "AGENTS.md": {
+      "kind": "section",
+      "managed": true,
+      "owners": [],
+      "sha256": "34be9693f9b2c1bcbbe553ea2a7d4a578d2e7b4dcde8f74e61ba699730849d25",
+      "sources": []
+    },
+    "agent-kit/WORKFLOW.md": {
+      "kind": "shared",
+      "managed": true,
+      "owners": [],
+      "sha256": "f08d3eea77bd84baccd6311b2d53ea1a675940a49c25df4db4232ed326dfe7f7",
+      "sources": []
+    }
+  },
+  "generator_sha256": "90075caf6dfa650a7af0047b74a3ccd6bce97cd3128836b9e7b7f9d1ed7fa68b",
+  "generator_version": "1.0.0",
+  "packs": {
+    "sales-agents-app-starter-pack:project": {
+      "descriptor_sha256": "347ce94c8f8eb97a3d8049ab131a01b5391cc77c97c88ccfa4f648abddcae9eb",
+      "roles": [
+        "ai-engineer",
+        "app-starter",
+        "architect",
+        "backend",
+        "frontend",
+        "prompt-agent",
+        "reviewer"
+      ],
+      "skills": [
+        "agent-configuration",
+        "requirement-traceability",
+        "project-graph-context",
+        "pipeline-benchmark",
+        "folder-structure",
+        "grilling",
+        "handoff",
+        "writing-for-agents",
+        "codebase-design",
+        "retro",
+        "investigate-first",
+        "safe-refactor"
+      ]
+    }
+  },
+  "roles": {
+    "ai-engineer": {
+      "canonical": "AIEngineerAgent_General.md",
+      "paths": {
+        "codex": ".codex/agents/ai-engineer.toml"
+      }
+    },
+    "app-starter": {
+      "canonical": "AppStarterAgent_General.md",
+      "paths": {
+        "codex": ".codex/agents/app-starter.toml"
+      }
+    },
+    "architect": {
+      "canonical": "ArchitectAgent_General.md",
+      "paths": {
+        "codex": ".codex/agents/architect.toml"
+      }
+    },
+    "backend": {
+      "canonical": "BackendAgent_General.md",
+      "paths": {
+        "codex": ".codex/agents/backend.toml"
+      }
+    },
+    "frontend": {
+      "canonical": "FrontendAgent_General.md",
+      "paths": {
+        "codex": ".codex/agents/frontend.toml"
+      }
+    },
+    "prompt-agent": {
+      "canonical": "PromptAgent_General.md",
+      "paths": {
+        "codex": ".codex/agents/prompt-agent.toml"
+      }
+    },
+    "reviewer": {
+      "canonical": "ReviewerAgent_General.md",
+      "paths": {
+        "codex": ".codex/agents/reviewer.toml"
+      }
+    }
+  },
+  "runtime_status": {
+    "codex": "NOT_VERIFIED"
+  },
+  "schema": 1
+}
