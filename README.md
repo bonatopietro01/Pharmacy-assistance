@@ -1,22 +1,25 @@
 # Sales Agents
 
-Uno schermo locale riservato al farmacista: ascolto Vosk su comando, trascrizione temporanea, schede wiki, scorte, offerte esplicite e link ai servizi. Il catalogo contiene dati sintetici; la prova non sostituisce la verifica professionale delle fonti cliniche.
+## Overview
 
-Avvia da `AVVIA_BANCO.cmd`. Il microfono non si attiva finché il farmacista non preme **Inizia ascolto**. La guida descrive sessioni, reset, diagnostica e link pubblici configurabili.
+Sales Agents is a local prototype that helps a pharmacist consult product information during a conversation. It uses temporary speech recognition to find relevant entries in a local SQLite catalog and wiki, shown only on the pharmacist's screen.
 
-- [Obiettivo e proposte iniziali](docs/PROJECT_BRIEF.md)
-- [Materiali iniziali del catalogo sintetico](demo/README.md)
-- [Catalogo operativo e ricerca locale](database/README.md)
-- [Glossario della wiki](wiki/GLOSSARIO.md)
-- [Avvio della schermata, ascolto e reintegro](frontend/README.md)
-- [Specifica della prima prova](docs/superpowers/specs/2026-11-07-prova-al-banco-design.md)
-- [Piano dell’applicazione](docs/PIANO_APPLICAZIONE.md)
-- [Prompt per costruire l’app completa](docs/PROMPT_IMPLEMENTAZIONE.md)
-- [Contratto della sessione live](docs/CONTRATTO_SESSIONE.md)
-- [Piano di implementazione eseguito](docs/superpowers/plans/2026-11-07-live-assistenza.md)
-- [Decisioni da chiarire](docs/DISCOVERY.md)
-- [Requisiti e stato del lavoro](docs/TaskState.md)
-- [Adattamento degli agenti](agent-kit/ADAPTATION.md)
-- [Prompt di ingresso adattato](agent-kit/source/PROMPTME.md)
+## Quick start
 
-La sorgente locale derivata dallo starter pack è `agent-kit/source/`. Le configurazioni generate vanno confrontate con quella fonte usando il generatore incluso; lo stato effettivo dell'installazione è riportato in `agent-kit/ADAPTATION.md`.
+1. On Windows, run `AVVIA_BANCO.cmd`.
+2. If needed, configure the microphone and speech engine in **Impostazioni** (Settings).
+3. Select **Inizia ascolto** (Start Listening). The microphone is never activated automatically.
+
+See the [user guide](frontend/README.md) for setup details and instructions for using the desk.
+
+## Data and privacy
+
+This is a demonstration, not a production pharmacy system. The catalog combines documented product records with demo data. Any prices and stock shown come from the local catalog and are not synced with a pharmacy management system. Product information is for the pharmacist to review against its sources.
+
+Audio and recognized text remain in memory and are not written to disk or logs. Speech recognition uses a local engine. If the optional OpenAI phase provider is explicitly enabled, the app sends finalized text fragments and limited evidence for phase classification; it does not send audio. The session contract is listed below.
+
+## Documentation
+
+- [Catalog and product data](database/README.md)
+- [Wiki authoring and retrieval](wiki/README.md)
+- [Live session contract](docs/CONTRATTO_SESSIONE.md)
