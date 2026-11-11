@@ -11,5 +11,7 @@
     "provider": "local",
     "model": "gpt-4.1-mini",
     "word_threshold": 25
-  }
+  },
+  "speech_engine": "ibrido",
+  "input_device": null
 }

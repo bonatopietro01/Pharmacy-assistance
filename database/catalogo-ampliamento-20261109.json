@@ -1,0 +1,2610 @@
+{
+  "schema_version": 1,
+  "researched_at": "2026-11-09",
+  "country": "IT/EU",
+  "sources_policy": [
+    "Le fonti ufficiali di produttore, AIFA/Gazzetta ed EMA supportano solo le affermazioni annotate per ciascun campo.",
+    "Le determinazioni regolatorie storiche non attestano la presenza attuale sul mercato: quei prodotti sono importati con market_status non_verificato e non entrano nel retrieval live.",
+    "I prodotti veterinari sono separati dai medicinali umani con species_scope obbligatorio. EMA documenta l'autorizzazione UE; non documenta scorte, prezzo o disponibilita' della singola farmacia italiana.",
+    "Nessun prezzo o quantitativo di scorta e' inventato. Le immagini non sono importate senza verifica di provenienza/licenza.",
+    "Non sono stati creati collegamenti integratore-medicinale o integratore-sintomo senza una fonte ufficiale che sostenga la relazione specifica.",
+    "Le formulazioni distinguono principio attivo/forza/forma. Le confezioni che differiscono solo per quantita' di prodotto sono consolidate."
+  ],
+  "products": [
+    {
+      "code": "REAL-MED-025",
+      "name": "Flectorgo 12,5 mg capsule molli",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "capsule molli",
+      "active_ingredients": [
+        {
+          "name": "diclofenac epolamina",
+          "amount": 12.5,
+          "unit": "mg/capsula"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac epolamina",
+          "amount": 12.5,
+          "unit": "mg/capsula"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "12,5 mg per capsula",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Flectorgo 12,5",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://flector.it/prodotti/",
+        "title": "Linea ufficiale Flector",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.flector.it/wp-content/uploads/FLECTORGO-foglio-illus.-1.pdf",
+        "title": "Flectorgo 12,5 mg e 25 mg capsule molli - foglio illustrativo",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; documento pubblicato 2019",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-026",
+      "name": "Flectorgo 25 mg capsule molli",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "capsule molli",
+      "active_ingredients": [
+        {
+          "name": "diclofenac epolamina",
+          "amount": 25,
+          "unit": "mg/capsula"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac epolamina",
+          "amount": 25,
+          "unit": "mg/capsula"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "25 mg per capsula",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Flectorgo 25",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://flector.it/prodotti/",
+        "title": "Linea ufficiale Flector",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.flector.it/wp-content/uploads/FLECTORGO-foglio-illus.-1.pdf",
+        "title": "Flectorgo 12,5 mg e 25 mg capsule molli - foglio illustrativo",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; documento pubblicato 2019",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-027",
+      "name": "Flector 180 mg cerotto medicato",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "cerotto medicato",
+      "active_ingredients": [
+        {
+          "name": "diclofenac epolamina",
+          "amount": 180,
+          "unit": "mg/cerotto"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac epolamina",
+          "amount": 180,
+          "unit": "mg/cerotto"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "180 mg per cerotto",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Flector cerotto",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://flector.it/prodotti/",
+        "title": "Linea ufficiale Flector",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://flector.it/wp-content/uploads/FLECTOR-cerotti-1.pdf",
+        "title": "Flector 180 mg cerotto medicato - foglio illustrativo",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-028",
+      "name": "FlectorUnidie 14 mg cerotto medicato",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "cerotto medicato",
+      "active_ingredients": [
+        {
+          "name": "piroxicam",
+          "amount": 14,
+          "unit": "mg/cerotto"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "piroxicam",
+          "amount": 14,
+          "unit": "mg/cerotto"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "14 mg per cerotto",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Flector Unidie",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://flector.it/prodotti/",
+        "title": "Linea ufficiale Flector",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.flector.it/wp-content/uploads/FLECTOR-UNIDIE_FI.pdf",
+        "title": "FlectorUnidie cerotto medicato - foglio illustrativo",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-029",
+      "name": "Flector Dolore 25 mg granulato per soluzione orale",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "granulato per soluzione orale",
+      "active_ingredients": [
+        {
+          "name": "diclofenac idrossietilpirrolidina",
+          "amount": 25,
+          "unit": "mg/bustina"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac idrossietilpirrolidina",
+          "amount": 25,
+          "unit": "mg/bustina"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "25 mg per bustina",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "non_verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.flector.it/wp-content/uploads/FLECTOR-DOLORE-1.pdf",
+        "title": "Flector Dolore 25 mg granulato - foglio illustrativo",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "identita",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; presenza attuale sul mercato italiano non confermata",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.flector.it/wp-content/uploads/FLECTOR-DOLORE-1.pdf",
+        "title": "Flector Dolore 25 mg granulato - foglio illustrativo",
+        "owner": "IBSA Farmaceutici Italia S.r.l.",
+        "supports": [
+          "identita",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; presenza attuale sul mercato italiano non confermata",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Foglio illustrativo ufficiale identifica forma e composizione; il prodotto non compare nella gamma corrente verificata e resta escluso dal retrieval live finche' non si conferma lo stato di mercato.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-030",
+      "name": "Hirudoid 25.000 UI gel",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "gel cutaneo",
+      "active_ingredients": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.3,
+          "unit": "g/100 g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.3,
+          "unit": "g/100 g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "25.000 UI per 100 g",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Hirudoid 25000 UI gel",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://hirudoid.it/linea-hirudoid/",
+        "title": "Linea Hirudoid: gel e crema 25.000 e 40.000 UI",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 27/06/2025",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://hirudoid.it/wp-content/uploads/pdf/fi_hirudoid_25000_ui_gel.pdf",
+        "title": "Hirudoid 25.000 UI gel - foglio illustrativo",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; aggiornato 18/03/2021",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-031",
+      "name": "Hirudoid 25.000 UI crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea",
+      "active_ingredients": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.3,
+          "unit": "g/100 g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.3,
+          "unit": "g/100 g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "25.000 UI per 100 g",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Hirudoid 25000 UI crema",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://hirudoid.it/linea-hirudoid/",
+        "title": "Linea Hirudoid: gel e crema 25.000 e 40.000 UI",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 27/06/2025",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://hirudoid.it/wp-content/uploads/pdf/hirudoid-25000-ui-crema.pdf",
+        "title": "Hirudoid 25.000 UI crema - foglio illustrativo",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-032",
+      "name": "Hirudoid 40.000 UI gel",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "gel cutaneo",
+      "active_ingredients": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.445,
+          "unit": "g/100 g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.445,
+          "unit": "g/100 g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "40.000 UI per 100 g",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Hirudoid 40000 UI gel",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://hirudoid.it/linea-hirudoid/",
+        "title": "Linea Hirudoid: gel e crema 25.000 e 40.000 UI",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 27/06/2025",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://hirudoid.it/wp-content/uploads/pdf/hirudoid-40000-ui-gel.pdf",
+        "title": "Hirudoid 40.000 UI gel - foglio illustrativo",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; aggiornato 18/03/2021",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-033",
+      "name": "Hirudoid 40.000 UI crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea",
+      "active_ingredients": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.445,
+          "unit": "g/100 g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "glicosaminoglicanopolisolfato",
+          "amount": 0.445,
+          "unit": "g/100 g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "40.000 UI per 100 g",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Hirudoid 40000 UI crema",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://hirudoid.it/linea-hirudoid/",
+        "title": "Linea Hirudoid: gel e crema 25.000 e 40.000 UI",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 27/06/2025",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://hirudoid.it/wp-content/uploads/pdf/hirudoid-40000-ui-crema.pdf",
+        "title": "Hirudoid 40.000 UI crema - foglio illustrativo",
+        "owner": "EG S.p.A.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-034",
+      "name": "Lasonil Antidolore 10% gel",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "gel cutaneo",
+      "active_ingredients": [
+        {
+          "name": "ibuprofene sale di lisina",
+          "amount": 100,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "ibuprofene sale di lisina",
+          "amount": 100,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "10%",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Lasonil Antidolore gel",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.lasonil.it/prodotti/lasonil-antidolore-2/",
+        "title": "Lasonil Antidolore 10% gel",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina e foglio illustrativo ufficiali consultati 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.lasonil.it/prodotti/lasonil-antidolore-2/",
+        "title": "Lasonil Antidolore 10% gel",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina e foglio illustrativo ufficiali consultati 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-035",
+      "name": "Lasonil antinfiammatorio e antireumatico 220 mg compresse",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "compresse rivestite con film",
+      "active_ingredients": [
+        {
+          "name": "naprossene sodico",
+          "amount": 220,
+          "unit": "mg/compressa"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "naprossene sodico",
+          "amount": 220,
+          "unit": "mg/compressa"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "220 mg naprossene sodico per compressa",
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Lasonil 220 mg",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.lasonil.it/prodotti/lasonil-antinfiammatorio-antireumatico/foglietto-illustrativo/",
+        "title": "Lasonil antinfiammatorio e antireumatico 220 mg compresse - foglio illustrativo",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; aggiornato 09/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.lasonil.it/prodotti/lasonil-antinfiammatorio-antireumatico/foglietto-illustrativo/",
+        "title": "Lasonil antinfiammatorio e antireumatico 220 mg compresse - foglio illustrativo",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09; aggiornato 09/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-036",
+      "name": "Voltaren Emulgel 1% gel",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "gel cutaneo",
+      "active_ingredients": [
+        {
+          "name": "diclofenac dietilammonio",
+          "amount": 1.16,
+          "unit": "g/100 g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac dietilammonio",
+          "amount": 1.16,
+          "unit": "g/100 g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% diclofenac dietilammonio",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Voltaren Emulgel 1%",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.haleonhealthpartner.com/content/dam/cf-consumer-healthcare/health-professionals/it_IT/pain/pdf/it-spc-Voltaren-Emulgel-1-Sett24_V11_clean.pdf",
+        "title": "Voltaren Emulgel 1% gel - RCP",
+        "owner": "Haleon Italy S.r.l.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "RCP ufficiale versione 11 consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.haleonhealthpartner.com/content/dam/cf-consumer-healthcare/health-professionals/it_IT/pain/pdf/it-spc-Voltaren-Emulgel-1-Sett24_V11_clean.pdf",
+        "title": "Voltaren Emulgel 1% gel - RCP",
+        "owner": "Haleon Italy S.r.l.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "RCP ufficiale versione 11 consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-037",
+      "name": "Voltaren Emulgel 2% gel",
+      "category": "medicinale",
+      "manufacturer": "Titolare AIC: Novartis Farma S.p.A.; concessionario riportato: GlaxoSmithKline Consumer Healthcare S.r.l.",
+      "form": "gel cutaneo",
+      "active_ingredients": [
+        {
+          "name": "diclofenac dietilammonio",
+          "amount": 2.32,
+          "unit": "g/100 g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "diclofenac dietilammonio",
+          "amount": 2.32,
+          "unit": "g/100 g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "2% diclofenac sodico equivalente",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.haleonhealthpartner.com/content/dam/cf-consumer-healthcare/health-professionals/it_IT/pdf/Otc_decision_tree_2023.pdf",
+        "title": "Informazioni di prodotto: Voltaren Emulgel 2% gel",
+        "owner": "GlaxoSmithKline Consumer Healthcare S.r.l.; titolare AIC indicato: Novartis Farma S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione"
+        ],
+        "kind": "produttore",
+        "version": "Materiale informativo ufficiale per professionisti consultato 2026-11-09; listino indicativo escluso dal seed",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.haleonhealthpartner.com/content/dam/cf-consumer-healthcare/health-professionals/it_IT/pain/pdf/it-spc-Voltaren-2-Sett24_V9_clean.pdf",
+        "title": "Riassunto delle caratteristiche del prodotto: Voltaren Emulgel 2% gel",
+        "owner": "Haleon / titolare AIC Novartis Farma S.p.A.",
+        "supports": [
+          "identita",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Testo RCP versione 9, revisione settembre 2024; consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "identity_documented_market_unverified",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Fonti ufficiali documentano identita', composizione e informazioni di prodotto italiane. Prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-038",
+      "name": "Canesten 1% crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea",
+      "active_ingredients": [
+        {
+          "name": "clotrimazolo"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "clotrimazolo"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% clotrimazolo",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Canesten crema",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-crema",
+        "title": "Canesten 1% crema",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-crema",
+        "title": "Canesten 1% crema",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-039",
+      "name": "Canesten 1% spray cutaneo",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "spray cutaneo",
+      "active_ingredients": [
+        {
+          "name": "clotrimazolo"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "clotrimazolo"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% clotrimazolo",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Canesten spray cutaneo",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-spray",
+        "title": "Canesten 1% spray cutaneo",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-spray",
+        "title": "Canesten 1% spray cutaneo",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-040",
+      "name": "Canesten 1% polvere cutanea",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "polvere cutanea",
+      "active_ingredients": [
+        {
+          "name": "clotrimazolo"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "clotrimazolo"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% clotrimazolo",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Canesten polvere cutanea",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-polvere",
+        "title": "Canesten 1% polvere cutanea",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-polvere",
+        "title": "Canesten 1% polvere cutanea",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-041",
+      "name": "Canesten Unidie 1% crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea",
+      "active_ingredients": [
+        {
+          "name": "bifonazolo"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "bifonazolo"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% bifonazolo",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Canesten Unidie crema",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-unidie",
+        "title": "Canesten Unidie 1% crema",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.canesten.it/prodotti/canesten-unidie",
+        "title": "Canesten Unidie 1% crema",
+        "owner": "Bayer S.p.A.",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-042",
+      "name": "Pevaryl 1% crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% econazolo nitrato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl 1% crema",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-crema/",
+        "title": "Pevaryl 1% crema",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-crema/",
+        "title": "Pevaryl 1% crema",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-043",
+      "name": "Pevaryl 1% spray",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "spray cutaneo",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% econazolo nitrato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl 1% spray",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-spray/",
+        "title": "Pevaryl 1% spray",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-spray/",
+        "title": "Pevaryl 1% spray",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-044",
+      "name": "Pevaryl 1% polvere",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "polvere cutanea",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% econazolo nitrato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl 1% polvere",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-polvere/",
+        "title": "Pevaryl 1% polvere cutanea",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-polvere/",
+        "title": "Pevaryl 1% polvere cutanea",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-045",
+      "name": "Pevaryl 1% emulsione cutanea",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "emulsione cutanea",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% econazolo nitrato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl 1% emulsione cutanea",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-emulsione-cutanea/",
+        "title": "Pevaryl 1% emulsione cutanea",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-emulsione-cutanea/",
+        "title": "Pevaryl 1% emulsione cutanea",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-046",
+      "name": "Pevaryl 1% soluzione cutanea non alcolica",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "soluzione cutanea",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% econazolo nitrato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl 1% soluzione cutanea non alcolica",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea/",
+        "title": "Pevaryl 1% soluzione cutanea",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea/",
+        "title": "Pevaryl 1% soluzione cutanea",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-047",
+      "name": "Pevaryl 1% soluzione cutanea per genitali esterni",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "soluzione cutanea per genitali esterni",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 10,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1% econazolo nitrato",
+      "route": "genitale esterna",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl soluzione per genitali esterni",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea-per-genitali-esterni/",
+        "title": "Pevaryl 1% soluzione cutanea per genitali esterni",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea-per-genitali-esterni/",
+        "title": "Pevaryl 1% soluzione cutanea per genitali esterni",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-048",
+      "name": "Pevaryl 150 mg ovuli vaginali",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "ovuli vaginali",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 150,
+          "unit": "mg/ovulo"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 150,
+          "unit": "mg/ovulo"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "150 mg per ovulo",
+      "route": "vaginale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl 150 mg",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-150-mg-6-ovuli/",
+        "title": "Pevaryl 150 mg 6 ovuli",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-150-mg-6-ovuli/",
+        "title": "Pevaryl 150 mg 6 ovuli",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-049",
+      "name": "Pevaryl 50 mg ovuli vaginali",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "ovuli vaginali",
+      "active_ingredients": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 50,
+          "unit": "mg/ovulo"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "econazolo nitrato",
+          "amount": 50,
+          "unit": "mg/ovulo"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "50 mg per ovulo",
+      "route": "vaginale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Pevaryl 50 mg",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-50-mg-ovuli/",
+        "title": "Pevaryl 50 mg ovuli",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://pevaryl.com/it/prodotto/pevaryl-50-mg-ovuli/",
+        "title": "Pevaryl 50 mg ovuli",
+        "owner": "Karo Healthcare AB",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione pubblicitaria indicata dal titolare 21/05/2024",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": true,
+      "evidence_completeness": "Dati identificativi e composizione registrati dalle fonti indicate; prezzo e scorte della farmacia non sono disponibili.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-050",
+      "name": "Fenistil 0,1% gel",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "gel cutaneo",
+      "active_ingredients": [
+        {
+          "name": "dimetindene maleato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "dimetindene maleato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1 mg/g dimetindene maleato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "non_verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2024/11/13/266/sg/pdf",
+        "title": "Fenistil 0,1% gel - determinazione AIFA per importazione parallela",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "identita"
+        ],
+        "kind": "aifa",
+        "version": "Determina AIFA 2024; distribuzione attuale non verificata",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://assets.ctfassets.net/i5oh5hzamkwo/7MpEWlVtK5GLBBTmX0SNxd/44c65a3f491186b76030f0a4930b381a/0918433_3.pdf",
+        "title": "Fenistil gel - foglio illustrativo",
+        "owner": "Haleon Italy S.r.l.",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "produttore",
+        "version": "Foglio illustrativo ufficiale consultato 2026-11-09",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "identity_documented_market_unverified",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "La composizione e l'identita' sono documentate da fonti ufficiali; la determina AIFA reperita e' del 2024 e la presenza attuale sul mercato italiano resta da verificare. Nessun collegamento automatico alla dermatite.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-051",
+      "name": "Zoviraxlabiale 5% crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea labiale",
+      "active_ingredients": [
+        {
+          "name": "aciclovir",
+          "amount": 50,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "aciclovir",
+          "amount": 50,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "50 mg/g aciclovir",
+      "route": "cutanea labiale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "non_verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2025/12/22/296/sg/pdf",
+        "title": "Zoviraxlabiale 5% crema - determina AIFA",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "identita"
+        ],
+        "kind": "aifa",
+        "version": "Determina AIFA 2025; distribuzione attuale non verificata",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2025/12/22/296/sg/pdf",
+        "title": "Zoviraxlabiale 5% crema - composizione nel provvedimento AIFA",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "aifa",
+        "version": "Determina AIFA 2025",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "identity_documented_market_unverified",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Determina AIFA e composizione documentate, ma la presenza attuale sul mercato locale resta da verificare. Nessun collegamento a sintomi non esplicitamente documentati.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-052",
+      "name": "Elocon 0,1% crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea",
+      "active_ingredients": [
+        {
+          "name": "mometasone furoato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "mometasone furoato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1 mg/g mometasone furoato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "non_verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2023/06/10/134/sg/pdf",
+        "title": "Elocon - trasferimento titolarita' AIC e confezioni",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "identita"
+        ],
+        "kind": "aifa",
+        "version": "Determina AIFA 2023; distribuzione attuale non verificata",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2017/09/23/223/sg/pdf",
+        "title": "Elocon 0,1% crema - composizione in provvedimento AIFA",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "aifa",
+        "version": "Provvedimento AIFA 2017, storico; non prova stato regolatorio corrente",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "identity_documented_market_unverified",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "AIFA documenta forma e AIC 027341015 nel trasferimento di titolarita' del 2023; la composizione riportata ha fonte storica. Stato e presenza commerciale correnti da verificare. Il prodotto non e' suggerito automaticamente per dermatite.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-053",
+      "name": "Elocon 0,1% unguento",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "unguento cutaneo",
+      "active_ingredients": [
+        {
+          "name": "mometasone furoato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "mometasone furoato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1 mg/g mometasone furoato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "non_verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2023/06/10/134/sg/pdf",
+        "title": "Elocon - trasferimento titolarita' AIC e confezioni",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "identita"
+        ],
+        "kind": "aifa",
+        "version": "Determina AIFA 2023; distribuzione attuale non verificata",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2017/09/23/223/sg/pdf",
+        "title": "Elocon 0,1% crema - composizione in provvedimento AIFA",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "aifa",
+        "version": "Provvedimento AIFA 2017, storico; non prova stato regolatorio corrente",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "identity_documented_market_unverified",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "AIFA documenta forma e AIC 027341027 nel trasferimento di titolarita' del 2023; la composizione riportata ha fonte storica. Stato e presenza commerciale correnti da verificare. Il prodotto non e' suggerito automaticamente per dermatite.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-054",
+      "name": "Elocon 0,1% soluzione cutanea",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "soluzione cutanea",
+      "active_ingredients": [
+        {
+          "name": "mometasone furoato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "mometasone furoato",
+          "amount": 1,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "1 mg/g mometasone furoato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "non_verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2023/06/10/134/sg/pdf",
+        "title": "Elocon - trasferimento titolarita' AIC e confezioni",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "identita"
+        ],
+        "kind": "aifa",
+        "version": "Determina AIFA 2023; distribuzione attuale non verificata",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.gazzettaufficiale.it/eli/gu/2017/09/23/223/sg/pdf",
+        "title": "Elocon 0,1% crema - composizione in provvedimento AIFA",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "aifa",
+        "version": "Provvedimento AIFA 2017, storico; non prova stato regolatorio corrente",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "identity_documented_market_unverified",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "AIFA documenta forma e AIC 027341039 nel trasferimento di titolarita' del 2023; la composizione riportata ha fonte storica. Stato e presenza commerciale correnti da verificare. Il prodotto non e' suggerito automaticamente per dermatite.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-MED-055",
+      "name": "Daktarin Dermatologico 2% crema",
+      "category": "medicinale",
+      "manufacturer": "IBSA Farmaceutici Italia S.r.l.",
+      "form": "crema cutanea",
+      "active_ingredients": [
+        {
+          "name": "miconazolo nitrato",
+          "amount": 20,
+          "unit": "mg/g"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "miconazolo nitrato",
+          "amount": 20,
+          "unit": "mg/g"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": "20 mg/g miconazolo nitrato",
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "umana",
+      "market_status": "non_verificato",
+      "aliases": [],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.ema.europa.eu/en/documents/psusa/miconazole-hydrocortisone-miconazole-nitrate-miconazole-nitrate-zinc-oxide-list-nationally-authorised-medicinal-products-psusa-00002052-202410_en.pdf",
+        "title": "Miconazolo - elenco EMA dei medicinali autorizzati nazionalmente",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita"
+        ],
+        "kind": "altro",
+        "version": "Elenco EMA pubblicato 2024; distribuzione attuale non verificata",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.gazzettaufficiale.it/atto/vediMenuHTML?atto.codiceRedazionale=18A02286&atto.dataPubblicazioneGazzetta=2018-04-06&tipoSerie=serie_generale&tipoVigenza=originario",
+        "title": "Daktarin Dermatologico 2% crema - provvedimento AIFA",
+        "owner": "Agenzia Italiana del Farmaco",
+        "supports": [
+          "composizione"
+        ],
+        "kind": "aifa",
+        "version": "Provvedimento AIFA 2018, storico; non prova stato regolatorio corrente",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "identity_documented_market_unverified",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "L'elenco EMA 2024 identifica la specialita' italiana e il provvedimento AIFA documenta la composizione storica; presenza commerciale corrente da verificare.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-VET-001",
+      "name": "Solensia soluzione iniettabile per gatti",
+      "category": "medicinale_veterinario",
+      "manufacturer": "Zoetis Belgium SA",
+      "form": "soluzione iniettabile",
+      "active_ingredients": [
+        {
+          "name": "frunevetmab"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "frunevetmab"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "iniezione",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "gatto",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Solensia",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/solensia",
+        "title": "Solensia - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/solensia",
+        "title": "Solensia - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Medicinale veterinario autorizzato nell'UE e specie bersaglio riportata dalla EMA. Non e' collegato a un gestionale italiano: disponibilita'/giacenza locale non verificata. Uso e valutazione spettano al veterinario; nessuna dose o sostituzione e' registrata.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-VET-002",
+      "name": "Librela soluzione iniettabile per cani",
+      "category": "medicinale_veterinario",
+      "manufacturer": "Zoetis Belgium SA",
+      "form": "soluzione iniettabile",
+      "active_ingredients": [
+        {
+          "name": "bedinvetmab"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "bedinvetmab"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "iniezione",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "cane",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Librela",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/librela",
+        "title": "Librela - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; verificare l'informazione veterinaria corrente, incluse le variazioni di sicurezza 2026",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/librela",
+        "title": "Librela - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; verificare l'informazione veterinaria corrente, incluse le variazioni di sicurezza 2026",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Medicinale veterinario autorizzato nell'UE e specie bersaglio riportata dalla EMA. Non e' collegato a un gestionale italiano: disponibilita'/giacenza locale non verificata. Uso e valutazione spettano al veterinario; nessuna dose o sostituzione e' registrata.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-VET-003",
+      "name": "NexGard compresse masticabili per cani",
+      "category": "medicinale_veterinario",
+      "manufacturer": "Boehringer Ingelheim Vetmedica GmbH",
+      "form": "compresse masticabili",
+      "active_ingredients": [
+        {
+          "name": "afoxolaner"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "afoxolaner"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "cane",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "NexGard",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard",
+        "title": "NexGard - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard",
+        "title": "NexGard - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Medicinale veterinario autorizzato nell'UE e specie bersaglio riportata dalla EMA. Non e' collegato a un gestionale italiano: disponibilita'/giacenza locale non verificata. Uso e valutazione spettano al veterinario; nessuna dose o sostituzione e' registrata.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-VET-004",
+      "name": "NexGard Combo soluzione spot-on per gatti",
+      "category": "medicinale_veterinario",
+      "manufacturer": "Boehringer Ingelheim Vetmedica GmbH",
+      "form": "soluzione spot-on",
+      "active_ingredients": [
+        {
+          "name": "esafoxolaner"
+        },
+        {
+          "name": "eprinomectina"
+        },
+        {
+          "name": "praziquantel"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "esafoxolaner"
+        },
+        {
+          "name": "eprinomectina"
+        },
+        {
+          "name": "praziquantel"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "gatto",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "NexGard",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard-combo",
+        "title": "NexGard Combo - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard-combo",
+        "title": "NexGard Combo - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Medicinale veterinario autorizzato nell'UE e specie bersaglio riportata dalla EMA. Non e' collegato a un gestionale italiano: disponibilita'/giacenza locale non verificata. Uso e valutazione spettano al veterinario; nessuna dose o sostituzione e' registrata.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-VET-005",
+      "name": "Bravecto compresse masticabili per cani",
+      "category": "medicinale_veterinario",
+      "manufacturer": "Intervet International B.V.",
+      "form": "compresse masticabili",
+      "active_ingredients": [
+        {
+          "name": "fluralaner"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "fluralaner"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "orale",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "cane",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Bravecto",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/bravecto",
+        "title": "Bravecto - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/bravecto",
+        "title": "Bravecto - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Medicinale veterinario autorizzato nell'UE e specie bersaglio riportata dalla EMA. Non e' collegato a un gestionale italiano: disponibilita'/giacenza locale non verificata. Uso e valutazione spettano al veterinario; nessuna dose o sostituzione e' registrata.",
+      "price_cents": null,
+      "stock": null
+    },
+    {
+      "code": "REAL-VET-006",
+      "name": "Bravecto soluzione spot-on per gatti",
+      "category": "medicinale_veterinario",
+      "manufacturer": "Intervet International B.V.",
+      "form": "soluzione spot-on",
+      "active_ingredients": [
+        {
+          "name": "fluralaner"
+        }
+      ],
+      "ingredient_details": [
+        {
+          "name": "fluralaner"
+        }
+      ],
+      "supplement_ingredients": [],
+      "declared_components": [],
+      "strength": null,
+      "route": "cutanea",
+      "regulatory_identifier": null,
+      "regulatory_identifier_type": null,
+      "regulatory_status": "non_verificato",
+      "aic": null,
+      "aic_scope": null,
+      "notified_code": null,
+      "species_scope": "gatto",
+      "market_status": "verificato",
+      "aliases": [
+        {
+          "name": "Bravecto",
+          "type": "nome_commerciale"
+        }
+      ],
+      "relations": [],
+      "regulatory_source": null,
+      "market_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/bravecto",
+        "title": "Bravecto - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "composition_source": {
+        "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/bravecto",
+        "title": "Bravecto - EPAR e informazioni sul prodotto",
+        "owner": "European Medicines Agency",
+        "supports": [
+          "identita",
+          "commercializzazione",
+          "composizione",
+          "associazione_clinica"
+        ],
+        "kind": "altro",
+        "version": "Informazioni EMA consultate 2026-11-09; disponibilita' nazionale da verificare nel portale UPD",
+        "consulted_at": "2026-11-09"
+      },
+      "review_status": "documented_pending_pharmacist",
+      "eligible_for_target_count": false,
+      "evidence_completeness": "Medicinale veterinario autorizzato nell'UE e specie bersaglio riportata dalla EMA. Non e' collegato a un gestionale italiano: disponibilita'/giacenza locale non verificata. Uso e valutazione spettano al veterinario; nessuna dose o sostituzione e' registrata.",
+      "price_cents": null,
+      "stock": null
+    }
+  ],
+  "research_notes": {
+    "records_total": 37,
+    "by_category": {
+      "medicinale": 31,
+      "medicinale_veterinario": 6
+    },
+    "by_market_status": {
+      "verificato": 30,
+      "non_verificato": 7
+    },
+    "human_medicine_baseline": 24,
+    "human_medicine_new_market_verified": 24,
+    "human_medicine_total_after_import": 55,
+    "human_medicine_retrieval_eligible_after_import": 48,
+    "veterinary_products_separate": true,
+    "market_unverified_reason": "record prodotto identificato in fonte ufficiale ma presenza commerciale italiana corrente non confermata; non entra nel retrieval live",
+    "supplement_relationships_added": 0,
+    "supplement_relationships_reason": "le claim normative consultate sostengono la funzione fisiologica ordinaria di alcuni nutrienti, non un'associazione prodotto-sintomo o integratore-medicinale per il dolore"
+  }
+}

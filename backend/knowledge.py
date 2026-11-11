@@ -31,7 +31,8 @@ FORM_NAMES = {
 SYMPTOM_CONCEPT_IDS = frozenset({
     "raffreddore", "congestione-nasale", "tosse", "acidita-stomaco", "reflusso",
     "mal-di-testa", "contusioni", "irritazione-oculare", "allergia-nasale",
-    "allergia-oculare", "allergia-cutanea",
+    "allergia-oculare", "allergia-cutanea", "micosi-cutanee", "dermatite", "ematomi",
+    "artrosi-cane", "artrosi-gatto", "parassiti-cane", "parassiti-gatto",
 })
 CONTEXT_CONCEPT_IDS = frozenset({"supporto-immunitario"})
 _OFFICIAL_PRODUCT_DOMAINS = SYMPTOM_SOURCE_DOMAINS | {
@@ -328,6 +329,8 @@ def product_display(code, catalog=CATALOG):
             "code": code,
             "name": product["nome"],
             "category": product["categoria"],
+            "species_scope": product.get("specie_destinazione") or
+                ("umana" if product.get("categoria") == "medicinale" else None),
             "form": product["formato"],
             "form_key": form_key,
             "form_label": FORM_NAMES[form_key][0] if form_key else None,
@@ -406,7 +409,7 @@ def documented_variants(code, catalog=CATALOG, packages=None):
                     (normalize(item["name"]), item.get("amount") or "", item.get("unit") or "")
                     for key in ("active_ingredients", "supplement_ingredients") for item in display[key]
                 ))
-                if display["category"] == "medicinale" and (
+                if display["category"] in {"medicinale", "medicinale_veterinario"} and (
                     not ingredients or any(not amount or not unit for _, amount, unit in ingredients)
                 ):
                     break
@@ -418,14 +421,26 @@ def documented_variants(code, catalog=CATALOG, packages=None):
     return []
 
 
-def symptom_product_matches(concept_ids, catalog=CATALOG):
+def symptom_product_matches(concept_ids, catalog=CATALOG, species_scope="umana"):
     """Return only source-backed, unreviewed label-indication matches.
 
     This is intentionally separate from product mentions and the normal
     product-relation filters: an explicit stable topic may expose a sourced
     candidate, but no candidate is treated as approved advice.
     """
-    return _concept_product_matches(concept_ids, SYMPTOM_CONCEPT_IDS, "indicazione_etichetta", catalog)
+    if species_scope not in {"umana", "cane", "gatto", "cane_gatto"}:
+        return []
+    matches = _concept_product_matches(concept_ids, SYMPTOM_CONCEPT_IDS, "indicazione_etichetta", catalog)
+    filtered = []
+    for match in matches:
+        display = match.get("product_display", {})
+        product_scope = display.get("species_scope")
+        if product_scope is None and display.get("category") != "medicinale_veterinario":
+            product_scope = "umana"
+        if product_scope == species_scope or (
+                product_scope == "cane_gatto" and species_scope in {"cane", "gatto"}):
+            filtered.append(match)
+    return filtered
 
 
 def context_product_matches(concept_ids, catalog=CATALOG):
@@ -612,6 +627,8 @@ def product_aliases(products, pages):
     for code, details in terms_by_code.items():
         result.append({"codice": code, "nome": products[code]["nome"],
                        "categoria": products[code]["categoria"],
+                       "specie_destinazione": products[code].get("specie_destinazione") or
+                           ("umana" if products[code]["categoria"] == "medicinale" else None),
                        "termini": [item["term"] for item in details],
                        "termini_dettaglio": details})
     return result

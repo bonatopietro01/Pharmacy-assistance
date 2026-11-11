@@ -167,9 +167,11 @@ class WhisperServer:
         self._stop_if_current(process)
         raise WhisperError("whisper_avvio_timeout")
 
-    def transcribe_wav(self, wav_bytes: bytes) -> str:
+    def transcribe_wav(self, wav_bytes: bytes, *, prompt: str = "") -> str:
         if not isinstance(wav_bytes, bytes) or not wav_bytes:
             raise WhisperError("whisper_audio_non_valido")
+        if not isinstance(prompt, str) or len(prompt) > 1200:
+            raise WhisperError("whisper_prompt_non_valido")
         if len(wav_bytes) > MAX_WAV_BYTES:
             raise WhisperError("whisper_audio_troppo_grande")
         if len(wav_bytes) < 12 or wav_bytes[:4] != b"RIFF" or wav_bytes[8:12] != b"WAVE":
@@ -186,6 +188,8 @@ class WhisperServer:
             boundary = "SalesAgents" + uuid4().hex
             body = bytearray()
             self._add_field(body, boundary, "response_format", "verbose_json")
+            if prompt.strip():
+                self._add_field(body, boundary, "prompt", prompt.strip())
             body.extend(f"--{boundary}\r\n".encode("ascii"))
             body.extend(b'Content-Disposition: form-data; name="file"; filename="audio.wav"\r\n')
             body.extend(b"Content-Type: audio/wav\r\n\r\n")
@@ -228,7 +232,7 @@ class WhisperServer:
     def _add_field(body: bytearray, boundary: str, name: str, value: str) -> None:
         body.extend(f"--{boundary}\r\n".encode("ascii"))
         body.extend(f'Content-Disposition: form-data; name="{name}"\r\n\r\n'.encode("ascii"))
-        body.extend(value.encode("ascii"))
+        body.extend(value.encode("utf-8"))
         body.extend(b"\r\n")
 
     def stop(self) -> None:

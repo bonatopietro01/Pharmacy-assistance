@@ -1,4 +1,4 @@
-"""Apply the v3-to-v4 catalog migration and import a sourced product dataset."""
+"""Apply catalog migrations and import source-backed product datasets."""
 
 import argparse
 import hashlib
@@ -14,6 +14,7 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CATALOG = ROOT / "database" / "farmacia.sqlite3"
 DEFAULT_MIGRATION = ROOT / "database" / "004_catalogo_v4.sql"
+DEFAULT_SPECIES_MIGRATION = ROOT / "database" / "005_specie_destinazione.sql"
 DEFAULT_SEED = ROOT / "database" / "catalogo-reale.json"
 DEFAULT_SYMPTOM_SEED = ROOT / "database" / "collegamenti-sintomo.json"
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}\Z")
@@ -24,7 +25,9 @@ SYMPTOM_RELATION_TYPES = {"indicazione_etichetta", "contesto_ricerca"}
 SYMPTOM_SOURCE_DOMAINS = {
     "aspirina.it", "rinazina.it", "aboca.com", "maalox.com", "geffer.it",
     "flector.it", "schwabe.it", "thea.it", "ucbpharma.it", "tachipirina.it",
-    "nurofen.it", "multicentrum.it", "supradyn.it",
+    "nurofen.it", "multicentrum.it", "supradyn.it", "canesten.it", "hirudoid.it",
+    "ema.europa.eu", "gazzettaufficiale.it", "lasonil.it", "pevaryl.com",
+    "haleonhealthpartner.com",
 }
 VERIFIED_LEAFLET_URLS = {
     "https://assets.ctfassets.net/hcd109vfxzqs/46uAxThECMNgO2RWcF2nEr/66298543d72019cbe3fcd61f4eac4fd3/12-2022_fi_actigrip_500.pdf",
@@ -96,6 +99,34 @@ def migrate_catalog(path=DEFAULT_CATALOG, migration=DEFAULT_MIGRATION):
     report = inspect_catalog(path)
     if report["user_version"] != 4 or report["integrity_check"] != "ok" or report["foreign_key_check"]:
         raise sqlite3.DatabaseError("La migrazione v4 non supera i controlli di integrità.")
+    return {"applied": True, **report}
+
+
+def migrate_species_scope(path=DEFAULT_CATALOG, migration=DEFAULT_SPECIES_MIGRATION):
+    """Add explicit product species while preserving the v4 catalog."""
+    path = Path(path)
+    if not path.is_file():
+        raise FileNotFoundError(f"Catalogo assente: {path}")
+    sql = Path(migration).read_text(encoding="utf-8")
+    with closing(sqlite3.connect(path.resolve())) as db:
+        version = db.execute("PRAGMA user_version").fetchone()[0]
+        if version == 5:
+            report = inspect_catalog(path)
+            if report["integrity_check"] != "ok" or report["foreign_key_check"]:
+                raise sqlite3.DatabaseError("Il catalogo v5 non supera i controlli di integrità.")
+            return {"applied": False, **report}
+        if version != 4:
+            raise sqlite3.DatabaseError(f"Migrazione specie attesa da schema v4, trovato v{version}.")
+        try:
+            db.executescript(sql)
+        except Exception:
+            if db.in_transaction:
+                db.rollback()
+            db.execute("PRAGMA foreign_keys = ON")
+            raise
+    report = inspect_catalog(path)
+    if report["user_version"] != 5 or report["integrity_check"] != "ok" or report["foreign_key_check"]:
+        raise sqlite3.DatabaseError("La migrazione specie v5 non supera i controlli di integrità.")
     return {"applied": True, **report}
 
 
@@ -230,6 +261,16 @@ def _validate_product(raw):
         raise ValueError(f"Codice prodotto non valido: {code}.")
     name = _required_text(raw.get("name"), f"{code}.name", 300)
     category = _required_text(raw.get("category"), f"{code}.category", 100)
+    species_scope = raw.get("species_scope")
+    if category == "medicinale_veterinario":
+        if species_scope not in {"cane", "gatto", "cane_gatto"}:
+            raise ValueError(f"Indicare esplicitamente la specie per il medicinale veterinario {code}.")
+    elif category == "medicinale":
+        if species_scope not in {None, "umana"}:
+            raise ValueError(f"Ambito specie non valido per il medicinale umano {code}.")
+        species_scope = "umana"
+    elif species_scope is not None and species_scope not in {"umana", "cane", "gatto", "cane_gatto"}:
+        raise ValueError(f"Ambito specie non valido per {code}.")
     manufacturer = _required_text(raw.get("manufacturer"), f"{code}.manufacturer", 300)
     form = _required_text(_source_value(raw, "form", "variant"), f"{code}.form", 300)
     strength = raw.get("strength")
@@ -267,7 +308,10 @@ def _validate_product(raw):
         identifier_type = _required_text(identifier_type, f"{code}.regulatory_identifier_type", 50)
     if identifier and not identifier_type:
         raise ValueError(f"Indicare il tipo di identificativo regolatorio per {code}.")
-    market_status = "verificato" if market else "non_verificato"
+    market_status = raw.get("market_status", "verificato")
+    if market_status not in {"verificato", "non_verificato"}:
+        raise ValueError(f"Stato mercato non valido per {code}: {market_status}.")
+    required_market_claims = {"identita"} | ({"commercializzazione"} if market_status == "verificato" else set())
     if not isinstance(raw.get("aliases", []), list):
         raise ValueError(f"Alias non validi per {code}.")
     aliases = []
@@ -287,12 +331,12 @@ def _validate_product(raw):
     if (ingredients or supplement_ingredients) \
             and (not composition or "composizione" not in composition["supports"]):
         raise ValueError(f"Composizione senza composition_source che documenti il contenuto di {code}.")
-    if "identita" not in market["supports"] or "commercializzazione" not in market["supports"]:
-        raise ValueError(f"Fonte di mercato senza prove esplicite d’identità e commercializzazione per {code}.")
+    if not required_market_claims.issubset(market["supports"]):
+        raise ValueError(f"Fonte senza le prove richieste per stato mercato e identità di {code}.")
     return {"code": code, "name": name, "category": category, "manufacturer": manufacturer, "form": form,
             "strength": strength, "route": route, "market": market, "regulatory": regulatory,
             "historical_regulatory": historical_regulatory, "composition": composition,
-            "regulatory_status": status, "market_status": market_status,
+            "regulatory_status": status, "market_status": market_status, "species_scope": species_scope,
             "identifier": identifier, "identifier_type": identifier_type,
             "ingredients": ingredients, "supplement_ingredients": supplement_ingredients, "aliases": aliases}
 
@@ -309,8 +353,11 @@ def seed_products(path=DEFAULT_CATALOG, seed=DEFAULT_SEED, only_new=False):
     skipped_existing = 0
     with closing(_connect(path)) as db, db:
         version = db.execute("PRAGMA user_version").fetchone()[0]
-        if version != 4:
-            raise sqlite3.DatabaseError(f"Il seed richiede lo schema v4, trovato v{version}.")
+        if version not in {4, 5}:
+            raise sqlite3.DatabaseError(f"Il seed richiede lo schema v4 o v5, trovato v{version}.")
+        species_column = version >= 5
+        if not species_column and any(item["category"] == "medicinale_veterinario" for item in products):
+            raise sqlite3.DatabaseError("I medicinali veterinari richiedono lo schema v5 con specie esplicita.")
         for item in products:
             existing = db.execute("SELECT dataset_tipo FROM prodotti WHERE codice=?", (item["code"],)).fetchone()
             if existing and existing["dataset_tipo"] != "reale":
@@ -331,27 +378,31 @@ def seed_products(path=DEFAULT_CATALOG, seed=DEFAULT_SEED, only_new=False):
                                         if item["historical_regulatory"] else None)
             composition_id = _source_id(db, item["composition"]) if item["composition"] else None
             market_id = _source_id(db, item["market"])
-            db.execute("""INSERT INTO prodotti (
+            species_column_sql = ",specie_destinazione" if species_column else ""
+            species_value_sql = ",?" if species_column else ""
+            species_update_sql = "specie_destinazione=excluded.specie_destinazione," if species_column else ""
+            db.execute(f"""INSERT INTO prodotti (
                            codice,nome,categoria,formato,prezzo_cent,quantita,principio_attivo,dosaggio,via,immagine,fonte,
-                           dataset_tipo,stato_regolatorio,stato_mercato,stato_revisione,tipo_id_regolatorio,id_regolatorio
-                       ) VALUES (?,?,?,?,NULL,NULL,NULL,?,?,NULL,?,'reale',?,?, 'da_revisionare',?,?)
+                           dataset_tipo,stato_regolatorio,stato_mercato,stato_revisione,tipo_id_regolatorio,id_regolatorio{species_column_sql}
+                       ) VALUES (?,?,?,?,NULL,NULL,NULL,?,?,NULL,?,'reale',?,?, 'da_revisionare',?,?{species_value_sql})
                        ON CONFLICT(codice) DO UPDATE SET
                            nome=excluded.nome,categoria=excluded.categoria,formato=excluded.formato,
                            prezzo_cent=NULL,quantita=NULL,principio_attivo=NULL,dosaggio=excluded.dosaggio,
                            via=excluded.via,immagine=NULL,fonte=excluded.fonte,dataset_tipo='reale',
                            stato_regolatorio=excluded.stato_regolatorio,stato_mercato=excluded.stato_mercato,
-                           stato_revisione='da_revisionare',tipo_id_regolatorio=excluded.tipo_id_regolatorio,
+                           stato_revisione='da_revisionare',{species_update_sql}tipo_id_regolatorio=excluded.tipo_id_regolatorio,
                            id_regolatorio=excluded.id_regolatorio""",
                        (code,item["name"],item["category"],item["form"],item["strength"],item["route"],
                         "Fonti pubbliche documentate",item["regulatory_status"],item["market_status"],
-                        item["identifier_type"],item["identifier"]))
+                        item["identifier_type"],item["identifier"], *([item["species_scope"]] if species_column else [])))
             db.execute("DELETE FROM prodotto_principi_attivi WHERE prodotto_codice=?", (code,))
             db.execute("DELETE FROM prodotto_componenti_integratore WHERE prodotto_codice=?", (code,))
             db.execute("DELETE FROM alias_prodotto WHERE prodotto_codice=?", (code,))
             db.execute("DELETE FROM prodotto_fonti WHERE prodotto_codice=?", (code,))
 
-            for claim, source_id in (("identita", market_id), ("commercializzazione", market_id)):
-                db.execute("INSERT INTO prodotto_fonti VALUES (?,?,?,'verificata')", (code,source_id,claim))
+            for claim in ("identita", "commercializzazione"):
+                if claim == "identita" or item["market_status"] == "verificato":
+                    db.execute("INSERT INTO prodotto_fonti VALUES (?,?,?,'verificata')", (code,market_id,claim))
             if regulatory_id and "stato_regolatorio" in item["regulatory"]["supports"]:
                 db.execute("INSERT INTO prodotto_fonti VALUES (?,?,?,'verificata')", (code,regulatory_id,"stato_regolatorio"))
             if composition_id and "composizione" in item["composition"]["supports"]:
@@ -469,8 +520,8 @@ def seed_symptom_associations(path=DEFAULT_CATALOG, seed=DEFAULT_SYMPTOM_SEED):
         clean_relations.append((concept_id, code, relation_type, fields))
 
     with closing(_connect(path)) as db, db:
-        if db.execute("PRAGMA user_version").fetchone()[0] != 4:
-            raise sqlite3.DatabaseError("I collegamenti sintomo richiedono lo schema v4.")
+        if db.execute("PRAGMA user_version").fetchone()[0] not in {4, 5}:
+            raise sqlite3.DatabaseError("I collegamenti sintomo richiedono lo schema v4 o v5.")
         source_ids = {url: _source_id(db, source) for url, source in clean_sources.items()}
         for concept_id, name, kind in clean_concepts:
             db.execute("""INSERT INTO concetti (id,nome,tipo) VALUES (?,?,?)
@@ -544,17 +595,20 @@ def seed_symptom_associations(path=DEFAULT_CATALOG, seed=DEFAULT_SYMPTOM_SEED):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Gestisce migrazioni, prodotti e relazioni documentate.")
-    parser.add_argument("action", choices=("migrate", "seed", "seed-symptoms", "check"))
+    parser.add_argument("action", choices=("migrate", "migrate-species", "seed", "seed-symptoms", "check"))
     parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
     parser.add_argument("--seed", type=Path, default=DEFAULT_SEED)
     parser.add_argument("--only-new", action="store_true",
                         help="importa solo codici assenti e preserva ogni record già presente")
     parser.add_argument("--symptom-seed", type=Path, default=DEFAULT_SYMPTOM_SEED)
     parser.add_argument("--migration", type=Path, default=DEFAULT_MIGRATION)
+    parser.add_argument("--species-migration", type=Path, default=DEFAULT_SPECIES_MIGRATION)
     args = parser.parse_args(argv)
     try:
         if args.action == "migrate":
             result = migrate_catalog(args.catalog, args.migration)
+        elif args.action == "migrate-species":
+            result = migrate_species_scope(args.catalog, args.species_migration)
         elif args.action == "seed":
             result = seed_products(args.catalog, args.seed, only_new=args.only_new)
         elif args.action == "seed-symptoms":

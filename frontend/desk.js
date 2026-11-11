@@ -138,6 +138,12 @@ function activeIngredientText(ingredient) {
     .filter(Boolean).join(" ");
 }
 
+function speciesLabel(display) {
+  if (display?.category !== "medicinale_veterinario") return null;
+  const scope = {cane: "cane", gatto: "gatto", cane_gatto: "cane e gatto"}[display.species_scope];
+  return scope ? "Uso veterinario · " + scope : "Uso veterinario · specie da verificare";
+}
+
 function validProduct(item) {
   return typeof item?.code === "string" && item.code
     && typeof item.display?.name === "string" && item.display.name.trim()
@@ -158,7 +164,8 @@ function productFor(row, preferredCode = null) {
 
 function compactFacts(display) {
   const ingredients = list(display.active_ingredients).map(activeIngredientText).filter(Boolean);
-  return [...ingredients, display.strength, display.form_label || display.form, display.classification_label]
+  return [...ingredients, display.strength, display.form_label || display.form, display.classification_label,
+    speciesLabel(display)]
     .filter(Boolean).join(" · ");
 }
 
@@ -499,7 +506,7 @@ function renderSales(product, waiting, promo) {
     const stock = stockSource && Number.isInteger(commercial.stock) && commercial.stock >= 0
       ? (commercial.stock === 0 ? "Esaurito" : commercial.stock + " unità") : null;
     const format = [product.label, product.display.strength, product.display.form_label || product.display.form,
-      product.display.classification_label].filter(Boolean).join(" · ");
+      product.display.classification_label, speciesLabel(product.display)].filter(Boolean).join(" · ");
     const blocks = [
       node("h3", product.display.name, "sale-name"),
       ...(format ? [node("p", format, "result-state")] : []),
@@ -974,11 +981,12 @@ function updateSpeechStatus() {
     return;
   }
   const selected = $("settings-speech-engine").value;
-  const selectedName = selected === "whisper.cpp" ? "Whisper.cpp" : "Vosk";
-  const activeName = settings.speech_active_engine === "whisper.cpp" ? "Whisper.cpp"
-    : settings.speech_active_engine === "vosk" ? "Vosk" : null;
+  const speechNames = {vosk: "Vosk", "whisper.cpp": "Whisper.cpp", ibrido: "Ibrido · Vosk + Whisper.cpp"};
+  const selectedName = speechNames[selected] || "Vosk";
+  const activeName = speechNames[settings.speech_active_engine] || null;
   $("settings-speech-status").textContent = [
-    settings.whisper_available ? "Whisper.cpp disponibile" : "Whisper.cpp non disponibile; Vosk resta disponibile",
+    settings.whisper_available ? "Whisper.cpp disponibile" : selected === "ibrido"
+      ? "Whisper.cpp non disponibile; l’ibrido userà solo Vosk" : "Whisper.cpp non disponibile; Vosk resta disponibile",
     "Configurato per il prossimo ascolto: " + selectedName,
     activeName ? "Motore nella sessione corrente: " + activeName : "",
     activeName && activeName !== selectedName ? "La scelta salvata si applica al prossimo ascolto" : ""
@@ -988,7 +996,7 @@ function updateSpeechStatus() {
 function showSettings(value) {
   if (!value || !["local", "openai"].includes(value.provider) || !Number.isInteger(value.word_threshold)
       || typeof value.model !== "string" || typeof value.api_key_configured !== "boolean"
-      || value.speech_engine != null && !["vosk", "whisper.cpp"].includes(value.speech_engine)
+      || value.speech_engine != null && !["vosk", "whisper.cpp", "ibrido"].includes(value.speech_engine)
       || value.whisper_available != null && typeof value.whisper_available !== "boolean"
       || value.speech_active_engine != null && typeof value.speech_active_engine !== "string") {
     throw Error("invalid settings");

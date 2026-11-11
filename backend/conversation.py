@@ -5,7 +5,7 @@ import re
 from backend.knowledge import FORM_NAMES
 from collections import defaultdict
 from difflib import SequenceMatcher
-from unicodedata import normalize
+from unicodedata import category, normalize
 
 
 RULE_VERSION = "2"
@@ -38,7 +38,9 @@ _REQUEST_GAP = re.compile(
 _POST_REQUEST = re.compile(r"(?:quanto\s+(?:costa|viene)|(?:è|e)\s+disponibile|ce\s+l[’']avete)", re.IGNORECASE)
 _VERIFY = re.compile(r"\b(?:mi controlla|apri la scheda di|apro la scheda di|(?:c[’']è|ce) il generico di)\b", re.IGNORECASE)
 _PROPOSAL = re.compile(r"\b(?:le propongo|propongo|le consiglio|consiglio)\b", re.IGNORECASE)
-_ACCEPTANCE = re.compile(r"\b(?:va bene|prendo)\b(?!\s+gi[aà]\b)", re.IGNORECASE)
+_ACCEPTANCE = re.compile(
+    r"\b(?:va\s+bene|prendo|prendiamo|scelgo|scegliamo|confermo)\b(?!\s+gi[aà]\b)", re.IGNORECASE,
+)
 _TURN_ACTION = "(?:" + "|".join(pattern.pattern for pattern in
                                  (_REQUEST, _VERIFY, _PROPOSAL, _ACCEPTANCE)) + ")"
 _TURN = re.compile(
@@ -56,22 +58,32 @@ _CLOSING_SIGNALS = (
         r"\b(?:(?:(?:le|ti|vi|gli)\s+)?(?:serve|servono|occorre|occorrono)\s+(?:anche\s+)?(?:qualcos['’]?\s*)?altro|"
         r"oltre\s+a\s+(?:questo|questa|ciò)\s*,?\s*(?:cos(?:[’']|\s+)?altro|cosa(?:\s+altro)?|che\s+altro)\s+"
         r"(?:(?:ti|le|vi)\s+)?serve|"
+        r"c[’']?è\s+(?:qualcos['’]?altro|qualcosa\s+altro)\s+(?:che\s+)?(?:ti|le|vi)\s+serve|"
+        r"(?:ti|le|vi)\s+farebbe\s+comodo\s+(?:altro|qualcos['’]?altro|qualcosa\s+altro)|"
         r"ha(?:nno)?\s+bisogno\s+di\s+(?:qualcos['’]?\s*)?altro)\b", re.IGNORECASE)),
     ("desidera_altro", re.compile(
         r"\b(?:(?:desidera|desiderate|gradirebbe|gradite)\s+(?:altro|aggiungere qualcosa)|"
         r"c[’']è\s+altro\s+che\s+(?:desidera|desiderate)|"
-        r"c[’']è\s+qualcosa\s+da\s+abbinare)\b", re.IGNORECASE)),
+        r"c[’']è\s+qualcosa\s+da\s+abbinare|"
+        r"vuole\s+(?:aggiungere|prendere)\s+(?:anche\s+)?(?:qualcos['’]?altro|qualcosa\s+altro))\b", re.IGNORECASE)),
     ("vuole_altro", re.compile(
         r"\b(?:(?:vuole|vuoi|volete)\s+(?:altro|aggiungere qualcosa)|"
-        r"posso\s+(?:aiutarla|aiutarti|aiutarvi|servirle)\s+con\s+altro)\b", re.IGNORECASE)),
+        r"posso\s+(?:aiutarla|aiutarti|aiutarvi|servirle)\s+con\s+altro|"
+        r"cosa\s+aggiungiamo|aggiungiamo\s+qualcos['’]?\s+altro)\b", re.IGNORECASE)),
 )
 _OFFER_DECLINE = re.compile(
     r"\b(?:non\s+(?:(?:mi|ci)\s+)?(?:serve|servono|occorre|voglio|vogliamo|desidero)\s+(?:nient['’]?)?altro|"
-    r"(?:nient['’]?altro|basta\s+cos[iì]|va\s+bene\s+cos[iì](?:\s*,?\s*grazie)?))\b", re.IGNORECASE,
+    r"(?:nient['’]?altro|basta\s+cos[iì]|va\s+bene\s+cos[iì](?:\s*,?\s*grazie)?|"
+    r"sono\s+a\s+posto\s+cos[iì]))\b", re.IGNORECASE,
+)
+_CONTEXTUAL_OFFER_DECLINE = re.compile(
+    r"\b(?:non\s+mi\s+interessa(?:\s+grazie)?|no\s*,?\s*grazie)\b", re.IGNORECASE,
 )
 _CHECKOUT = re.compile(
-    r"\b(?:passiamo\s+(?:alla|in)\s+cassa|andiamo\s+alla\s+cassa|"
-    r"(?:posso|vorrei)\s+pagare|(?:pago|paga)\s+(?:con\s+carta|in\s+contanti)|facciamo\s+lo\s+scontrino)\b",
+    r"\b(?:passiamo\s+(?:alla|in)\s+cassa|andiamo\s+(?:alla|in)\s+cassa|"
+    r"(?:posso|vorrei|possiamo)\s+pagare|procediamo\s+(?:con\s+)?(?:il\s+)?pagamento|"
+    r"facciamo\s+(?:il\s+conto|lo\s+scontrino)|(?:pago|paga|paghiamo)(?:\s+(?:con\s+carta|in\s+contanti))?|"
+    r"concludiamo\s+(?:la\s+vendita|il\s+pagamento))\b",
     re.IGNORECASE,
 )
 _RESEARCH_REQUEST = re.compile(
@@ -100,7 +112,7 @@ _IMMUNE_SUPPORT = re.compile(
 _EXPLICIT_NEED = re.compile(r"\b(?:cerco|vorrei|avete|avrebbe|mi\s+serve|mi\s+consiglia)\b", re.IGNORECASE)
 _DESK_PREFERENCE = re.compile(r"\b(?:preferisco|preferirei|preferiamo|meglio)\b", re.IGNORECASE)
 _DESK_CHOICE = re.compile(
-    r"\b(?:va\s+bene|prend(?:o|iamo)|scelg(?:o|liamo)|vorrei|mi\s+dia|intendevo|volevo\s+dire)\b",
+    r"\b(?:va\s+bene|prend(?:o|iamo)|scegl(?:o|iamo)|vorrei|mi\s+dia|intendevo|volevo\s+dire)\b",
     re.IGNORECASE,
 )
 _DESK_CLASS = re.compile(r"\b(?P<generico>generic(?:[oai]|he))\b|\b(?P<marca>di\s+marca)\b", re.IGNORECASE)
@@ -150,12 +162,39 @@ _SYMPTOMS = (
     ("acidita-stomaco", r"acidit[aà](?:\s+(?:di\s+stomaco|gastrica))?|bruciore\s+(?:di|allo)\s+stomaco|brucia\s+lo\s+stomaco", "Chiarire il tipo di bruciore.", "acidita-stomaco"),
     ("reflusso", r"reflusso(?:\s+gastroesofageo)?|rigurgito\s+acido", "Chiarire il contesto del reflusso.", "reflusso"),
     ("mal-di-testa", r"mal(?:e)?\s+(?:di|alla)\s+testa|fa\s+male\s+la\s+testa|cefalea", "Chiarire il contesto del mal di testa.", "mal-di-testa"),
-    ("contusioni", r"contusion[ei]|lividi|livido|ematoma|ematomi|bott[ae]\s+(?:al|alla|sul|sulla|sulle|sui)|ho\s+preso\s+una\s+botta", "Chiarire la sede e il contesto della contusione.", "contusioni"),
+    ("contusioni", r"contusion[ei]|bott[ae]\s+(?:al|alla|sul|sulla|sulle|sui)|ho\s+preso\s+una\s+botta", "Chiarire la sede e il contesto della contusione.", "contusioni"),
+    ("ematomi", r"ematoma|ematomi|lividi|livido", "Chiarire se la richiesta riguarda un livido o ematoma dichiarato.", "ematomi"),
     ("irritazione-oculare", r"(?:secchezza|irritazione)\s+ocular[ei]|occhi\s+(?:secchi|irritati)|bruciore\s+(?:agli\s+occhi|oculare)|bruciano\s+gli\s+occhi|occhio\s+secco", "Chiarire il tipo di fastidio oculare.", "irritazione-oculare"),
     ("allergia-nasale", r"rinit[ei]\s+allergic[ae]|allergia\s+(?:nasale|al\s+naso)|starnuti\s+(?:allergici|da\s+allergia)", "Chiarire i sintomi nasali dichiarati.", "allergia-nasale"),
     ("allergia-oculare", r"congiuntivit[ei]\s+allergic[ae]|allergia\s+(?:oculare|agli\s+occhi)", "Chiarire i sintomi oculari dichiarati.", "allergia-oculare"),
     ("allergia-cutanea", r"orticaria", "Chiarire il contesto dell’orticaria dichiarata.", "allergia-cutanea"),
+    ("micosi-cutanee", r"micosi cutane[ae]|funghi della pelle|piede d['’]atleta|tigna|onicomicosi|pityriasis versicolor", "Chiarire se la richiesta riguarda una micosi cutanea già identificata.", "micosi-cutanee"),
+    ("dermatite", r"dermatit[ei]|eczema|pelle irritata", "Chiarire il contesto della richiesta cutanea; non identificare una diagnosi.", "dermatite"),
+    ("artrosi-cane", r"(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io]).{0,48}(?:artrosi|osteoartrosi|dolore articolare|dolori articolari)|(?:artrosi|osteoartrosi|dolore articolare|dolori articolari).{0,48}(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io])", "Verificare la specie dichiarata e rinviare al veterinario.", "artrosi-cane"),
+    ("artrosi-gatto", r"(?:gatto|gatti|gatt[oa]|gattin[io]).{0,48}(?:artrosi|osteoartrosi|dolore articolare|dolori articolari)|(?:artrosi|osteoartrosi|dolore articolare|dolori articolari).{0,48}(?:gatto|gatti|gatt[oa]|gattin[io])", "Verificare la specie dichiarata e rinviare al veterinario.", "artrosi-gatto"),
+    ("parassiti-cane", r"(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io]).{0,48}(?:pulci|zecche|parassiti esterni)|(?:pulci|zecche|parassiti esterni).{0,48}(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io])", "Verificare la specie dichiarata e consultare il veterinario.", "parassiti-cane"),
+    ("parassiti-gatto", r"(?:gatto|gatti|gatt[oa]|gattin[io]).{0,48}(?:pulci|zecche|parassiti esterni)|(?:pulci|zecche|parassiti esterni).{0,48}(?:gatto|gatti|gatt[oa]|gattin[io])", "Verificare la specie dichiarata e consultare il veterinario.", "parassiti-gatto"),
 )
+_ANIMAL_SPECIES = {
+    "cane": re.compile(r"\b(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io])\b", re.IGNORECASE),
+    "gatto": re.compile(r"\b(?:gatto|gatti|gatt[oa]|gattin[io])\b", re.IGNORECASE),
+}
+
+
+def _species_near_topic(clause, span):
+    """Use only an explicitly spoken animal species near this topic."""
+    start, end = span
+    found = []
+    for species, pattern in _ANIMAL_SPECIES.items():
+        for match in pattern.finditer(clause):
+            distance = max(0, start - match.end(), match.start() - end)
+            if distance <= 48:
+                found.append((distance, species))
+    if not found:
+        return "umana"
+    found.sort()
+    nearby_species = {species for distance, species in found if distance <= found[0][0] + 12}
+    return next(iter(nearby_species)) if len(nearby_species) == 1 else None
 _SERVICES = (
     ("turni", r"farmaci[ae] (?:di turno|apert[ae])|aperta stasera"),
     ("orari", r"orari(?:o)?|a che ora (?:aprite|chiudete)|quando (?:aprite|chiudete)"),
@@ -215,17 +254,19 @@ def _product_patterns(product_terms):
         code = record.get("code") or record.get("codice")
         if not code:
             continue
+        species_scope = record.get("specie_destinazione") or (
+            "umana" if record.get("categoria") == "medicinale" else None)
         details = record.get("termini_dettaglio")
         if isinstance(details, list):
-            terms = [(item.get("term"), item.get("basis", "catalog_term"), item.get("source"))
+            terms = [(item.get("term"), item.get("basis", "catalog_term"), item.get("source"), species_scope)
                      for item in details if isinstance(item, dict)]
         else:
             fallback_source = {"kind": "catalog", "id": code,
                                "label": record.get("nome") or "Catalogo locale"}
-            terms = [(term, "catalog_term", fallback_source)
+            terms = [(term, "catalog_term", fallback_source, species_scope)
                      for term in (code, record.get("term"), record.get("termine"), record.get("nome"),
                                   *(record.get("termini") or []))]
-        for term, basis, source in terms:
+        for term, basis, source, scope in terms:
             if not isinstance(term, str):
                 continue
             parts = list(re.finditer(r"[^\W_]+", term.casefold()))
@@ -246,6 +287,7 @@ def _product_patterns(product_terms):
                 phrase += _product_token(token, i + 1 < len(tokens) and tokens[i + 1] in _SPOKEN_UNITS)
             yield code, re.compile(rf"\b{phrase}\b", re.IGNORECASE), {
                 "term": term.strip(), "basis": basis,
+                "species_scope": scope,
                 "source": source or {"kind": "catalog", "id": code,
                                       "label": record.get("nome") or "Catalogo locale"},
             }
@@ -296,19 +338,33 @@ def _product_hits(clause, patterns):
     return accepted
 
 
+def _product_species_matches(clause, span, species_scope):
+    """Veterinary product names need an explicit matching animal nearby."""
+    if species_scope in {None, "umana"}:
+        return True
+    declared = _species_near_topic(clause, span)
+    if species_scope == "cane_gatto":
+        return declared in {"cane", "gatto"}
+    return declared == species_scope
+
+
 _SPOKEN_WORD = re.compile(r"[^\W\d_]+")
-_NON_BRAND_WORDS = {"compresse", "capsule", "granulato", "integratore", "medicinale", "prodotto", "magnesio"}
+_NON_BRAND_WORDS = {
+    "banco", "demo", "farmaco", "medicinale", "integratore", "prodotto", "generico",
+    "compresse", "compressa", "capsule", "capsula", "granulato", "spray", "sciroppo",
+    "bustine", "bustina", "gel", "crema", "collutorio", "gocce", "magnesio",
+}
 
 
-def _spoken_key(value):
+def _spoken_key(value, *, collapse_repeats=True):
     # Rejoin syllables and normalize common transcript spellings of Italian sounds.
     value = "".join(char for char in normalize("NFD", value.casefold()) if char.isalpha())
-    value = re.sub(r"(.)\1+", r"\1", value)
+    if collapse_repeats:
+        value = re.sub(r"(.)\1+", r"\1", value)
     return re.sub(r"c(?=[ie])", "z", value)
 
 
 def _spoken_index(patterns):
-    names = defaultdict(dict)
     families = defaultdict(dict)
     for code, _, detail in patterns:
         term = detail["term"]
@@ -316,73 +372,227 @@ def _spoken_index(patterns):
         words = _SPOKEN_WORD.findall(term)
         if not words or basis not in {"product_name", "catalog_alias"}:
             continue
-        if basis == "product_name" and words[0].casefold() not in _NON_BRAND_WORDS:
+        if words[0].casefold() not in _NON_BRAND_WORDS:
             families[words[0].casefold()][code] = (words[0], detail["source"])
-        # A name with a numeric strength remains the exact matcher's job.
-        if not any(char.isdigit() for char in term):
-            names[term.casefold()][code] = (term, detail["source"])
-    for name, records in families.items():
-        # A shared leading catalog word identifies a group, never a specific SKU.
-        if len(records) > 1:
-            names[name].update(records)
-    return [(key, name, records) for name, records in names.items()
-            if len(key := _spoken_key(name)) >= 7]
+    # Fuzzy matching is anchored on catalog brand names only. Form, strength,
+    # or generic words cannot independently create a product identity.
+    return [(key, name, records, _spoken_key(name, collapse_repeats=False))
+            for name, records in families.items() if len(key := _spoken_key(name)) >= 5]
+
+
+def _spoken_ngrams(value):
+    return {value[index:index + 3] for index in range(max(0, len(value) - 2))}
+
+
+def _spoken_shared_ngrams(left, right):
+    if len(left) < 3 or len(right) < 3:
+        return False
+    return len(_spoken_ngrams(left).intersection(_spoken_ngrams(right))) >= 2
+
+
+def _spoken_similarity(key, target):
+    """Score a noisy catalog name without using symptoms or unrelated context."""
+    if key == target:
+        return 1.0
+    if len(target) >= 7 and key.startswith(target) and len(key) - len(target) <= 16:
+        # ASR sometimes joins a brand and its following form into one token.
+        return 0.97
+    length_gap = abs(len(key) - len(target))
+    minimum, maximum_gap = (0.78, 3) if len(target) < 8 else (0.82, 2)
+    if length_gap > maximum_gap or not _spoken_shared_ngrams(key, target):
+        return 0.0
+    matcher = SequenceMatcher(None, key, target, autojunk=False)
+    score = matcher.ratio()
+    common_run = max((block.size for block in matcher.get_matching_blocks()), default=0)
+    if score >= minimum and (score >= 0.9 or common_run >= min(5, max(3, len(target) - 1))):
+        return score
+    return 0.0
+
+
+def _spoken_brand_anchor(fragment, name):
+    """Require a sound match to the brand token, not only its dosage form."""
+    brand = _spoken_key(name.split()[0])
+    words = _SPOKEN_WORD.findall(fragment)
+    best = 0.0
+    for start in range(len(words)):
+        for stop in range(start + 1, min(len(words), start + 3) + 1):
+            joined = _spoken_key("".join(words[start:stop]))
+            if brand in joined and len(joined) - len(brand) <= 4:
+                return 0.95
+            if len(joined) > len(brand):
+                prefix = joined[:len(brand) + 2]
+                if not _spoken_shared_ngrams(prefix, brand):
+                    continue
+                matcher = SequenceMatcher(None, prefix, brand, autojunk=False)
+                prefix_run = max((block.size for block in matcher.get_matching_blocks()), default=0)
+                if matcher.ratio() >= 0.72 and prefix_run >= min(5, max(3, len(brand) - 1)):
+                    best = max(best, matcher.ratio())
+            candidates = [joined]
+            if len(joined) > len(brand) + 1:
+                candidates.append(joined[:len(brand) + 2])
+            for candidate in candidates:
+                if candidate == brand:
+                    return 1.0
+                gap = abs(len(candidate) - len(brand))
+                if gap > 3 or not _spoken_shared_ngrams(candidate, brand):
+                    continue
+                matcher = SequenceMatcher(None, candidate, brand, autojunk=False)
+                score = matcher.ratio()
+                common_run = max((block.size for block in matcher.get_matching_blocks()), default=0)
+                if common_run >= min(5, max(3, len(brand) - 1)):
+                    best = max(best, score)
+    return best
+
+
+def _spoken_detail_supported(clause, records, patterns):
+    spoken = set(_spoken_detail_tokens(clause))
+    for code, _, detail in patterns:
+        if code not in records or detail.get("basis") not in {"product_name", "catalog_alias"}:
+            continue
+        for token in _spoken_detail_tokens(detail["term"]):
+            if len(token) >= 4 and token in spoken:
+                return True
+    return False
 
 
 def _spoken_hits(clause, index, exact_hits):
     words = list(_SPOKEN_WORD.finditer(clause))
+    spans = {(word.start(), word.end()) for word in words}
+    for start in range(len(words)):
+        for size in (2, 3):
+            group = words[start:start + size]
+            if len(group) != size:
+                continue
+            tokens = [item.group() for item in group]
+            compact = "".join(tokens)
+            if (all(len(token) <= 5 for token in tokens)
+                    or size == 2 and any(len(token) <= 3 for token in tokens) and len(compact) <= 16):
+                spans.add((group[0].start(), group[-1].end()))
     matches = []
-    for index_start, first in enumerate(words):
-        for last in words[index_start:index_start + 4]:
-            start, end = first.start(), last.end()
-            fragment = clause[start:end]
-            if re.search(r"[^\w\s‐‑–-]", fragment) or any(char.isdigit() for char in fragment):
-                break
-            if any(start < hit_end and hit_start < end for _, hit_start, hit_end, _ in exact_hits):
-                continue
-            key = _spoken_key(fragment)
-            if len(key) < 7:
-                continue
-            options = []
-            for target, name, records in index:
-                if key == target:
-                    options.append((1.0, name, records))
-                elif key[:3] == target[:3] and min(len(key), len(target)) >= 8 and abs(len(key) - len(target)) <= 1:
-                    score = SequenceMatcher(None, key, target, autojunk=False).ratio()
-                    if score >= 0.88:
-                        options.append((score, name, records))
-            options.sort(key=lambda item: item[0], reverse=True)
-            if not options or (len(options) > 1 and options[0][0] - options[1][0] < 0.09):
-                continue
-            score, name, records = options[0]
-            matches.append((score, start, end, name, records))
-    accepted = []
-    for _, start, end, name, records in sorted(matches, key=lambda item: (-item[0], item[1], -item[2])):
-        if any(start < other_end and other_start < end for other_start, other_end, _, _ in accepted):
+    for start, end in sorted(spans):
+        fragment = clause[start:end]
+        if re.search(r"[^\w\s‐‑–-]", fragment) or any(char.isdigit() for char in fragment):
             continue
-        accepted.append((start, end, name, records))
+        if any(start < hit_end and hit_start < end for _, hit_start, hit_end, _ in exact_hits):
+            continue
+        key = _spoken_key(fragment)
+        if len(key) < 5:
+            continue
+        options = []
+        raw_key = _spoken_key(fragment, collapse_repeats=False)
+        for target, name, records, raw_target in index:
+            anchor = _spoken_brand_anchor(fragment, name)
+            if anchor < 0.72:
+                continue
+            score = max(anchor, _spoken_similarity(key, target),
+                        _spoken_similarity(raw_key, raw_target))
+            if score:
+                options.append((score, name, records, target))
+        options.sort(key=lambda item: item[0], reverse=True)
+        if not options or (len(options) > 1 and options[0][0] - options[1][0] < 0.09):
+            continue
+        score, name, records, target = options[0]
+        match_end = end
+        if (len(_SPOKEN_WORD.findall(fragment)) == 1 and key.startswith(target)
+                and len(target) >= 7 and len(name.split()) == 1):
+            match_end = min(end, start + len(name))
+        matches.append((score, start, match_end, name, records))
+    accepted = []
+    for score, start, end, name, records in sorted(matches, key=lambda item: (-item[0], item[1], -item[2])):
+        if any(start < other_end and other_start < end for other_start, other_end, _, _, _ in accepted):
+            continue
+        accepted.append((start, end, name, records, score))
     return sorted(accepted, key=lambda item: item[0])
+
+
+def _spoken_detail_tokens(value):
+    value = "".join(char for char in normalize("NFD", value.casefold()) if category(char) != "Mn")
+    value = re.sub(r"(?<=\d)[.,](?=\d)", "", value)
+    tokens = re.findall(r"\d+|[a-z]+", value)
+    result = []
+    index = 0
+    unit_aliases = {"unita": "ui", "unit": "ui", "milligrammo": "mg", "milligrammi": "mg",
+                    "millilitro": "ml", "millilitri": "ml", "grammo": "g", "grammi": "g"}
+    while index < len(tokens):
+        token = tokens[index]
+        if index + 1 < len(tokens) and tokens[index + 1] in {"mila", "mille"}:
+            value = _italian_age(token)
+            if value is not None:
+                result.append(str(value * 1000))
+                index += 2
+                continue
+        result.append(unit_aliases.get(token, token))
+        index += 1
+    return result
+
+
+def _spoken_detail_winner(clause, records, patterns):
+    """Use explicit strength/form words to resolve one already named family."""
+    spoken = _spoken_detail_tokens(clause)
+    spoken_set = set(spoken)
+    scores = {}
+    terms_by_code = defaultdict(list)
+    for pattern_code, _, detail in patterns:
+        if pattern_code in records and detail.get("basis") in {"product_name", "catalog_alias"}:
+            terms_by_code[pattern_code].append(detail["term"])
+    for code, (label, _) in records.items():
+        best = 0
+        label_tokens = _spoken_detail_tokens(label)
+        for term in terms_by_code.get(code, ()):
+            listed = _spoken_detail_tokens(term)
+            if listed[:len(label_tokens)] == label_tokens:
+                listed = listed[len(label_tokens):]
+            descriptors = [token for token in listed if token not in {
+                "e", "da", "del", "della", "dei", "degli", "di", "per", "con", "in", "su",
+                "confezione", "flacone", "tubo", "monodose",
+            }]
+            exact = {token for token in descriptors if token in spoken_set}
+            score = len(exact)
+            # ASR can join adjacent form words ("gocce orali" -> "gocheorali").
+            for start in range(len(descriptors)):
+                for stop in range(start + 2, len(descriptors) + 1):
+                    phrase = _spoken_key("".join(descriptors[start:stop]))
+                    if len(phrase) < 6:
+                        continue
+                    if any(SequenceMatcher(None, _spoken_key(token), phrase,
+                                           autojunk=False).ratio() >= 0.78
+                           for token in spoken if token.isalpha()):
+                        score = max(score, stop - start)
+            best = max(best, score)
+        scores[code] = best
+    ranked = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+    if len(ranked) > 1 and ranked[0][1] >= 2 and ranked[0][1] > ranked[1][1]:
+        return ranked[0][0]
+    return None
 
 
 def _refine_spoken_hits(clause, hits, patterns):
     """Resolve a noisy family only when its following catalog details match."""
     refined = []
-    for start, end, name, records in hits:
-        if len(records) > 1:
-            label = next(iter(records.values()))[0]
-            replacement_end = start + len(label)
-            probe = clause[:start] + label + clause[end:]
-            candidates = [
-                (code, stop, detail) for code, begin, stop, detail in _product_hits(probe, patterns)
-                if begin == start and stop > replacement_end and code in records
-                and detail["basis"] in {"product_name", "catalog_alias"}
-            ]
-            codes = {code for code, _, _ in candidates}
-            if len(codes) == 1:
-                code, stop, detail = max(candidates, key=lambda item: item[1])
-                refined.append((start, stop + end - replacement_end, name,
-                                {code: (detail["term"], detail["source"])}))
-                continue
+    for start, end, name, records, score in hits:
+        label = next(iter(records.values()))[0]
+        replacement_end = start + len(label)
+        probe = clause[:start] + label + clause[end:]
+        candidates = [
+            (code, stop, detail) for code, begin, stop, detail in _product_hits(probe, patterns)
+            if begin == start and stop > replacement_end and code in records
+            and detail["basis"] in {"product_name", "catalog_alias"}
+        ]
+        codes = {code for code, _, _ in candidates}
+        if len(codes) == 1:
+            code, stop, detail = max(candidates, key=lambda item: item[1])
+            refined.append((start, stop + end - replacement_end, name,
+                            {code: (detail["term"], detail["source"])}))
+            continue
+        detail_text = clause[:start] + clause[end:]
+        detail_code = _spoken_detail_winner(detail_text, records, patterns) if len(records) > 1 else None
+        if detail_code:
+            refined.append((start, end, name, {detail_code: records[detail_code]}))
+            continue
+        # Lower-confidence soundalikes need a second, product-specific catalog
+        # term (for example strength plus form) before any card can appear.
+        if score < 0.84 and not _spoken_detail_supported(detail_text, records, patterns):
+            continue
         refined.append((start, end, name, records))
     return refined
 
@@ -433,6 +643,9 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
     The caller owns transcript revisions, stability and pharmacist actions.
     """
     patterns = list(_product_patterns(product_terms))
+    species_by_code = {}
+    for code, _, details in patterns:
+        species_by_code.setdefault(code, details.get("species_scope"))
     spoken_index = _spoken_index(patterns)
     if finalized_end is None:
         finalized_end = 0 if partial else len(text)
@@ -450,6 +663,7 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
     recipient_signal = None
     sales_stage = "collecting"
     closing_signal = None
+    offer_context = False
     phase = _phase("Raccolta", "Sto raccogliendo il contesto.", "Quale prodotto, informazione o servizio serve?")
 
     for offset, clause in _clauses(text):
@@ -472,7 +686,8 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
                      if not any(budget.start() <= match.start() < budget.end() for budget in budgets)]
         negation = negations[0] if negations else None
         past = _PAST.search(clause)
-        hits = _product_hits(clause, patterns)
+        hits = [hit for hit in _product_hits(clause, patterns)
+                if _product_species_matches(clause, (hit[1], hit[2]), hit[3].get("species_scope"))]
         stage = None
         stage_span = None
         clause_closing_signal = None
@@ -514,6 +729,13 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
         spoken_hits = []
         if spoken_index and offset + len(clause) <= finalized_end:
             spoken_hits = _refine_spoken_hits(clause, _spoken_hits(clause, spoken_index, hits), patterns)
+            scoped_hits = []
+            for start, end, name, records in spoken_hits:
+                eligible = {code: record for code, record in records.items()
+                            if _product_species_matches(clause, (start, end), species_by_code.get(code))}
+                if eligible:
+                    scoped_hits.append((start, end, name, eligible))
+            spoken_hits = scoped_hits
             for start, end, name, records in spoken_hits:
                 kind = "spoken_exclusion" if refusal or negation or past else "spoken_match"
                 item = signal(kind, (start, end), "Nome ricostruito dai termini del catalogo locale.")
@@ -604,6 +826,8 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
         # product was sold. The caller must match this evidence against its stable
         # transcript revision before allowing any approved complement to appear.
         decline = _OFFER_DECLINE.search(clause)
+        if decline is None and offer_context:
+            decline = _CONTEXTUAL_OFFER_DECLINE.search(clause)
         if decline:
             event(signal("offer_decline", decline.span(), "Rifiuto della proposta aggiuntiva."))
             closing_signal = None
@@ -731,6 +955,7 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
                     },
                 )
                 item["concept_id"] = concept_id
+                item["species_scope"] = _species_near_topic(clause, match.span())
                 topics[concept_id] = item
                 question = prompt
         for kind, terms in _SERVICES:
@@ -790,6 +1015,10 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
             item = signal("sale_phase", (cue.start(), len(clause.rstrip())), phase_reason)
             item.update(phase_key=phase_key, matched_term=cue.group(0))
             event(item)
+            if phase_key == "extras":
+                offer_context = True
+            elif phase_key == "closing" or decline:
+                offer_context = False
 
     if recipient_signal:
         evidence.append(recipient_signal)

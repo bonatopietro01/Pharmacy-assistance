@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "concepts": [
+    {"id": "contusioni", "name": "Contusioni", "type": "sintomo"},
+    {"id": "ematomi", "name": "Ematomi e lividi", "type": "sintomo"},
+    {"id": "micosi-cutanee", "name": "Micosi cutanee", "type": "condizione"},
+    {"id": "dermatite", "name": "Dermatite ed eczema", "type": "condizione"},
+    {"id": "artrosi-cane", "name": "Osteoartrosi nel cane", "type": "condizione"},
+    {"id": "artrosi-gatto", "name": "Osteoartrosi nel gatto", "type": "condizione"},
+    {"id": "parassiti-cane", "name": "Pulci e zecche nel cane", "type": "tema"},
+    {"id": "parassiti-gatto", "name": "Pulci e zecche nel gatto", "type": "tema"}
+  ],
+  "sources": [
+    {
+      "url": "https://hirudoid.it/linea-hirudoid/",
+      "title": "La linea Hirudoid: formulazioni e indicazioni riportate",
+      "owner": "EG S.p.A.",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione ministeriale indicata 27/06/2025",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.lasonil.it/prodotti/lasonil-antidolore-2/",
+      "title": "Lasonil Antidolore 10% gel - pagina ufficiale del prodotto",
+      "owner": "Haleon / GlaxoSmithKline Consumer Healthcare S.r.l.",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.canesten.it/prodotti/canesten-crema",
+      "title": "Canesten 1% crema - pagina ufficiale del prodotto",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.canesten.it/prodotti/canesten-spray",
+      "title": "Canesten 1% spray cutaneo - pagina ufficiale del prodotto",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.canesten.it/prodotti/canesten-polvere",
+      "title": "Canesten 1% polvere cutanea - pagina ufficiale del prodotto",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.canesten.it/prodotti/canesten-unidie",
+      "title": "Canesten Unidie 1% crema - pagina ufficiale del prodotto",
+      "owner": "Bayer S.p.A.",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://pevaryl.com/it/prodotto/pevaryl-1-crema/",
+      "title": "Pevaryl 1% crema - pagina ufficiale del prodotto",
+      "owner": "Karo Healthcare AB",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione ministeriale indicata 21/05/2024",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://pevaryl.com/it/prodotto/pevaryl-1-spray/",
+      "title": "Pevaryl 1% spray - pagina ufficiale del prodotto",
+      "owner": "Karo Healthcare AB",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione ministeriale indicata 21/05/2024",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://pevaryl.com/it/prodotto/pevaryl-1-polvere/",
+      "title": "Pevaryl 1% polvere - pagina ufficiale del prodotto",
+      "owner": "Karo Healthcare AB",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione ministeriale indicata 21/05/2024",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://pevaryl.com/it/prodotto/pevaryl-1-emulsione-cutanea/",
+      "title": "Pevaryl 1% emulsione cutanea - pagina ufficiale del prodotto",
+      "owner": "Karo Healthcare AB",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione ministeriale indicata 21/05/2024",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea/",
+      "title": "Pevaryl 1% soluzione cutanea - pagina ufficiale del prodotto",
+      "owner": "Karo Healthcare AB",
+      "consulted_at": "2026-11-09",
+      "version": "Pagina ufficiale consultata 2026-11-09; autorizzazione ministeriale indicata 21/05/2024",
+      "kind": "produttore",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/librela",
+      "title": "Librela - European Public Assessment Report",
+      "owner": "European Medicines Agency",
+      "consulted_at": "2026-11-09",
+      "version": "EPAR consultato 2026-11-09; autorizzazione UE e uso nel cane; verificare le informazioni correnti del prodotto",
+      "kind": "aifa",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/solensia",
+      "title": "Solensia - European Public Assessment Report",
+      "owner": "European Medicines Agency",
+      "consulted_at": "2026-11-09",
+      "version": "EPAR consultato 2026-11-09; autorizzazione UE e uso nel gatto; verificare le informazioni correnti del prodotto",
+      "kind": "aifa",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard",
+      "title": "NexGard - European Public Assessment Report",
+      "owner": "European Medicines Agency",
+      "consulted_at": "2026-11-09",
+      "version": "EPAR consultato 2026-11-09; autorizzazione UE e specie canina",
+      "kind": "aifa",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard-combo",
+      "title": "NexGard Combo - European Public Assessment Report",
+      "owner": "European Medicines Agency",
+      "consulted_at": "2026-11-09",
+      "version": "EPAR consultato 2026-11-09; autorizzazione UE e specie felina",
+      "kind": "aifa",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    },
+    {
+      "url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/bravecto",
+      "title": "Bravecto - European Public Assessment Report",
+      "owner": "European Medicines Agency",
+      "consulted_at": "2026-11-09",
+      "version": "EPAR consultato 2026-11-09; formulazioni e specie diverse riportate separatamente",
+      "kind": "aifa",
+      "supports": ["identita", "commercializzazione", "associazione_clinica"]
+    }
+  ],
+  "relations": [
+    {"concept_id": "contusioni", "product_code": "REAL-MED-034", "type": "indicazione_etichetta", "context": "La pagina ufficiale del prodotto riporta l'uso locale per dolori traumatici e contusioni.", "claim": "Indicazione riportata dal titolare: trattamento locale delle contusioni e dei disturbi dolorosi di natura traumatica.", "prerequisites": "Verificare la sede, il foglio illustrativo vigente e le avvertenze prima di qualsiasi proposta.", "exclusions": "Non estendere il collegamento a ferite aperte, dolore non chiarito o ad altre formulazioni non descritte dalla fonte.", "source_url": "https://www.lasonil.it/prodotti/lasonil-antidolore-2/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "ematomi", "product_code": "REAL-MED-030", "type": "indicazione_etichetta", "context": "La linea ufficiale riporta gli ematomi fra le indicazioni di Hirudoid 25.000 UI gel.", "claim": "Indicazione riportata dal titolare: trattamento degli ematomi.", "prerequisites": "Verificare il foglio illustrativo della confezione esatta e le avvertenze.", "exclusions": "Non confondere livido/ematoma con ferita aperta o trauma che richiede valutazione; non estendere ad altri prodotti.", "source_url": "https://hirudoid.it/linea-hirudoid/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "ematomi", "product_code": "REAL-MED-031", "type": "indicazione_etichetta", "context": "La linea ufficiale riporta gli ematomi fra le indicazioni di Hirudoid 25.000 UI crema.", "claim": "Indicazione riportata dal titolare: trattamento degli ematomi.", "prerequisites": "Verificare il foglio illustrativo della confezione esatta e le avvertenze.", "exclusions": "Non confondere livido/ematoma con ferita aperta o trauma che richiede valutazione; non estendere ad altri prodotti.", "source_url": "https://hirudoid.it/linea-hirudoid/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "ematomi", "product_code": "REAL-MED-032", "type": "indicazione_etichetta", "context": "La linea ufficiale riporta gli ematomi fra le indicazioni di Hirudoid 40.000 UI gel.", "claim": "Indicazione riportata dal titolare: trattamento degli ematomi.", "prerequisites": "Verificare il foglio illustrativo della confezione esatta e le avvertenze.", "exclusions": "Non confondere livido/ematoma con ferita aperta o trauma che richiede valutazione; non estendere ad altri prodotti.", "source_url": "https://hirudoid.it/linea-hirudoid/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "ematomi", "product_code": "REAL-MED-033", "type": "indicazione_etichetta", "context": "La linea ufficiale riporta gli ematomi fra le indicazioni di Hirudoid 40.000 UI crema.", "claim": "Indicazione riportata dal titolare: trattamento degli ematomi.", "prerequisites": "Verificare il foglio illustrativo della confezione esatta e le avvertenze.", "exclusions": "Non confondere livido/ematoma con ferita aperta o trauma che richiede valutazione; non estendere ad altri prodotti.", "source_url": "https://hirudoid.it/linea-hirudoid/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-038", "type": "indicazione_etichetta", "context": "La pagina Bayer riporta questa formulazione per infezioni micotiche della pelle.", "claim": "Indicazione riportata dal titolare: trattamento delle micosi cutanee con Canesten 1% crema.", "prerequisites": "Chiarire il prodotto e verificare il foglio illustrativo vigente.", "exclusions": "Non associare a dermatite o eczema non identificati come micosi; non includere formulazioni vaginali o genitali.", "source_url": "https://www.canesten.it/prodotti/canesten-crema", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-039", "type": "indicazione_etichetta", "context": "La pagina Bayer riporta questa formulazione cutanea per infezioni micotiche della pelle.", "claim": "Indicazione riportata dal titolare: trattamento delle micosi cutanee con Canesten 1% spray.", "prerequisites": "Chiarire il prodotto e verificare il foglio illustrativo vigente.", "exclusions": "Non associare a dermatite o eczema non identificati come micosi; non includere formulazioni vaginali o genitali.", "source_url": "https://www.canesten.it/prodotti/canesten-spray", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-040", "type": "indicazione_etichetta", "context": "La pagina Bayer riporta questa formulazione cutanea per infezioni micotiche della pelle.", "claim": "Indicazione riportata dal titolare: trattamento delle micosi cutanee con Canesten 1% polvere.", "prerequisites": "Chiarire il prodotto e verificare il foglio illustrativo vigente.", "exclusions": "Non associare a dermatite o eczema non identificati come micosi; non includere formulazioni vaginali o genitali.", "source_url": "https://www.canesten.it/prodotti/canesten-polvere", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-041", "type": "indicazione_etichetta", "context": "La pagina Bayer riporta Canesten Unidie per micosi cutanee.", "claim": "Indicazione riportata dal titolare: trattamento delle micosi cutanee con Canesten Unidie 1% crema.", "prerequisites": "Verificare la confezione esatta e il foglio illustrativo vigente.", "exclusions": "Non associare a dermatite o eczema non identificati come micosi; non includere formulazioni vaginali o genitali.", "source_url": "https://www.canesten.it/prodotti/canesten-unidie", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-042", "type": "indicazione_etichetta", "context": "La pagina ufficiale descrive il trattamento locale delle micosi cutanee per Pevaryl 1% crema.", "claim": "Indicazione riportata dal titolare: trattamento locale di specifiche micosi cutanee con Pevaryl 1% crema.", "prerequisites": "Verificare le indicazioni specifiche, la confezione e il foglio illustrativo vigente.", "exclusions": "Non estendere a dermatite o eczema non identificati come micosi, né a formulazioni vaginali o genitali.", "source_url": "https://pevaryl.com/it/prodotto/pevaryl-1-crema/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-043", "type": "indicazione_etichetta", "context": "La pagina ufficiale descrive il trattamento locale delle micosi cutanee per Pevaryl 1% spray.", "claim": "Indicazione riportata dal titolare: trattamento di micosi cutanee con Pevaryl 1% spray.", "prerequisites": "Verificare le indicazioni specifiche, la confezione e il foglio illustrativo vigente.", "exclusions": "Non estendere a dermatite o eczema non identificati come micosi, né a formulazioni vaginali o genitali.", "source_url": "https://pevaryl.com/it/prodotto/pevaryl-1-spray/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-044", "type": "indicazione_etichetta", "context": "La pagina ufficiale descrive il trattamento locale delle micosi cutanee per Pevaryl 1% polvere.", "claim": "Indicazione riportata dal titolare: trattamento di micosi cutanee con Pevaryl 1% polvere.", "prerequisites": "Verificare le indicazioni specifiche, la confezione e il foglio illustrativo vigente.", "exclusions": "Non estendere a dermatite o eczema non identificati come micosi, né a formulazioni vaginali o genitali.", "source_url": "https://pevaryl.com/it/prodotto/pevaryl-1-polvere/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-045", "type": "indicazione_etichetta", "context": "La pagina ufficiale descrive Pevaryl 1% emulsione cutanea per infezioni micotiche della pelle.", "claim": "Indicazione riportata dal titolare: trattamento di infezioni micotiche della pelle con Pevaryl 1% emulsione cutanea.", "prerequisites": "Verificare le indicazioni specifiche, la confezione e il foglio illustrativo vigente.", "exclusions": "Non estendere a dermatite o eczema non identificati come micosi, né a formulazioni vaginali o genitali.", "source_url": "https://pevaryl.com/it/prodotto/pevaryl-1-emulsione-cutanea/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "micosi-cutanee", "product_code": "REAL-MED-046", "type": "indicazione_etichetta", "context": "La pagina ufficiale descrive Pevaryl 1% soluzione cutanea per infezioni micotiche della pelle.", "claim": "Indicazione riportata dal titolare: trattamento di infezioni micotiche della pelle con Pevaryl 1% soluzione cutanea.", "prerequisites": "Verificare le indicazioni specifiche, la confezione e il foglio illustrativo vigente.", "exclusions": "Non estendere a dermatite o eczema non identificati come micosi, né a formulazioni vaginali o genitali.", "source_url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea/", "source_version": "Pagina ufficiale consultata 2026-11-09"},
+    {"concept_id": "artrosi-cane", "product_code": "REAL-VET-002", "type": "indicazione_etichetta", "context": "L'EPAR EMA riporta bedinvetmab (Librela) per il trattamento del dolore associato all'osteoartrite nel cane.", "claim": "Indicazione riportata dall'EMA: trattamento del dolore associato all'osteoartrite nel cane.", "prerequisites": "Solo per consultazione veterinaria. Verificare le informazioni aggiornate EMA/Union Product Database e rivolgersi al veterinario.", "exclusions": "Non mostrare per persone o gatti; non indicare dosi, sostituzioni, compatibilità o disponibilità presso la farmacia.", "source_url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/librela", "source_version": "EPAR consultato 2026-11-09; verificare gli aggiornamenti del prodotto"},
+    {"concept_id": "artrosi-gatto", "product_code": "REAL-VET-001", "type": "indicazione_etichetta", "context": "L'EPAR EMA riporta frunevetmab (Solensia) per il trattamento del dolore associato all'osteoartrite nel gatto.", "claim": "Indicazione riportata dall'EMA: trattamento del dolore associato all'osteoartrite nel gatto.", "prerequisites": "Solo per consultazione veterinaria. Verificare le informazioni aggiornate EMA/Union Product Database e rivolgersi al veterinario.", "exclusions": "Non mostrare per persone o cani; non indicare dosi, sostituzioni, compatibilità o disponibilità presso la farmacia.", "source_url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/solensia", "source_version": "EPAR consultato 2026-11-09; verificare gli aggiornamenti del prodotto"},
+    {"concept_id": "parassiti-cane", "product_code": "REAL-VET-003", "type": "indicazione_etichetta", "context": "L'EPAR EMA documenta afoxolaner per il trattamento e la prevenzione di infestazioni da pulci e zecche nel cane.", "claim": "Indicazione riportata dall'EMA: trattamento e prevenzione delle infestazioni da pulci e zecche nel cane.", "prerequisites": "Solo per consultazione veterinaria. Verificare la confezione, le informazioni aggiornate EMA/UPD e rivolgersi al veterinario.", "exclusions": "Non mostrare per persone o gatti; non indicare dosi, sostituzioni o disponibilità presso la farmacia.", "source_url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard", "source_version": "EPAR consultato 2026-11-09"},
+    {"concept_id": "parassiti-cane", "product_code": "REAL-VET-005", "type": "indicazione_etichetta", "context": "L'EPAR EMA documenta formulazioni di fluralaner per il trattamento di infestazioni da pulci e zecche nel cane.", "claim": "Indicazione riportata dall'EMA: trattamento di infestazioni da pulci e zecche nel cane.", "prerequisites": "Solo per consultazione veterinaria. Verificare la formulazione esatta, le informazioni aggiornate EMA/UPD e rivolgersi al veterinario.", "exclusions": "Non mostrare per persone o gatti; non indicare dosi, sostituzioni o disponibilità presso la farmacia.", "source_url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/bravecto", "source_version": "EPAR consultato 2026-11-09"},
+    {"concept_id": "parassiti-gatto", "product_code": "REAL-VET-004", "type": "indicazione_etichetta", "context": "L'EPAR EMA documenta esafoxolaner nel prodotto NexGard Combo per specifici parassiti nel gatto.", "claim": "Indicazione riportata dall'EMA: trattamento e prevenzione di specifiche infestazioni parassitarie nel gatto con la formulazione NexGard Combo.", "prerequisites": "Solo per consultazione veterinaria. Verificare i parassiti coperti e le informazioni aggiornate EMA/UPD; rivolgersi al veterinario.", "exclusions": "Non mostrare per persone o cani; non generalizzare a tutti i parassiti o indicare dosi, sostituzioni o disponibilità presso la farmacia.", "source_url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/nexgard-combo", "source_version": "EPAR consultato 2026-11-09"},
+    {"concept_id": "parassiti-gatto", "product_code": "REAL-VET-006", "type": "indicazione_etichetta", "context": "L'EPAR EMA documenta la formulazione spot-on di fluralaner per il trattamento di infestazioni da pulci e zecche nel gatto.", "claim": "Indicazione riportata dall'EMA: trattamento di infestazioni da pulci e zecche nel gatto.", "prerequisites": "Solo per consultazione veterinaria. Verificare la formulazione esatta, le informazioni aggiornate EMA/UPD e rivolgersi al veterinario.", "exclusions": "Non mostrare per persone o cani; non indicare dosi, sostituzioni o disponibilità presso la farmacia.", "source_url": "https://www.ema.europa.eu/en/medicines/veterinary/EPAR/bravecto", "source_version": "EPAR consultato 2026-11-09"}
+  ]
+}

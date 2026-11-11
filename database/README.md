@@ -1,8 +1,8 @@
 # Catalogo SQLite
 
-Il catalogo operativo si trova in `farmacia.sqlite3`. La versione 3 contiene 12 prodotti, 2 relazioni e 2 offerte dimostrative. La migrazione `004_catalogo_v4.sql` conserva gli identificativi e i valori dei record demo, aggiunge la provenienza e permette ai prodotti reali di avere prezzo e quantità `NULL` finché la farmacia non fornisce dati autorizzati.
+Il catalogo operativo si trova in `farmacia.sqlite3`. La versione corrente è lo schema v5: conserva i record e le relazioni esistenti e aggiunge un ambito specie per separare i medicinali umani da quelli veterinari. La migrazione `004_catalogo_v4.sql` aggiungeva la provenienza e permetteva ai prodotti reali di avere prezzo e quantità `NULL`; `005_specie_destinazione.sql` aggiunge il solo campo specie e porta i medicinali umani esistenti a `umana`.
 
-## Schema v4
+## Schema v5
 
 - `prodotti.prezzo_cent` è il prezzo al banco; `prezzo_riferimento_cent` è un eventuale prezzo pubblico separato. Ogni valore commerciale richiede una fonte e una data.
 - `prodotti.quantita` indica la disponibilità nella farmacia solo se valorizzata da una fonte della farmacia. Il numero `NULL` significa che la disponibilità è sconosciuta. I record reali importati dal seed non ricevono prezzi o scorte demo.
@@ -12,6 +12,7 @@ Il catalogo operativo si trova in `farmacia.sqlite3`. La versione 3 contiene 12 
 - `fonti` e `prodotto_fonti` conservano URL, titolo, ente, versione/data e l'affermazione supportata dalla fonte. Le fonti AIFA/Gazzetta storiche annidate nel dataset sono registrate separatamente: identificativi regolatori e composizioni storici restano `candidata`; non attestano lo stato corrente. `dato_storico` indica soltanto che la fonte è storica.
 - `relazioni_prodotti` distingue relazioni demo, candidate, approvate e respinte. Il backend esclude dal banco le relazioni cliniche senza stato approvato e farmacista revisore.
 - `concetti` e `relazioni_concetto_prodotto` separano i temi/sintomi dalle relazioni tra prodotti. Le righe `indicazione_etichetta` con stato `candidata` possono comparire nella postazione come corrispondenze informative dopo una menzione stabile del sintomo, con fonte e stato di revisione visibili. Non sono consigli approvati, possono essere ordinate per copertura documentale dei sintomi e non scattano da una parola provvisoria.
+- `prodotti.specie_destinazione` vale `umana`, `cane`, `gatto` o `cane_gatto`. I record veterinari richiedono una specie esplicita. La conversazione non recupera tali prodotti senza specie animale dichiarata e corrispondente; non esistono dosaggi o sostituzioni automatiche.
 
 Gli stati regolatori, la prova di commercializzazione e la disponibilità nella singola farmacia sono campi distinti. Le relazioni di equivalenza richiedono fonti coerenti con principio attivo, quantità, forma, via e stato regolatorio. Un nome simile o la co-occorrenza in una fonte commerciale non provano un'equivalenza o una relazione clinica.
 
@@ -25,33 +26,36 @@ Quando una fonte manca, è datata o confligge con un'altra, mantenere il dato `N
 
 ## Migrazione e seed ripetibile
 
-Fare una copia del database prima di applicare una migrazione. Eseguire prima la migrazione sulla copia e controllare schema, integrità e chiavi esterne. Lo script accetta soltanto il passaggio v3→v4; se è già v4 lo lascia invariato.
+Fare una copia del database prima di applicare una migrazione. Eseguire prima migrazione e seed sulla copia; controllare integrità, chiavi esterne, retrieval e idempotenza. Lo script accetta il passaggio v4→v5 e lascia invariato un catalogo v5.
 
 ```powershell
-$salesPython = 'C:\Users\bonat\AppData\Local\Python\pythoncore-3.14-64\python.exe'
-Copy-Item database\farmacia.sqlite3 database\farmacia-pre-v4.sqlite3
-& $salesPython backend\catalog_setup.py migrate --catalog database\farmacia-pre-v4.sqlite3
-& $salesPython backend\catalog_setup.py seed --catalog database\farmacia-pre-v4.sqlite3 --seed database\catalogo-reale.json
-& $salesPython backend\catalog_setup.py check --catalog database\farmacia-pre-v4.sqlite3
+$salesPython = 'C:\Users\bonat\AppData\Local\Python\bin\python.exe'
+Copy-Item database\farmacia.sqlite3 database\farmacia-staging.sqlite3
+& $salesPython backend\catalog_setup.py migrate-species --catalog database\farmacia-staging.sqlite3
+& $salesPython backend\catalog_setup.py seed --catalog database\farmacia-staging.sqlite3 --seed database\catalogo-ampliamento-20261109.json --only-new
+& $salesPython backend\catalog_setup.py seed-symptoms --catalog database\farmacia-staging.sqlite3 --symptom-seed database\collegamenti-dolore-pelle-vet.json
+& $salesPython backend\catalog_setup.py check --catalog database\farmacia-staging.sqlite3
+& $salesPython backend\catalog_wiki.py --seed database\catalogo-ampliamento-20261109.json
+& $salesPython backend\catalog_wiki.py --seed database\catalogo-ampliamento-20261109.json --check
 ```
 
-Il comando `seed` è ripetibile: aggiorna i codici reali già presenti, non sovrascrive i record demo, deduplica fonti e principi attivi, riallinea alias e principi attivi del seed e rifiuta prezzi o scorte valorizzati senza fonte della farmacia. I nomi commerciali e la composizione restano distinti dallo stato di revisione clinica. Tutti i record importati sono `da_revisionare`; l'importazione non approva associazioni o consigli.
+Il seed di ampliamento si importa con `--only-new`: aggiunge solo codici assenti e preserva i record esistenti, i prezzi, le scorte e i dati demo. L’importazione è ripetibile; un secondo passaggio salta i codici esistenti e riallinea le relazioni candidate senza creare duplicati. Rifiuta prezzi o scorte valorizzati senza fonte della farmacia. I prodotti con presenza corrente italiana non verificata restano nel catalogo e nella wiki come bozze, ma il retrieval live li esclude. I medicinali veterinari hanno specie esplicita; le fonti EMA documentano l’autorizzazione UE, non la disponibilità nella farmacia italiana.
 
-Solo dopo aver verificato la copia si può applicare il medesimo comando al catalogo operativo locale. Il backup della base in uso va conservato fino al completamento del controllo. Lo script non esegue backup automatici e non legge o aggiorna sistemi esterni.
+Solo dopo aver verificato la copia si applicano gli stessi comandi al catalogo operativo locale. Conservare un backup datato fino al completamento dei controlli. Lo script non esegue backup automatici e non legge o aggiorna sistemi esterni.
 
 ## Relazioni con la wiki
 
 Le schede editoriali restano in `wiki/schede/`. I codici del catalogo sono il riferimento stabile; nomi e alias consentono la ricerca. Aggiornare la wiki solo con fatti e relazioni che abbiano una fonte adeguata e stato di revisione esplicito. Il seed `collegamenti-sintomo.json` contiene collegamenti documentali candidati per raffreddore, congestione nasale e tosse, collegati a fonti ufficiali del prodotto. Il loro stato resta `candidata`: la postazione li distingue chiaramente dalle relazioni revisionate e il farmacista verifica destinatario, avvertenze e indicazione prima di una proposta. Non si derivano associazioni da co-occorrenze o dalle vendite.
 
-Il comando seguente carica o riallinea in modo idempotente concetti e collegamenti nel catalogo v4. Richiede che ogni prodotto esista nel catalogo e che la fonte sia una pagina ufficiale collegata al prodotto per identita' o commercializzazione. La claim di fonte `associazione_clinica` deve essere gia' `verificata` o viene inserita come tale solo quando manca; registra che la pagina ufficiale documenta l'indicazione. La relazione concetto-prodotto rimane `candidata`: la claim verificata non approva la relazione e non trasforma il match informativo in consiglio. Una claim esistente con stato `demo`, `candidata` o `respinta` fa fallire e annullare l'intera transazione del seed; il seed non converte mai uno stato esistente. I collegamenti gia' approvati o respinti non vengono declassati o riattivati dal seed.
+Il seed `collegamenti-dolore-pelle-vet.json` aggiunge i collegamenti con fonte per contusioni, ematomi, micosi cutanee, osteoartrosi e parassiti nelle specie esplicitamente distinte. Non crea associazioni per dermatite generica né collegamenti integratore-sintomo o integratore-medicinale. Ogni relazione di indicazione resta `candidata`; una claim `associazione_clinica` verificata registra solo che la fonte dichiara quell’indicazione e non approva la relazione o il consiglio. L’importazione idempotente non cambia stati già approvati o respinti.
 
 ```powershell
-$salesPython = 'C:\Users\bonat\AppData\Local\Python\pythoncore-3.14-64\python.exe'
-& $salesPython backend\catalog_setup.py seed-symptoms --catalog database\farmacia.sqlite3 --symptom-seed database\collegamenti-sintomo.json
+$salesPython = 'C:\Users\bonat\AppData\Local\Python\bin\python.exe'
+& $salesPython backend\catalog_setup.py seed-symptoms --catalog database\farmacia.sqlite3 --symptom-seed database\collegamenti-dolore-pelle-vet.json
 & $salesPython backend\catalog_setup.py check --catalog database\farmacia.sqlite3
 ```
 
-Prima di applicare il seed operativo, fare una copia del file SQLite e verificarla. Il seed modifica solo le tabelle `fonti` (quando una fonte ufficiale manca), `concetti`, `relazioni_concetto_prodotto` e `prodotto_fonti`; non cambia prodotti, prezzi, scorte, alias o altre relazioni.
+Prima di applicare il seed operativo, fare una copia del file SQLite e verificarla. Il seed modifica solo `fonti`, `concetti`, `relazioni_concetto_prodotto` e `prodotto_fonti`; non cambia prodotti, prezzi, scorte, alias o relazioni di vendita.
 
 ## Confezioni documentate
 

@@ -1,6 +1,7 @@
 """Serve the local pharmacy screen and keep the consultation in memory."""
 
 import argparse
+from difflib import SequenceMatcher
 import hashlib
 import ipaddress
 import io
@@ -79,6 +80,54 @@ DIAGNOSTIC_CODES = {
     "frontend": FRONTEND_CODES,
     "agente": {"timeout", "provider_non_disponibile", "risposta_non_valida"},
 }
+
+_SPEECH_BRAND_STOPWORDS = {
+    "banco", "demo", "farmaco", "medicinale", "integratore", "prodotto", "generico",
+    "compresse", "compressa", "capsule", "capsula", "granulato", "spray", "sciroppo",
+    "bustine", "bustina", "gel", "crema", "collutorio", "gocce", "magnesio",
+    "buongiorno", "cerco", "cerchiamo", "cercando", "vorrei", "voglio", "avete",
+    "serve", "servono", "dammi", "dare", "mi", "per", "favore", "sto", "una", "uno",
+    "nasale", "orale", "orali", "confezione", "masticabile", "masticabili", "effervescente",
+    "milligrammo", "milligrammi", "cinquecento", "duecento", "quattrocento", "mille",
+    "unita", "venticinque", "ventimila", "mila", "percento",
+}
+
+
+def _catalog_speech_prompt(terms, transcript=None):
+    if not isinstance(transcript, str) or not transcript.strip():
+        return ""
+    names = {}
+    for product in terms:
+        for item in product.get("termini_dettaglio", ()):
+            if item.get("basis") not in {"product_name", "catalog_alias"}:
+                continue
+            words = re.findall(r"[^\W\d_]+", item.get("term", ""))
+            if not words:
+                continue
+            name = words[0].strip()
+            key = normalize(name)
+            if len(key) >= 5 and key not in _SPEECH_BRAND_STOPWORDS:
+                names.setdefault(key, name)
+    if not names:
+        return ""
+    words = [normalize(word) for word in re.findall(r"[^\W\d_]+", transcript.casefold())]
+    words = [word for word in words if len(word) >= 3 and word not in _SPEECH_BRAND_STOPWORDS]
+    fragments = {word for word in words if len(word) >= 5}
+    for start in range(len(words)):
+        for size in (2, 3):
+            group = words[start:start + size]
+            if len(group) == size and all(len(word) <= 8 for word in group):
+                fragments.add("".join(group))
+    ranked = []
+    for key, name in names.items():
+        score = max((SequenceMatcher(None, fragment, key, autojunk=False).ratio()
+                     for fragment in fragments), default=0.0)
+        if score >= 0.60:
+            ranked.append((score, key, name))
+    ranked.sort(key=lambda row: (-row[0], row[1]))
+    if not ranked:
+        return ""
+    return "Possibile nome nel catalogo: " + ranked[0][2] + "."
 
 
 def diagnostic(component, code, level="info", duration=0):
@@ -173,7 +222,7 @@ def save_configuration(payload, path=SETTINGS):
         current = _read_configuration(path)
         agent = phase_agent.normalize_settings(current.get("agent", {}))
         speech_engine = current.get("speech_engine", "vosk")
-        if speech_engine not in ("vosk", "whisper.cpp"):
+        if speech_engine not in ("vosk", "whisper.cpp", "ibrido"):
             speech_engine = "vosk"
         input_device = current.get("input_device")
         _write_configuration(path, {**config, "agent": agent, "speech_engine": speech_engine,
@@ -187,7 +236,7 @@ def load_agent_settings(path=SETTINGS):
 
 def load_speech_engine(path=SETTINGS):
     value = _read_configuration(path).get("speech_engine", "vosk")
-    return value if value in ("vosk", "whisper.cpp") else "vosk"
+    return value if value in ("vosk", "whisper.cpp", "ibrido") else "vosk"
 
 
 def load_input_device(path=SETTINGS):
@@ -389,6 +438,9 @@ class Listening:
         self.analysis_lock = threading.Lock()
         self.audio_lock = threading.Lock()
         self.catalog, self.requests, self.settings, self.clock = catalog, requests, settings, clock
+        self.catalog_cache_lock = threading.Lock()
+        self.catalog_cache_stamp = None
+        self.catalog_cache = None
         self.stop_event = threading.Event()
         self.lease_timer = None
         self.whisper_server = None
@@ -396,6 +448,24 @@ class Listening:
         self.agent_epoch = 0
         self.state = {"version": 0, "action_version": 0, "restock": []}
         self._replace()
+
+    def _catalog_material(self):
+        paths = (self.catalog, Path(str(self.catalog) + "-wal"))
+        stamp = []
+        for path in paths:
+            try:
+                stat = path.stat()
+                stamp.append((str(path.resolve()), stat.st_mtime_ns, stat.st_size, stat.st_ctime_ns))
+            except OSError:
+                stamp.append((str(path), None, None, None))
+        stamp = tuple(stamp)
+        with self.catalog_cache_lock:
+            if self.catalog_cache is None or self.catalog_cache_stamp != stamp:
+                products, pages = reference_material(self.catalog)
+                terms = product_aliases(products, pages)
+                self.catalog_cache = (products, pages, terms)
+                self.catalog_cache_stamp = stamp
+            return self.catalog_cache
 
     def _replace(self, session="spenta", microphone="spento", error=None):
         config = load_configuration(self.settings) if session == "raccogliendo" else None
@@ -677,8 +747,7 @@ class Listening:
                 text, context, start, final_end = self._context()
                 partial = self.state["transcript"]["partial"] is not None
                 speech_alternatives = self.speech_alternatives
-            products, pages = reference_material(self.catalog)
-            terms = product_aliases(products, pages)
+            products, pages, terms = self._catalog_material()
             result = analyze(context, terms, partial=partial,
                              finalized_end=max(0, final_end - start))
             if speech_alternatives and not partial:
@@ -744,24 +813,25 @@ class Listening:
         # to the exact active topic evidence and the same transcript revision.
         symptom_matches = []
         latest_by_product = {}
-        for match in symptom_product_matches(list(latest_topics), catalog=self.catalog):
-            evidence = latest_topics.get(match.get("concept_id"))
-            if evidence is None or evidence.get("state") not in {"active", "provisional"}:
+        for concept_id, evidence in latest_topics.items():
+            if evidence.get("state") not in {"active", "provisional"}:
                 continue
-            symptom_match = {
-                **match,
-                "evidence_id": evidence["id"],
-                "span": evidence["span"],
-                "evidence_state": evidence["state"],
-                "matched_term": evidence.get("matched_term"),
-            }
-            symptom_matches.append(symptom_match)
-            # A product linked to multiple simultaneously mentioned symptoms is
-            # rendered once, tied to its latest supporting symptom evidence.
-            key = symptom_match.get("product_code")
-            previous = latest_by_product.get(key)
-            if key and (previous is None or symptom_match["span"]["end"] > previous["span"]["end"]):
-                latest_by_product[key] = symptom_match
+            for match in symptom_product_matches(
+                    [concept_id], catalog=self.catalog, species_scope=evidence.get("species_scope", "umana")):
+                symptom_match = {
+                    **match,
+                    "evidence_id": evidence["id"],
+                    "span": evidence["span"],
+                    "evidence_state": evidence["state"],
+                    "matched_term": evidence.get("matched_term"),
+                }
+                symptom_matches.append(symptom_match)
+                # A product linked to multiple simultaneously mentioned symptoms is
+                # rendered once, tied to its latest supporting symptom evidence.
+                key = symptom_match.get("product_code")
+                previous = latest_by_product.get(key)
+                if key and (previous is None or symptom_match["span"]["end"] > previous["span"]["end"]):
+                    latest_by_product[key] = symptom_match
         self.state["symptom_matches"] = list(latest_by_product.values())
         product = self.state["product"]
         current_code = product.get("current_code") or product.get("confirmed_code") \
@@ -1754,7 +1824,7 @@ class Listening:
             agent_payload = {key: payload[key] for key in phase_agent.DEFAULT_SETTINGS if key in payload}
             config = phase_agent.normalize_settings({**agent, **agent_payload})
             speech_engine = payload.get("speech_engine", current.get("speech_engine", "vosk"))
-            if speech_engine not in ("vosk", "whisper.cpp"):
+            if speech_engine not in ("vosk", "whisper.cpp", "ibrido"):
                 raise ValueError("Seleziona un motore di trascrizione valido.")
             if speech_engine == "whisper.cpp" and not WhisperServer.available():
                 raise ValueError("Whisper.cpp non è disponibile; mantieni Vosk o installa il modello locale.")
@@ -1816,7 +1886,9 @@ class Listening:
             with self.audio_lock:
                 if stop.is_set():
                     return
-                if self.speech_engine == "whisper.cpp" and WhisperServer.available():
+                if self.speech_engine == "ibrido":
+                    self._capture_audio_hybrid(session_id, stop)
+                elif self.speech_engine == "whisper.cpp" and WhisperServer.available():
                     try:
                         self._capture_audio_whisper(session_id, stop)
                     except InputDeviceUnavailable:
@@ -1887,6 +1959,149 @@ class Listening:
                     continue
                 fragment, final, alternatives = recognize_with_options(recognizer, chunk)
                 self.ingest(session_id, fragment, final=final, alternatives=alternatives)
+
+    @staticmethod
+    def _speech_product_codes(text, terms):
+        if not text:
+            return set()
+        result = analyze(text, terms)
+        return {code for item in result["evidence"]
+                if item.get("kind") in {"spoken_match", "product_mention", "product_candidate"}
+                for code in item.get("product_codes", [])}
+
+    def _replace_latest_final(self, session_id, original, refined, alternatives=()):
+        """Apply a catalog-supported hybrid refinement only while its turn is current."""
+        original, refined = original.strip(), refined.strip()
+        if not original or not refined or original.casefold() == refined.casefold():
+            return False
+        with self.lock:
+            transcript = self.state["transcript"]
+            finals = transcript["final_segments"]
+            if (session_id != self.state["session_id"] or not self._active()
+                    or transcript["partial"] is not None or not finals
+                    or finals[-1]["text"] != original or self.last_voice is None
+                    or self.clock() - self.last_voice >= self.config["pausa_secondi"]):
+                return False
+            finals.pop()
+            self.final_word_count = max(0, self.final_word_count -
+                                        len(re.findall(r"[^\W_]+(?:['’][^\W_]+)*", original)))
+            transcript["testo"] = " ".join(item["text"] for item in finals)
+            return self.ingest(session_id, refined, final=True, alternatives=alternatives)
+
+    def _capture_audio_hybrid(self, session_id, stop):
+        """Show Vosk partials immediately; ask Whisper once per final turn as a fallback."""
+        import sounddevice
+        from vosk import KaldiRecognizer
+
+        path = Path(os.environ.get("SALES_VOSK_MODEL", str(MODEL))).resolve()
+        if not path.is_dir():
+            raise FileNotFoundError
+        model = load_model(path)
+        if stop.is_set():
+            return
+        device_index, sample_rate = _audio_input_selection(self.input_device, sounddevice)
+        rate = int(sample_rate)
+        recognizer = KaldiRecognizer(model, rate)
+        recognizer.SetMaxAlternatives(3)
+        audio = Queue(maxsize=8)
+        jobs = Queue(maxsize=1)
+        worker_stop = threading.Event()
+        whisper_ready = threading.Event()
+        whisper_busy = threading.Event()
+        self.whisper_worker_stop = worker_stop
+
+        def refine_turns():
+            server = WhisperServer(ROOT)
+            try:
+                server.start()
+                if worker_stop.is_set():
+                    return
+                with self.lock:
+                    if session_id != self.state["session_id"] or stop.is_set():
+                        return
+                    self.whisper_server = server
+                whisper_ready.set()
+                while not worker_stop.is_set():
+                    try:
+                        pcm_bytes, vosk_text = jobs.get(timeout=0.1)
+                    except Empty:
+                        continue
+                    try:
+                        _, _, terms = self._catalog_material()
+                        prompt = _catalog_speech_prompt(terms, vosk_text)
+                        whisper_text = server.transcribe_wav(self._whisper_wav(pcm_bytes), prompt=prompt)
+                        vosk_codes = self._speech_product_codes(vosk_text, terms)
+                        whisper_codes = self._speech_product_codes(whisper_text, terms)
+                        compatible = (not vosk_codes or (vosk_codes.intersection(whisper_codes)
+                                                         and whisper_codes.issubset(vosk_codes)))
+                        if whisper_codes and compatible:
+                            self._replace_latest_final(session_id, vosk_text, whisper_text,
+                                                      alternatives=(vosk_text,))
+                    except WhisperError as failure:
+                        if failure.code != "whisper_busy":
+                            diagnostic("audio", "motore_whisper_ripiego", "avviso")
+                    except Exception:
+                        diagnostic("audio", "motore_whisper_ripiego", "avviso")
+                    finally:
+                        whisper_busy.clear()
+                        jobs.task_done()
+            except Exception:
+                diagnostic("audio", "motore_whisper_ripiego", "avviso")
+            finally:
+                whisper_ready.clear()
+                server.stop()
+                with self.lock:
+                    if self.whisper_server is server:
+                        self.whisper_server = None
+
+        worker = threading.Thread(target=refine_turns, daemon=True, name="sales-whisper-refine")
+        worker.start()
+
+        def capture(buffer, frames, timing, status):
+            if stop.is_set():
+                return
+            try:
+                audio.put_nowait(bytes(buffer))
+            except Full:
+                pass
+
+        segment_pcm = bytearray()
+        segment_started = False
+        with sounddevice.RawInputStream(device=device_index, samplerate=rate, blocksize=max(1, rate // 5),
+                                        channels=1, dtype="int16", callback=capture) as stream:
+            with self.lock:
+                if session_id != self.state["session_id"] or stop.is_set():
+                    worker_stop.set()
+                    return
+                self.state["status"]["microphone"] = "attivo"
+                self.active_speech_engine = "ibrido"
+                self.state["version"] += 1
+            diagnostic("audio", "attivo", duration=self.clock() - self.started_at)
+            while not stop.is_set():
+                try:
+                    chunk = audio.get(timeout=0.1)
+                except Empty:
+                    if not stream.active:
+                        raise RuntimeError
+                    continue
+                converted, energy = self._resample_whisper_audio(chunk, rate)
+                if energy >= 220 or segment_started:
+                    segment_pcm.extend(converted)
+                    segment_started = True
+                fragment, final, alternatives = recognize_with_options(recognizer, chunk)
+                self.ingest(session_id, fragment, final=final, alternatives=alternatives)
+                if final:
+                    if fragment and whisper_ready.is_set() and segment_pcm and not whisper_busy.is_set():
+                        _, _, terms = self._catalog_material()
+                        vosk_codes = self._speech_product_codes(fragment, terms)
+                        if len(vosk_codes) != 1:
+                            whisper_busy.set()
+                            try:
+                                jobs.put_nowait((bytes(segment_pcm), fragment))
+                            except Full:
+                                whisper_busy.clear()
+                    segment_pcm.clear()
+                    segment_started = False
 
     @staticmethod
     def _whisper_wav(pcm):

@@ -10,4 +10,10 @@ Nel database le relazioni `candidata` non diventano approvate: alcune `indicazio
 
 Prezzo e quantità possono essere nulli. Un valore mancante significa dato sconosciuto e non equivale a prezzo zero o scorta esaurita. Fonti, data di verifica e provenienza del dato accompagnano i campi di catalogo quando disponibili.
 
+Il catalogo ampliato del 9 novembre 2026 usa `database/catalogo-ampliamento-20261109.json`; le schede `real-med-025.md`–`real-med-055.md` e `real-vet-001.md`–`real-vet-006.md` riportano soltanto i campi documentati e rimandano alle fonti del record. I prezzi e le scorte locali restano sconosciuti. Le schede con mercato italiano non verificato restano `bozza` e non entrano nell’indice automatico. I record veterinari riportano la specie; la ricerca live richiede la specie animale dichiarata e non usa quei prodotti per il contesto umano.
+
+I collegamenti candidati per dolore, pelle e veterinaria sono in `database/collegamenti-dolore-pelle-vet.json`. «Ematoma» e «contusione» sono concetti distinti; «micosi cutanea» non equivale a «dermatite» o «eczema». Non sono stati aggiunti abbinamenti integratore-sintomo o integratore-medicinale: le fonti nutrizionali disponibili non sostengono un abbinamento specifico.
+
+Il processo per vagliare nuovi termini è in [Revisione dei termini](REVISIONE_TERMINI.md). Al momento non esiste una coda runtime: audio, trascrizione e termini non verificati non vengono conservati né trasformati in alias.
+
 La ricerca restituisce pertinenza testuale e collegamenti documentati per la consultazione del farmacista. Le evidenze del dialogo sono temporanee: menzione, richiesta, proposta, accettazione, negazione, uso passato e correzione hanno significati distinti. Una fase `closing` o la frase «serve altro?» non prova una vendita né crea un abbinamento clinico. Vedi [glossario](GLOSSARIO.md) e [scenari e fonti](SCENARI_E_FONTI.md).
