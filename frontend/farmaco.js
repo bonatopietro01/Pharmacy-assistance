@@ -89,9 +89,45 @@ function fieldsBlock(title, fields) {
 
 // ---------- search & scan ----------
 
+// Hybrid wiki search (keywords + meaning, local model): page, section and excerpt.
+let wikiQuery = 0;
+async function wikiLookup(text) {
+  const ticket = ++wikiQuery;
+  const box = $("wiki-box");
+  box.hidden = false;
+  $("wiki-results").replaceChildren();
+  $("wiki-status").textContent = "Ricerca nella wiki…";
+  let data;
+  try {
+    const response = await fetch("/api/wiki/cerca", {
+      method: "POST", cache: "no-store", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({testo: text}), signal: AbortSignal.timeout(120000)
+    });
+    data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.errore || "Ricerca nella wiki non riuscita.");
+  } catch (error) {
+    if (ticket === wikiQuery) $("wiki-status").textContent = error.message || "Ricerca nella wiki non riuscita.";
+    return;
+  }
+  if (ticket !== wikiQuery) return;
+  const results = list(data.risultati);
+  $("wiki-status").textContent = !results.length ? "Nessuna pagina della wiki trovata."
+    : data.modo === "ibrida" ? "Parole chiave e significato" : "Solo parole chiave (modello semantico non disponibile)";
+  $("wiki-results").replaceChildren(...results.map(item => {
+    const li = node("li", "", "match");
+    const meaningOnly = list(item.fonti).length === 1 && item.fonti[0] === "significato";
+    li.append(node("strong", item.titolo + (item.sezione ? " · " + item.sezione : "")),
+      node("span", (meaningOnly ? "Simile per significato · " : "") + item.estratto, "result-facts"));
+    li.title = "Scheda wiki: " + item.scheda;
+    return li;
+  }));
+}
+
 async function lookup(text, origin = "manuale", reader = null) {
   say("");
-  for (const id of ["matches-box", "aifa-box", "manual-box"]) $(id).hidden = true;
+  for (const id of ["matches-box", "aifa-box", "manual-box", "wiki-box"]) $(id).hidden = true;
+  wikiQuery++;
+  if (origin === "manuale" && /[^\d\s]/.test(text) && text.trim().length >= 2) wikiLookup(text.trim());
   let result;
   try {
     result = await post(origin === "telecamera" ? "codice" : "cerca",

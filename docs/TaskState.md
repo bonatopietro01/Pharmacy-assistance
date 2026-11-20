@@ -1,5 +1,38 @@
 # TaskState
 
+## Aggiornamento 20 novembre 2026 — ricerca ibrida nella wiki e faster-whisper
+
+Richiesta dell'utente: ricerca nella wiki per significato, trascrizione più precisa, solo modelli locali e gratuiti. Lo scanner di documenti è stato **escluso per ora** dall'utente.
+
+**Diagnosi**:
+- La trascrizione non usa la Web Speech API: il microfono è catturato dal server (Vosk small-it, whisper.cpp, ibrido).
+- La ricerca esistente (`knowledge.search`, FTS5/BM25) trova solo parole uguali o con la stessa radice.
+- Lo «scanner» è il lettore di codici a barre di `/farmaco`. Con la fotocamera occupata da un'altra app produce `NotReadableError`, mostrato come il generico «Telecamera non disponibile.». Non è stato corretto, su richiesta.
+
+- **Ricerca ibrida** (`backend/wiki_search.py`, `POST /api/wiki/cerca`, riquadro «Nella wiki» in `/farmaco`):
+  - le sezioni della wiki sono indicizzate con `BAAI/bge-m3` in `database/wiki_vettori.sqlite3`, con hash per pagina;
+  - BM25 e significato sono uniti con RRF;
+  - al massimo 5 risultati possono arrivare dal solo significato;
+  - senza modello si usano le sole parole chiave.
+- **faster-whisper** (`backend/speech_faster_whisper.py`), nuovo motore in Impostazioni accanto agli esistenti:
+  - `small` int8 sulla CPU, `large-v3-turbo` con GPU;
+  - italiano, VAD, trascrizione a fine frase;
+  - prompt con il catalogo e la wiki;
+  - stati «trascrizione in corso» ed «Errore di trascrizione».
+- Dipendenze in `requirements.txt` (nuovo). Dettagli, spazio e percorsi dei modelli in `docs/RICERCA_E_VOCE_LOCALI.md`.
+
+Controlli:
+- `tests/test_wiki_search.py`: 20 test PASS, inclusa l'accettazione con il modello reale («costi» trova «spese/budget», una sigla esatta resta prima).
+- Suite completa: tutti PASS tranne 1 FAIL in `test_controllo` (origine `farmaco` nel feedback), già presente prima di queste modifiche con lo stesso `database/farmacia.sqlite3` modificato.
+- Trascrizione: su 5 frasi sintetiche (voce Windows Elsa) gli errori sulle parole passano dal 14% di Vosk al 9% di faster-whisper; i nomi commerciali giusti da 1/3 a 3/3; circa 4–5 s per frase sulla CPU.
+- Percorso completo del banco con microfono finto: stati e testo corretti. Con un modello inesistente la sessione chiude con `trascrizione_non_disponibile`.
+- Browser: riquadro wiki e voce faster-whisper nelle Impostazioni.
+
+Limiti:
+- Microfono e voce reali non provati.
+- Con domande fuori tema la ricerca per significato mostra comunque fino a 5 risultati deboli, marcati «Simile per significato».
+- La prima ricerca dopo l'avvio attende il caricamento del modello (circa 20 s, fatto in background).
+
 ## Aggiornamento 19 novembre 2026 (sera) — integratori per sintomo e controllo ogni 3 parole chiave
 
 Eseguito `docs/PROMPT_INTEGRATORI_AGENTE.md`.

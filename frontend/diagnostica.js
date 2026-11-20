@@ -1,6 +1,6 @@
 const $ = id => document.getElementById(id);
 const allowCodes = new Map([
-  ["audio", new Set(["avvio", "attivo", "dipendenze_o_modello", "microfono_o_ricerca", "sessione_chiusa", "lease_scaduta"])],
+  ["audio", new Set(["avvio", "attivo", "dipendenze_o_modello", "microfono_o_ricerca", "sessione_chiusa", "lease_scaduta", "trascrizione_non_disponibile"])],
   ["backend", new Set(["operazione_non_disponibile"])],
   ["ricerca", new Set(["ricerca_non_disponibile"])],
   ["telecamera", new Set(["lettura_trovato", "lettura_multipli", "lettura_aifa", "lettura_sconosciuto", "lettura_nessuno"])],

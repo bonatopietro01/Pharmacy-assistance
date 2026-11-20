@@ -905,6 +905,8 @@ function render(data) {
   const status = !reachable ? "Banco non raggiungibile"
     : foreignSession ? "Ascolto attivo in un’altra sessione"
     : pendingReset ? "Sessione precedente da azzerare"
+    : data?.status?.microphone === "attivo" && data?.status?.transcribing === true ? "In ascolto · trascrizione in corso…"
+    : data?.status?.error_code === "trascrizione_non_disponibile" ? "Errore di trascrizione"
     : ({spento: "Microfono spento", avvio: "Avvio microfono…", attivo: "In ascolto", errore: "Microfono non disponibile"})[data?.status?.microphone] || "Microfono spento";
   if ($("status").textContent !== status) $("status").textContent = status;
   $("status").classList.toggle("recording", recording);
@@ -1350,6 +1352,10 @@ function showMicError() {
     $("message").textContent = "Il microfono selezionato non è disponibile. Apri Impostazioni, scegli un ingresso audio o il predefinito del sistema e salva prima di riprovare.";
     return;
   }
+  if (snapshot?.status?.error_code === "trascrizione_non_disponibile") {
+    $("message").textContent = "faster-whisper non è riuscito a caricare il modello o a trascrivere. Al primo uso serve internet per scaricarlo; altrimenti scegli Vosk in Impostazioni.";
+    return;
+  }
   $("message").textContent = "Controlla il microfono predefinito di Windows e il modello vocale, poi riprova.";
 }
 
@@ -1366,6 +1372,7 @@ function updateSettingsControls() {
   const speechEngine = $("settings-speech-engine");
   speechEngine.disabled = settingsBusy || !settings;
   speechEngine.querySelector('option[value="whisper.cpp"]').disabled = !settings?.whisper_available;
+  speechEngine.querySelector('option[value="faster-whisper"]').disabled = !settings?.faster_whisper_available;
   $("settings-input-device").disabled = settingsBusy || !settings;
   for (const id of ["settings-provider", "settings-threshold", "settings-model", "settings-clear-key", "settings-enabled", "settings-save"]) {
     $(id).disabled = settingsBusy || !settings;
@@ -1438,12 +1445,14 @@ function updateSpeechStatus() {
     return;
   }
   const selected = $("settings-speech-engine").value;
-  const speechNames = {vosk: "Vosk", "whisper.cpp": "Whisper.cpp", ibrido: "Ibrido · Vosk + Whisper.cpp"};
+  const speechNames = {vosk: "Vosk", "whisper.cpp": "Whisper.cpp", ibrido: "Ibrido · Vosk + Whisper.cpp",
+    "faster-whisper": "faster-whisper"};
   const selectedName = speechNames[selected] || "Vosk";
   const activeName = speechNames[settings.speech_active_engine] || null;
   $("settings-speech-status").textContent = [
     settings.whisper_available ? "Whisper.cpp disponibile" : selected === "ibrido"
       ? "Whisper.cpp non disponibile; l’ibrido userà solo Vosk" : "Whisper.cpp non disponibile; Vosk resta disponibile",
+    settings.faster_whisper_available ? "faster-whisper disponibile" : "faster-whisper non installato",
     "Configurato per il prossimo ascolto: " + selectedName,
     activeName ? "Motore nella sessione corrente: " + activeName : "",
     activeName && activeName !== selectedName ? "La scelta salvata si applica al prossimo ascolto" : ""
@@ -1453,13 +1462,14 @@ function updateSpeechStatus() {
 function showSettings(value) {
   if (!value || !["local", "openai"].includes(value.provider) || !Number.isInteger(value.word_threshold)
       || typeof value.model !== "string" || typeof value.api_key_configured !== "boolean"
-      || value.speech_engine != null && !["vosk", "whisper.cpp", "ibrido"].includes(value.speech_engine)
+      || value.speech_engine != null && !["vosk", "whisper.cpp", "ibrido", "faster-whisper"].includes(value.speech_engine)
       || value.whisper_available != null && typeof value.whisper_available !== "boolean"
       || value.speech_active_engine != null && typeof value.speech_active_engine !== "string") {
     throw Error("invalid settings");
   }
   settings = {provider: value.provider, api_key_configured: value.api_key_configured,
     speech_engine: value.speech_engine || "vosk", whisper_available: value.whisper_available === true,
+    faster_whisper_available: value.faster_whisper_available === true,
     speech_active_engine: value.speech_active_engine || null,
     input_device: value.input_device ?? null, input_device_missing: value.input_device_missing === true,
     input_devices: renderInputDevices(value)};

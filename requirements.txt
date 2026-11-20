@@ -1,0 +1,12 @@
+# Dipendenze Python del banco (interprete: pythoncore-3.14-64, vedi AVVIA_BANCO.cmd).
+# Tutto gira in locale; i modelli si scaricano una volta (vedi docs/RICERCA_E_VOCE_LOCALI.md).
+
+# Audio di base (installabili anche in .audio-packages, vedi frontend/README.md)
+vosk==0.3.45
+sounddevice==0.5.6
+
+# Ricerca ibrida nella wiki: embedding locale multilingue (backend/wiki_search.py)
+sentence-transformers==6.3.0
+
+# Trascrizione locale con Whisper (backend/speech_faster_whisper.py)
+faster-whisper==1.2.1

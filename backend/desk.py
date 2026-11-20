@@ -41,6 +41,8 @@ from backend.knowledge import (CATALOG, ROOT, normalize, product_aliases, produc
 from backend.offers import active_offers, offer_listing, save_offer
 from backend.speech import decode_result, find_alternative_codes
 from backend.speech_whisper import WhisperError, WhisperServer
+from backend import wiki_search
+from backend.speech_faster_whisper import FasterWhisperEngine, build_prompt
 
 PORT = 8765
 ORIGIN = f"http://127.0.0.1:{PORT}"
@@ -48,6 +50,7 @@ LOW_STOCK = 3
 REQUESTS = ROOT / "database" / "reintegro.sqlite3"
 SETTINGS = ROOT / "database" / "configurazione.json"
 MODEL = ROOT / "models" / "vosk-model-small-it-0.22"
+SPEECH_ENGINES = ("vosk", "whisper.cpp", "ibrido", "faster-whisper")
 if (ROOT / ".audio-packages").is_dir():
     sys.path.append(str(ROOT / ".audio-packages"))
 
@@ -77,7 +80,8 @@ SETTINGS_LOCK = threading.Lock()
 FRONTEND_CODES = {"ricerca", "stato", "microfono", "pagina", "azione", "offerte", "configurazione"}
 DIAGNOSTIC_CODES = {
     "audio": {"avvio", "attivo", "dipendenze_o_modello", "microfono_o_ricerca", "sessione_chiusa",
-              "lease_scaduta", "motore_whisper_ripiego", "dispositivo_input_non_disponibile"},
+              "lease_scaduta", "motore_whisper_ripiego", "dispositivo_input_non_disponibile",
+              "trascrizione_non_disponibile"},
     "backend": {"operazione_non_disponibile"},
     "ricerca": {"ricerca_non_disponibile"},
     "frontend": FRONTEND_CODES,
@@ -220,7 +224,7 @@ def _write_configuration(path, config):
             temp_path.unlink(missing_ok=True)
 
 
-PRESERVED_CONFIG_KEYS = ("import", "mostra_trascrizione", "ricerca_semantica", "scheda_farmaco", "vad", "verifica_agente",
+PRESERVED_CONFIG_KEYS = ("faster_whisper", "import", "ricerca_wiki", "mostra_trascrizione", "ricerca_semantica", "scheda_farmaco", "vad", "verifica_agente",
                          "vocabolario_asr")
 
 
@@ -230,7 +234,7 @@ def save_configuration(payload, path=SETTINGS):
         current = _read_configuration(path)
         agent = phase_agent.normalize_settings(current.get("agent", {}))
         speech_engine = current.get("speech_engine", "vosk")
-        if speech_engine not in ("vosk", "whisper.cpp", "ibrido"):
+        if speech_engine not in SPEECH_ENGINES:
             speech_engine = "vosk"
         input_device = current.get("input_device")
         # Sections owned by other tools (imports, semantic search, voice activity) are kept as they are.
@@ -246,7 +250,7 @@ def load_agent_settings(path=SETTINGS):
 
 def load_speech_engine(path=SETTINGS):
     value = _read_configuration(path).get("speech_engine", "vosk")
-    return value if value in ("vosk", "whisper.cpp", "ibrido") else "vosk"
+    return value if value in SPEECH_ENGINES else "vosk"
 
 
 def load_input_device(path=SETTINGS):
@@ -320,6 +324,7 @@ def public_agent_settings(config, speech_engine="vosk", speech_active_engine=Non
     missing = bool(input_device and input_device not in available_ids)
     return {**config, "api_key_configured": phase_agent.read_key() is not None,
             "speech_engine": speech_engine, "whisper_available": WhisperServer.available(),
+            "faster_whisper_available": FasterWhisperEngine.available(),
             "speech_active_engine": speech_active_engine,
             "input_device": None if missing else input_device,
             "input_device_missing": missing,
@@ -2359,10 +2364,12 @@ class Listening:
             agent_payload = {key: payload[key] for key in phase_agent.DEFAULT_SETTINGS if key in payload}
             config = phase_agent.normalize_settings({**agent, **agent_payload})
             speech_engine = payload.get("speech_engine", current.get("speech_engine", "vosk"))
-            if speech_engine not in ("vosk", "whisper.cpp", "ibrido"):
+            if speech_engine not in SPEECH_ENGINES:
                 raise ValueError("Seleziona un motore di trascrizione valido.")
             if speech_engine == "whisper.cpp" and not WhisperServer.available():
                 raise ValueError("Whisper.cpp non è disponibile; mantieni Vosk o installa il modello locale.")
+            if speech_engine == "faster-whisper" and not FasterWhisperEngine.available():
+                raise ValueError("faster-whisper non è installato; installa i requisiti (requirements.txt) o mantieni Vosk.")
             input_device = payload.get("input_device", current.get("input_device"))
             input_devices = _input_device_records() if input_device is not None else []
             if "input_device" not in payload and input_device is not None and not any(
@@ -2424,6 +2431,15 @@ class Listening:
                     return
                 if self.speech_engine == "ibrido":
                     self._capture_audio_hybrid(session_id, stop)
+                elif self.speech_engine == "faster-whisper":
+                    try:
+                        engine = FasterWhisperEngine(ROOT, config=self.settings)
+                        self._capture_audio_whisper(session_id, stop, server=engine,
+                                                    engine_name="faster-whisper", partials=False)
+                    except WhisperError:
+                        if stop.is_set():
+                            return
+                        error = "trascrizione_non_disponibile"
                 elif self.speech_engine == "whisper.cpp" and WhisperServer.available():
                     try:
                         self._capture_audio_whisper(session_id, stop)
@@ -2668,8 +2684,8 @@ class Listening:
             resampled.append(max(-32768, min(32767, value)))
         return resampled.tobytes(), energy
 
-    def _capture_audio_whisper(self, session_id, stop):
-        server = WhisperServer(ROOT)
+    def _capture_audio_whisper(self, session_id, stop, server=None, engine_name="whisper.cpp", partials=True):
+        server = server if server is not None else WhisperServer(ROOT)
         with self.lock:
             if session_id != self.state["session_id"] or stop.is_set():
                 return
@@ -2680,7 +2696,7 @@ class Listening:
             server.start()
             if stop.is_set():
                 return
-            self._capture_audio_whisper_stream(session_id, stop, server)
+            self._capture_audio_whisper_stream(session_id, stop, server, engine_name, partials)
         finally:
             if self.whisper_worker_stop is not None:
                 self.whisper_worker_stop.set()
@@ -2690,7 +2706,25 @@ class Listening:
                 if self.whisper_server is server:
                     self.whisper_server = None
 
-    def _capture_audio_whisper_stream(self, session_id, stop, server):
+    def _set_transcribing(self, session_id, value):
+        with self.lock:
+            status = self.state["status"]
+            if session_id == self.state["session_id"] and status.get("transcribing") != value:
+                status["transcribing"] = value
+                self.state["version"] += 1
+
+    def _speech_vocabulary(self, engine_name):
+        _, _, terms = self._catalog_material()
+        catalog_terms = voce.vocabulary_prompt(terms)
+        if engine_name != "faster-whisper":
+            return catalog_terms
+        try:  # wiki titles, declared terms and acronyms help with technical words
+            wiki_terms = wiki_search.wiki_vocabulary(wiki_search.load_pages(Path(self.catalog)))
+        except Exception:
+            wiki_terms = ""
+        return build_prompt(wiki_terms, catalog_terms)
+
+    def _capture_audio_whisper_stream(self, session_id, stop, server, engine_name="whisper.cpp", partials=True):
         import sounddevice
 
         device_index, sample_rate = _audio_input_selection(self.input_device, sounddevice)
@@ -2713,8 +2747,9 @@ class Listening:
                 error = None
                 try:
                     if vocabulary is None:
-                        _, _, terms = self._catalog_material()
-                        vocabulary = voce.vocabulary_prompt(terms)
+                        vocabulary = self._speech_vocabulary(engine_name)
+                    if final:
+                        self._set_transcribing(session_id, True)
                     text = server.transcribe_wav(self._whisper_wav(pcm_bytes), prompt=vocabulary)
                     self.ingest(session_id, text, final=final)
                 except WhisperError as failure:
@@ -2722,6 +2757,7 @@ class Listening:
                 except Exception:
                     error = "whisper_richiesta_non_riuscita"
                 finally:
+                    self._set_transcribing(session_id, False)
                     with worker_lock:
                         worker_state["busy"] = False
                     try:
@@ -2761,7 +2797,7 @@ class Listening:
                     worker_stop.set()
                     return
                 self.state["status"]["microphone"] = "attivo"
-                self.active_speech_engine = "whisper.cpp"
+                self.active_speech_engine = engine_name
                 self.state["version"] += 1
             diagnostic("audio", "attivo", duration=self.clock() - self.started_at)
             while not stop.is_set():
@@ -2808,7 +2844,7 @@ class Listening:
                         silence_seconds = 0.0
                         started = False
                         final_ready = False
-                elif started and not busy and len(pcm) >= 48000 and len(pcm) - last_partial_size >= 24000:
+                elif partials and started and not busy and len(pcm) >= 48000 and len(pcm) - last_partial_size >= 24000:
                     try:
                         jobs.put_nowait((bytes(pcm[-192000:]), False))
                     except Full:
@@ -2973,6 +3009,11 @@ class Desk(BaseHTTPRequestHandler):
                     return self.json({"errore": "Inserisci un testo da cercare."}, 400)
                 status, result = self.listening.manual_search(text, payload.get("session_id"))
                 return self.json(result, status)
+            if self.path == "/api/wiki/cerca":
+                text = payload.get("testo")
+                if not isinstance(text, str):
+                    return self.json({"errore": "Inserisci un testo da cercare."}, 400)
+                return self.json(wiki_search.search(text, catalog=Path(self.listening.catalog)))
             if self.path == "/api/offerte":
                 return self.json(save_offer(payload, self.listening.catalog))
             if self.path == "/api/configurazione":
@@ -3126,6 +3167,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     with LocalServer(("127.0.0.1", PORT), Desk) as server:
         print(f"Schermata farmacista: {ORIGIN}", flush=True)
+        threading.Thread(target=wiki_search.warm_up, daemon=True, name="sales-wiki-warmup").start()
         if args.open:
             threading.Thread(target=webbrowser.open, args=(ORIGIN,), daemon=True).start()
         try:

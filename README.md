@@ -23,3 +23,4 @@ Audio and recognized text remain in memory and are not written to disk or logs. 
 - [Catalog and product data](database/README.md)
 - [Wiki authoring and retrieval](wiki/README.md)
 - [Live session contract](docs/CONTRATTO_SESSIONE.md)
+- [Hybrid wiki search and faster-whisper (local models)](docs/RICERCA_E_VOCE_LOCALI.md)
