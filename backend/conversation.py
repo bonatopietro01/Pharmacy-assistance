@@ -1,6 +1,8 @@
 """Deterministic search signals for one volatile Italian transcript revision."""
 
+import json
 import re
+from pathlib import Path
 
 from backend.knowledge import FORM_NAMES
 from collections import defaultdict
@@ -18,7 +20,7 @@ _REFUSAL = re.compile(r"\b(?:non\s+(?:(?:lo|la|li|le|ne)\s+)?(?:voglio|vorrei|pr
 _TARGET_NEGATION = re.compile(r"\b(?:non(?:\s+(?:cerco|compro))?|esclud[ao])\b", re.IGNORECASE)
 _PRONOMINAL_NEGATION = re.compile(r"\bnon\s+(?:lo|la|li|le|ne)\s+(?:cerco|compro|prendo|voglio)\b", re.IGNORECASE)
 _PAST = re.compile(
-    r"\b(?:avev(?:o|i|a|amo|ate|ano)|avuto|usavo|prendevo|prendeva|cercavo|volevo(?!\s+dire\b)|compravo|usato|usata|preso(?!\s+una\s+botta\b)|presa|"
+    r"\b(?:avev(?:o|i|a|amo|ate|ano)|avuto|usavo|prendevo|prendeva|cercavo|volevo(?!\s+dire\b)|compravo|usato|usata|preso(?!\s+(?:una\s+|un\s+|il\s+)?(?:botta|storta|colpo|freddo|raffreddore|influenza)\b)|presa|"
     r"comprato|comprata|utilizzato|utilizzata|cercato|acquistato|in passato|prima usavo|l[’']altra volta|"
     r"(?:giorno|settimana|mese|anno)\s+scors[oa]|(?:giorni|settimane|mesi|anni)\s+fa|(?<!\bda\s)ieri)\b",
     re.IGNORECASE,
@@ -175,6 +177,48 @@ _SYMPTOMS = (
     ("parassiti-cane", r"(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io]).{0,48}(?:pulci|zecche|parassiti esterni)|(?:pulci|zecche|parassiti esterni).{0,48}(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io])", "Verificare la specie dichiarata e consultare il veterinario.", "parassiti-cane"),
     ("parassiti-gatto", r"(?:gatto|gatti|gatt[oa]|gattin[io]).{0,48}(?:pulci|zecche|parassiti esterni)|(?:pulci|zecche|parassiti esterni).{0,48}(?:gatto|gatti|gatt[oa]|gattin[io])", "Verificare la specie dichiarata e consultare il veterinario.", "parassiti-gatto"),
 )
+# Colloquial lexicon kept in data, so a pharmacist-curated synonym or a new
+# need does not require a code change. Recognition only: products still come
+# exclusively from source-backed relations in the catalog.
+LEXICON = Path(__file__).resolve().parents[1] / "database" / "lessico-concetti.json"
+
+
+def _phrase_pattern(phrase):
+    words = [re.escape(word).replace("'", "['’]") for word in phrase.casefold().split()]
+    return r"\s+".join(words)
+
+
+def _load_lexicon(symptoms, path=LEXICON):
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return symptoms
+    merged = {concept_id: [terms, prompt, wiki] for concept_id, terms, prompt, wiki in symptoms}
+    for concept_id, entry in (data.get("concetti") or {}).items():
+        if not isinstance(entry, dict) or not re.fullmatch(r"[a-z0-9-]+", concept_id):
+            continue
+        phrases = sorted((t for t in entry.get("termini", []) if isinstance(t, str) and t.strip()),
+                         key=len, reverse=True)
+        extra = [_phrase_pattern(t) for t in phrases]
+        extra.extend(re.escape(stem.casefold()) + r"\w*" for stem in entry.get("radici", [])
+                     if isinstance(stem, str) and len(stem.strip()) >= 4)
+        if isinstance(entry.get("regex"), str):
+            extra.append(entry["regex"])
+        if not extra:
+            continue
+        try:
+            re.compile("|".join(extra))
+        except re.error:
+            continue
+        if concept_id in merged:
+            merged[concept_id][0] = merged[concept_id][0] + "|" + "|".join(extra)
+        else:
+            merged[concept_id] = ["|".join(extra), entry.get("domanda") or "Chiarire la richiesta.", concept_id]
+    return tuple((concept_id, terms, prompt, wiki) for concept_id, (terms, prompt, wiki) in merged.items())
+
+
+_SYMPTOMS = _load_lexicon(_SYMPTOMS)
+
 _ANIMAL_SPECIES = {
     "cane": re.compile(r"\b(?:cane|cani|cagn[oa]|cagnolin[oa]|cucciol[io])\b", re.IGNORECASE),
     "gatto": re.compile(r"\b(?:gatto|gatti|gatt[oa]|gattin[io])\b", re.IGNORECASE),
@@ -195,6 +239,48 @@ def _species_near_topic(clause, span):
     found.sort()
     nearby_species = {species for distance, species in found if distance <= found[0][0] + 12}
     return next(iter(nearby_species)) if len(nearby_species) == 1 else None
+# A negation, refusal or past-tense cue only excludes a symptom when it governs
+# that symptom: it must sit in the same sub-clause (no comma or coordinating /
+# relative conjunction in between) and close to the term. "Ho un mal di testa
+# che non passa" keeps the symptom; "non ho mal di testa" excludes it.
+_SCOPE_BOUNDARY = re.compile(
+    r"[,:]|\b(?:ma|per[oò]|e|ed|che|perch[eé]|quando|mentre|anche\s+se|eppure|invece|per[oò])\b",
+    re.IGNORECASE,
+)
+_SCOPE_WORDS = 6
+
+
+def _cue_governs(clause, span, pattern, *, after=False):
+    start, end = span
+    for cue in pattern.finditer(clause):
+        if cue.end() <= start:
+            gap = clause[cue.end():start]
+        elif after and cue.start() >= end:
+            gap = clause[end:cue.start()]
+        else:
+            continue
+        if _SCOPE_BOUNDARY.search(gap):
+            continue
+        if len(re.findall(r"[^\W_]+", gap)) <= _SCOPE_WORDS:
+            return True
+    return False
+
+
+def _symptom_excluded(clause, span, budgets=()):
+    negation = re.compile(_NEGATION.pattern[:-3] + r"|né)\b", re.IGNORECASE)
+    in_budget = lambda m: any(b.start() <= m.start() < b.end() for b in budgets)
+    start, end = span
+    for cue in negation.finditer(clause):
+        if in_budget(cue):
+            continue
+        if cue.end() <= start:
+            gap = clause[cue.end():start]
+            if not _SCOPE_BOUNDARY.search(gap) and len(re.findall(r"[^\W_]+", gap)) <= _SCOPE_WORDS:
+                return True
+    return (_cue_governs(clause, span, _REFUSAL)
+            or _cue_governs(clause, span, _PAST, after=True))
+
+
 _SERVICES = (
     ("turni", r"farmaci[ae] (?:di turno|apert[ae])|aperta stasera"),
     ("orari", r"orari(?:o)?|a che ora (?:aprite|chiudete)|quando (?:aprite|chiudete)"),
@@ -926,7 +1012,7 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
 
         for wiki, terms, prompt in _TOPICS:
             match = re.search(rf"\b(?:{terms})\b", clause, re.IGNORECASE)
-            if match and (negation or past or refusal):
+            if match and _symptom_excluded(clause, match.span(), budgets):
                 topics.pop(wiki, None)
             elif match:
                 topics[wiki] = signal("topic", match.span(), "Termine di ricerca in una scheda dimostrativa.", wiki=wiki)
@@ -939,7 +1025,7 @@ def analyze(text: str, product_terms: list[dict] | None = None, partial: bool = 
                 topics.pop(concept_id, None)
         for concept_id, terms, prompt, wiki in _SYMPTOMS:
             match = re.search(rf"\b(?:{terms})\b", clause, re.IGNORECASE)
-            if match and (negation or past or refusal):
+            if match and _symptom_excluded(clause, match.span(), budgets):
                 topics.pop(concept_id, None)
                 item = signal("symptom_exclusion", match.span(), "Sintomo negato o riferito al passato.", wiki=wiki)
                 item["concept_id"] = concept_id

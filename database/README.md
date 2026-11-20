@@ -1,6 +1,6 @@
 # Catalogo SQLite
 
-Il catalogo operativo si trova in `farmacia.sqlite3`. La versione corrente è lo schema v5: conserva i record e le relazioni esistenti e aggiunge un ambito specie per separare i medicinali umani da quelli veterinari. La migrazione `004_catalogo_v4.sql` aggiungeva la provenienza e permetteva ai prodotti reali di avere prezzo e quantità `NULL`; `005_specie_destinazione.sql` aggiunge il solo campo specie e porta i medicinali umani esistenti a `umana`.
+Il catalogo operativo si trova in `farmacia.sqlite3`. La versione corrente è lo schema v7 (vedi «Schema v6 e v7» sotto). Fino al 17 novembre 2026 era lo schema v5: conserva i record e le relazioni esistenti e aggiunge un ambito specie per separare i medicinali umani da quelli veterinari. La migrazione `004_catalogo_v4.sql` aggiungeva la provenienza e permetteva ai prodotti reali di avere prezzo e quantità `NULL`; `005_specie_destinazione.sql` aggiunge il solo campo specie e porta i medicinali umani esistenti a `umana`.
 
 ## Schema v5
 
@@ -70,3 +70,51 @@ La tabella `offerte` e la coda `reintegro.sqlite3` conservano le funzioni dimost
 ## Listino, scorte e promozioni di prova
 
 `python -m backend.demo_inventory --catalog database/farmacia.sqlite3 --date 2026-11-08 --wiki wiki/LISTINO_DEMO.md` applica lo scenario esplicito di prova. Eseguire con il banco chiuso e dopo il backup. Per ogni SKU idoneo, il modulo inserisce valori sintetici con fonte `SRC-SALES-DEMOBANCO-20261108`. Prezzi e scorte con una fonte diversa restano invariati. Le tre promozioni demo illustrano rispettivamente un’offerta valida, una scaduta e una esaurita. Il listino Markdown deriva dai valori SQLite etichettati dalla stessa fonte.
+
+
+## Schema v6 e v7 (18 novembre 2026)
+
+Applicate al catalogo operativo il 18 novembre 2026 dopo il backup `backups/farmacia-20261118-prima-v6.sqlite3`.
+
+- **006_vendita_protocolli.sql**: `regime_fornitura`, `eta_minima_anni` e relative fonti sui prodotti; vista `v_prodotti_categoria`; tabelle `protocolli_banco`, `protocollo_voci`, `complementi_banco`, `feedback_banco` (anonimo: nessun testo, nessun dato del cliente), `registro_revisioni`; 14 concetti del lessico colloquiale.
+- **007_alias_pulizia.sql**: alias revisionabili (`stato_revisione`, tipo `errore_asr`); `atc`, `carente`, `carenza_aggiornata_il` sui prodotti; `registro_import`; rimozione delle tabelle `wiki`/`wiki_fts` non più lette.
+
+```powershell
+Copy-Item database\farmacia.sqlite3 database\farmacia-staging.sqlite3
+& $salesPython backend\catalog_setup.py migrate-latest --catalog database\farmacia-staging.sqlite3
+& $salesPython backend\catalog_setup.py check --catalog database\farmacia-staging.sqlite3
+```
+
+`migrate-latest` applica in ordine solo le migrazioni mancanti e controlla integrità e chiavi esterne dopo ciascuna; rilanciato su un catalogo aggiornato non fa nulla.
+
+Dati aggiunti nella stessa occasione:
+
+- `collegamenti-concetti-nuovi.json`: 6 relazioni **candidate** per i nuovi concetti (mal di gola, febbre, stitichezza, emorroidi, diarrea), con le pagine ufficiali consultate il 18 novembre 2026. Restano «non revisionate» finché il farmacista non le approva.
+- `eta_minima_anni` per 14 prodotti, ricavata solo dalle frasi esplicite già scritte nelle relazioni documentate (`python -m backend.import_dati eta-minima`).
+
+## Schema v8 (19 novembre 2026)
+
+- `008_popolazioni.sql`: tabella `prodotto_popolazione` (neonato, bambino, adolescente, adulto, anziano, donna, uomo, gravidanza, allattamento, cane, gatto; età in mesi; esito `indicato` / `formulazione_dedicata` / `cautela` / `sconsigliato` / `controindicato`; fonte obbligatoria; `candidata` finché il farmacista non approva). Le età minime già registrate diventano righe «bambino · controindicato»; `eta_minima_anni` resta per compatibilità.
+- `python -m backend.catalog_setup seed-v8` carica, in modo ripetibile:
+  - `collegamenti-concetti-v8.json`: 30 bisogni nuovi (63 in tutto) e 37 relazioni candidate con la pagina del titolare consultata il 19/11/2026; gli integratori sono `contesto_ricerca` e riportano solo i claim dichiarati dal titolare (nessun claim UE esiste per i probiotici: è scritto nella relazione);
+  - `popolazioni-v8.json`: idoneità per popolazione dalle stesse fonti;
+  - `complementi-candidati-v8.json`: 20 complementi di banco candidati (prodotti o scaffale).
+- Lessico: termini, domanda di avvio e 6 segnali d'allarme nuovi in `lessico-concetti.json`; bozze `wiki/schede/protocollo-<bisogno>.md` per ogni bisogno nuovo.
+- Approvazione: solo dalla pagina `/revisione` (o `backend/revisione.py`), con nome e registro.
+- Backup prima della migrazione: `backups/farmacia-20261119-prima-v8.sqlite3`.
+
+## Strumenti
+
+| Comando | A cosa serve |
+|---|---|
+| `python -m backend.revisione rivedi --revisore "…"` | Rivedere le relazioni sintomo-prodotto una alla volta |
+| `python -m backend.revisione complementi --revisore "…"` | Approvare i complementi di banco |
+| `python -m backend.revisione alias --revisore "…"` | Approvare gli alias proposti |
+| `python -m backend.protocolli anteprima / pubblica <scheda>` | Caricare un protocollo di banco pubblicato |
+| `python -m backend.import_dati aifa --scarica` | Import notturno anagrafica AIFA e farmaci carenti (CC-BY 4.0) |
+| `python -m backend.import_dati gestionale export.csv` | Prezzi e giacenze dal gestionale; colonne in `configurazione.json` → `import.gestionale.colonne` |
+| `python -m backend.lessico frasi-mancate` / `proponi-alias` | Far crescere il lessico dal feedback |
+| `python -m backend.semantica stato / indicizza` | Ricerca semantica facoltativa (spenta di default) |
+| `python tools/confronto_asr.py cartella --motori vosk whispercpp voxtral` | Confronto dei motori vocali su dialoghi registrati |
+
+Le colonne dei CSV AIFA vengono riconosciute tra più varianti di intestazione; se una colonna necessaria manca, l'import lo segnala con le intestazioni trovate, da mappare in `configurazione.json` → `import.aifa.colonne`.

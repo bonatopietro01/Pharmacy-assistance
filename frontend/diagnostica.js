@@ -3,6 +3,7 @@ const allowCodes = new Map([
   ["audio", new Set(["avvio", "attivo", "dipendenze_o_modello", "microfono_o_ricerca", "sessione_chiusa", "lease_scaduta"])],
   ["backend", new Set(["operazione_non_disponibile"])],
   ["ricerca", new Set(["ricerca_non_disponibile"])],
+  ["telecamera", new Set(["lettura_trovato", "lettura_multipli", "lettura_aifa", "lettura_sconosciuto", "lettura_nessuno"])],
   ["frontend", new Set(["ricerca", "stato", "microfono", "pagina", "azione", "offerte", "configurazione"])]
 ]);
 const allowLevels = new Set(["info", "errore", "avviso"]);
@@ -21,6 +22,37 @@ function presence(value, yes = "Presente", no = "Assente") {
   return value === true ? yes : value === false ? no : "Stato non disponibile";
 }
 
+const importNames = new Map([["aifa", "Import AIFA"], ["gestionale", "Import gestionale"]]);
+const importOutcomes = new Map([["ok", "Riuscito"], ["parziale", "Parziale"], ["errore", "Errore"]]);
+const semanticStates = new Map([["spenta", "Spenta (impostazione)"], ["attiva", "Attiva"],
+  ["non_disponibile", "Non disponibile: pacchetto o modello mancante"]]);
+
+function semanticLabel(value) {
+  return semanticStates.get(value) || "Stato non disponibile";
+}
+
+function importRows(items) {
+  const known = new Map((Array.isArray(items) ? items : []).filter(item => importNames.has(item?.fonte))
+    .map(item => [item.fonte, item]));
+  return [...importNames].map(([key, label]) => {
+    const item = known.get(key);
+    if (!item) return [label, "Mai eseguito"];
+    const when = typeof item.eseguito_il === "string" ? item.eseguito_il.slice(0, 16).replace("T", " ") : "";
+    const counts = [item.righe_applicate, item.righe_rifiutate].every(Number.isSafeInteger)
+      ? ` · ${item.righe_applicate} applicate, ${item.righe_rifiutate} rifiutate` : "";
+    return [label, `${importOutcomes.get(item.esito) || "Esito sconosciuto"} · ${when}${counts}`];
+  });
+}
+
+const cameraOutcomes = new Map([["trovato", "farmaco trovato"], ["multipli", "più farmaci"],
+  ["aifa", "solo in anagrafica AIFA"], ["sconosciuto", "codice non trovato"], ["nessuno", "nessun risultato"]]);
+function cameraLabel(value) {
+  if (!value?.ultima_lettura) return "Nessuna lettura da quando il banco è avviato";
+  const readers = {nativo: "lettore del browser", zxing: "ZXing locale", integrato: "lettore integrato (EAN/AIC)"};
+  return "Ultima lettura " + new Date(value.ultima_lettura).toLocaleString("it-IT") + " · "
+    + (cameraOutcomes.get(value.esito) || "esito sconosciuto") + (readers[value.lettore] ? " · " + readers[value.lettore] : "");
+}
+
 function statuses(data) {
   return [
     ["Backend", data ? "Raggiungibile" : "Non raggiungibile"],
@@ -31,7 +63,13 @@ function statuses(data) {
     ["Catalogo SQLite", presence(data?.catalogo_presente)],
     ["Ricerca locale", searchStates.get(data?.ricerca) || "Stato non disponibile"],
     ...[["turni", "Fonte turni"], ["orari", "Fonte orari"], ["sito", "Sito farmacia"]].map(([kind, label]) =>
-      [label, presence(data?.fonti?.[kind], "Configurata · da verificare", "Non configurata")])
+      [label, presence(data?.fonti?.[kind], "Configurata · da verificare", "Non configurata")]),
+    ["Ricerca semantica", semanticLabel(data?.ricerca_semantica)],
+    ["Telecamera (scheda farmaco)", cameraLabel(data?.telecamera)],
+    ["Controllo ogni 3 parole chiave", data?.controllo ? data.controllo.controlli + " controlli · "
+      + (data.controllo.modello_attivo ? "agente modello acceso" : "solo verificatore locale")
+      + (data.controllo.agente ? " · ultimo agente: " + data.controllo.agente : "") : "—"],
+    ...importRows(data?.import)
   ];
 }
 

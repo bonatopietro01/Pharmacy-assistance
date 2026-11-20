@@ -1,0 +1,265 @@
+{
+ "version": 1,
+ "_nota": "Idoneità per popolazione dalle fonti del titolare (2026-11-19). Tutte candidate.",
+ "sources": {
+  "grintuss": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+  "grintuss_c": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+  "fitonasal_ped": "https://www.aboca.com/it/prodotto/fitonasal-pediatric-spray-it/",
+  "flectorartro": "https://flector.it/flectorartro/",
+  "flector": "https://flector.it/flector/",
+  "unidie": "https://flector.it/flectorunidie-cerotto-medicato/",
+  "flectorgo": "https://flector.it/flectorgo/",
+  "tv015": "https://www.tantumverde.it/media/zrlhyav4/it_tantum-verde_0-15-spray-per-mucosa-orale.pdf",
+  "tv030": "https://www.tantumverde.it/media/twoakqbx/confronto-rcp-030-spray.pdf",
+  "tvanti": "https://www.tantumverde.it/media/mubhho2f/fi_tantum-verde-antisettico-e-antinfiammatorio_pl-name-042025.pdf",
+  "thealoz": "https://www.thea.it/media/1616/080223_fi-thealoz-duo_10-e-15ml.pdf",
+  "mg150": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-150g/",
+  "mgdonna": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-donna/",
+  "mgnotte": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-notte-relax/",
+  "mammadha": "https://www.multicentrum.it/prodotti/gravidanza/multicentrum-mamma-dha/",
+  "mcdonna": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-donna/",
+  "pev50": "https://pevaryl.com/it/prodotto/pevaryl-50-mg-ovuli/",
+  "pev150": "https://pevaryl.com/it/prodotto/pevaryl-150-mg-6-ovuli/",
+  "pevgen": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea-per-genitali-esterni/",
+  "colilen": "https://www.aboca.com/it/prodotto/colilen-ibs-96-opercoli/",
+  "gastrodiger": "https://www.aboca.com/it/prodotto/gastrodiger-sciroppo-180g/",
+  "dicoflor_c": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-capsule/",
+  "dicoflor_b": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-bustine/"
+ },
+ "rows": [
+  {
+   "product_code": "REAL-DM-001",
+   "population": "adolescente",
+   "age_min_months": 144,
+   "age_max_months": null,
+   "outcome": "indicato",
+   "note": "Da 12 anni secondo il titolare.",
+   "source": "grintuss"
+  },
+  {
+   "product_code": "REAL-DM-001",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 143,
+   "outcome": "controindicato",
+   "note": "Formulazione adulti: sotto i 12 anni non indicato dal titolare.",
+   "source": "grintuss"
+  },
+  {
+   "product_code": "REAL-DM-002",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 143,
+   "outcome": "controindicato",
+   "note": "Compresse adulti: da 12 anni.",
+   "source": "grintuss_c"
+  },
+  {
+   "product_code": "REAL-DM-004",
+   "population": "bambino",
+   "age_min_months": 12,
+   "age_max_months": 143,
+   "outcome": "formulazione_dedicata",
+   "note": "Spray pediatrico; età minima da verificare nelle istruzioni italiane.",
+   "source": "fitonasal_ped"
+  },
+  {
+   "product_code": "REAL-DM-004",
+   "population": "neonato",
+   "age_min_months": null,
+   "age_max_months": 11,
+   "outcome": "cautela",
+   "note": "Sotto l'anno solo su indicazione del pediatra.",
+   "source": "fitonasal_ped"
+  },
+  {
+   "product_code": "REAL-MED-021",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 179,
+   "outcome": "controindicato",
+   "note": "Solo adulti e adolescenti oltre i 15 anni (foglio illustrativo).",
+   "source": "flectorartro"
+  },
+  {
+   "product_code": "REAL-MED-028",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 143,
+   "outcome": "controindicato",
+   "note": "Adulti e ragazzi oltre i 12 anni (foglio illustrativo).",
+   "source": "unidie"
+  },
+  {
+   "product_code": "REAL-MED-014",
+   "population": "bambino",
+   "age_min_months": 72,
+   "age_max_months": 143,
+   "outcome": "indicato",
+   "note": "Da 6 anni secondo il foglio illustrativo.",
+   "source": "tvanti"
+  },
+  {
+   "product_code": "REAL-MED-014",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 71,
+   "outcome": "controindicato",
+   "note": "Sotto i 6 anni non indicato.",
+   "source": "tvanti"
+  },
+  {
+   "product_code": "REAL-DM-017",
+   "population": "adulto",
+   "age_min_months": 216,
+   "age_max_months": null,
+   "outcome": "indicato",
+   "note": "Le istruzioni indicano gli adulti.",
+   "source": "thealoz"
+  },
+  {
+   "product_code": "REAL-MED-047",
+   "population": "uomo",
+   "age_min_months": 216,
+   "age_max_months": null,
+   "outcome": "indicato",
+   "note": "Indicato anche per la balanite micotica.",
+   "source": "pevgen"
+  },
+  {
+   "product_code": "REAL-MED-047",
+   "population": "donna",
+   "age_min_months": 216,
+   "age_max_months": null,
+   "outcome": "indicato",
+   "note": "Micosi vulvovaginali.",
+   "source": "pevgen"
+  },
+  {
+   "product_code": "REAL-MED-048",
+   "population": "donna",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "indicato",
+   "note": "Uso ginecologico.",
+   "source": "pev150"
+  },
+  {
+   "product_code": "REAL-MED-048",
+   "population": "uomo",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "controindicato",
+   "note": "Ovuli vaginali: non per l'uomo.",
+   "source": "pev150"
+  },
+  {
+   "product_code": "REAL-MED-049",
+   "population": "donna",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "indicato",
+   "note": "Uso ginecologico.",
+   "source": "pev50"
+  },
+  {
+   "product_code": "REAL-MED-049",
+   "population": "uomo",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "controindicato",
+   "note": "Ovuli vaginali: non per l'uomo.",
+   "source": "pev50"
+  },
+  {
+   "product_code": "REAL-DM-007",
+   "population": "gravidanza",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "controindicato",
+   "note": "Le pagine Aboca riportano la controindicazione in gravidanza e allattamento.",
+   "source": "colilen"
+  },
+  {
+   "product_code": "REAL-DM-007",
+   "population": "allattamento",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "controindicato",
+   "note": "Le pagine Aboca riportano la controindicazione in gravidanza e allattamento.",
+   "source": "colilen"
+  },
+  {
+   "product_code": "REAL-DM-007",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 95,
+   "outcome": "controindicato",
+   "note": "Da 8 anni secondo le pagine Aboca.",
+   "source": "colilen"
+  },
+  {
+   "product_code": "REAL-SUP-005",
+   "population": "gravidanza",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "formulazione_dedicata",
+   "note": "Specifico per le donne in gravidanza.",
+   "source": "mammadha"
+  },
+  {
+   "product_code": "REAL-SUP-003",
+   "population": "donna",
+   "age_min_months": 216,
+   "age_max_months": null,
+   "outcome": "formulazione_dedicata",
+   "note": "Integratore per la donna.",
+   "source": "mcdonna"
+  },
+  {
+   "product_code": "REAL-SUP-017",
+   "population": "donna",
+   "age_min_months": 216,
+   "age_max_months": null,
+   "outcome": "formulazione_dedicata",
+   "note": "Integratore per la donna.",
+   "source": "mgdonna"
+  },
+  {
+   "product_code": "REAL-SUP-018",
+   "population": "gravidanza",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "sconsigliato",
+   "note": "Contiene melatonina: non in gravidanza senza parere medico.",
+   "source": "mgnotte"
+  },
+  {
+   "product_code": "REAL-SUP-018",
+   "population": "allattamento",
+   "age_min_months": null,
+   "age_max_months": null,
+   "outcome": "sconsigliato",
+   "note": "Contiene melatonina: non in allattamento senza parere medico.",
+   "source": "mgnotte"
+  },
+  {
+   "product_code": "REAL-SUP-018",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 215,
+   "outcome": "sconsigliato",
+   "note": "Melatonina: non per bambini e ragazzi senza parere medico.",
+   "source": "mgnotte"
+  },
+  {
+   "product_code": "REAL-DM-017",
+   "population": "bambino",
+   "age_min_months": null,
+   "age_max_months": 215,
+   "outcome": "cautela",
+   "note": "Le istruzioni indicano gli adulti: per i minori sentire il medico o l'oculista.",
+   "source": "thealoz"
+  }
+ ]
+}

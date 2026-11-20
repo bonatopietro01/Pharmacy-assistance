@@ -1,0 +1,20 @@
+{"testo": "volevo qualcosa per la mia bimba di tre anni che tossisce", "atteso": {"kind": "altra_persona", "gender": "donna", "age_years": 3, "age_band": "bambino"}}
+{"testo": "per mio nonno che ha 85 anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_years": 85, "age_band": "anziano"}}
+{"testo": "sono al quinto mese di gravidanza", "atteso": {"gender": "donna", "states": ["gravidanza"]}}
+{"testo": "è per mia nipote", "atteso": {"kind": "altra_persona"}}
+{"testo": "per il mio bambino di 10 mesi", "atteso": {"kind": "altra_persona", "age_band": "neonato"}}
+{"testo": "per il cane del vicino", "atteso": {"kind": "animale", "species": "cane"}}
+{"testo": "mia moglie allatta il piccolo", "atteso": {"gender": "donna", "states": ["allattamento"]}}
+{"testo": "è per me, sono una donna di 52 anni", "atteso": {"kind": "sé", "age_years": 52}}
+{"testo": "per mio figlio adolescente", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per la mamma, è anziana", "atteso": {"kind": "altra_persona", "gender": "donna"}}
+{"testo": "mi sento stanca e gonfia", "atteso": {"gender": "donna", "gender_source": "dedotto"}}
+{"testo": "per mio marito di sessantotto anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_years": 68, "age_band": "anziano"}}
+{"testo": "è per un bambino?", "atteso": {"kind": "sconosciuto"}}
+{"testo": "no, non è incinta", "atteso": {"states": []}}
+{"testo": "per la mia cagnolina", "atteso": {"kind": "animale", "species": "cane"}}
+{"testo": "per il ragazzo, ha 14 anni", "atteso": {"age_years": 14, "age_band": "adolescente"}}
+{"testo": "mio padre ha la pressione alta", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per una signora anziana", "atteso": {"gender": "donna"}}
+{"testo": "ho 30 anni e allatto", "atteso": {"kind": "sé", "age_years": 30, "states": ["allattamento"]}}
+{"testo": "per il gattino", "atteso": {"kind": "animale", "species": "gatto"}}

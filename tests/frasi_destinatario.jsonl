@@ -1,0 +1,82 @@
+{"testo": "è per mio figlio di 5 anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "bambino", "age_years": 5}}
+{"testo": "per la mia bambina, ha due anni e mezzo", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "bambino", "age_years": 2}}
+{"testo": "è per mia moglie", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "adulto"}}
+{"testo": "per mio marito che ha la tosse", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "adulto"}}
+{"testo": "per mia suocera", "atteso": {"kind": "altra_persona", "gender": "donna"}}
+{"testo": "è per il nonno", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "anziano"}}
+{"testo": "per mia madre che ha 80 anni", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "anziano", "age_years": 80}}
+{"testo": "il bambino ha 8 mesi e ha il naso chiuso", "atteso": {"kind": "altra_persona", "age_band": "neonato"}}
+{"testo": "è un neonato", "atteso": {"kind": "altra_persona", "age_band": "neonato"}}
+{"testo": "per un ragazzo di 15 anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "adolescente", "age_years": 15}}
+{"testo": "sono incinta, posso prenderlo?", "atteso": {"kind": "sé", "gender": "donna", "states": ["gravidanza"]}}
+{"testo": "aspetto un bambino e ho il raffreddore", "atteso": {"kind": "sé", "gender": "donna", "states": ["gravidanza"]}}
+{"testo": "mia moglie è in gravidanza", "atteso": {"kind": "altra_persona", "gender": "donna", "states": ["gravidanza"]}}
+{"testo": "sto allattando", "atteso": {"kind": "sé", "gender": "donna", "states": ["allattamento"]}}
+{"testo": "allatto ancora la piccola", "atteso": {"gender": "donna", "states": ["allattamento"]}}
+{"testo": "non sono incinta", "atteso": {"states": []}}
+{"testo": "per il cane", "atteso": {"kind": "animale", "species": "cane"}}
+{"testo": "il mio gatto ha le pulci", "atteso": {"kind": "animale", "species": "gatto"}}
+{"testo": "per il micio", "atteso": {"kind": "animale", "species": "gatto"}}
+{"testo": "per mia figlia. no, è per me", "atteso": {"kind": "sé", "gender": null}}
+{"testo": "è per me. anzi per mia figlia di 10 anni", "atteso": {"kind": "altra_persona", "gender": "donna", "age_years": 10, "age_band": "bambino"}}
+{"testo": "per me, ho 45 anni", "atteso": {"kind": "sé", "age_years": 45, "age_band": "adulto"}}
+{"testo": "sono stanca morta da giorni", "atteso": {"gender": "donna", "gender_source": "dedotto"}}
+{"testo": "sono raffreddato da ieri", "atteso": {"gender": "uomo", "gender_source": "dedotto"}}
+{"testo": "ho mal di schiena da tre anni", "atteso": {"age_years": null}}
+{"testo": "ho la tosse da due settimane", "atteso": {"age_years": null}}
+{"testo": "per la piccola che ha la febbre", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "bambino"}}
+{"testo": "per il bimbo di un anno", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "bambino", "age_years": 1}}
+{"testo": "per mio papà", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "adulto"}}
+{"testo": "per una donna", "atteso": {"kind": "altra_persona", "gender": "donna"}}
+{"testo": "per un uomo", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per mia sorella", "atteso": {"kind": "altra_persona", "gender": "donna"}}
+{"testo": "per mio fratello di 12 anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "adolescente", "age_years": 12}}
+{"testo": "è per la mia compagna che allatta", "atteso": {"kind": "altra_persona", "gender": "donna", "states": ["allattamento"]}}
+{"testo": "mio figlio ha 3 anni e ha la tosse grassa", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_years": 3, "age_band": "bambino"}}
+{"testo": "la mia bambina ha 6 mesi", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "neonato"}}
+{"testo": "per la nonna", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "anziano"}}
+{"testo": "per un'amica", "atteso": {}}
+{"testo": "è per un collega", "atteso": {"kind": "altra_persona", "age_band": "adulto"}}
+{"testo": "per mio nipotino", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "bambino"}}
+{"testo": "buongiorno ho il raffreddore", "atteso": {"kind": "sconosciuto", "gender": null}}
+{"testo": "mi serve qualcosa per la tosse", "atteso": {"kind": "sconosciuto", "gender": null, "age_band": null}}
+{"testo": "per il mal di testa", "atteso": {"kind": "sconosciuto"}}
+{"testo": "per la febbre di mio figlio", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per mia figlia, è incinta", "atteso": {"kind": "altra_persona", "gender": "donna", "states": ["gravidanza"]}}
+{"testo": "per il mio cagnolino", "atteso": {"kind": "animale", "species": "cane"}}
+{"testo": "sono in dolce attesa", "atteso": {"gender": "donna", "states": ["gravidanza"]}}
+{"testo": "non allatto più", "atteso": {"states": []}}
+{"testo": "per mia madre anziana", "atteso": {"kind": "altra_persona", "gender": "donna"}}
+{"testo": "è per una ragazzina di 13 anni", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "adolescente", "age_years": 13}}
+{"testo": "per il bambino, ha quattro anni", "atteso": {"kind": "altra_persona", "age_years": 4, "age_band": "bambino"}}
+{"testo": "per lui, ha settanta anni", "atteso": {"age_years": 70, "age_band": "anziano"}}
+{"testo": "per mio zio", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per mia zia", "atteso": {"kind": "altra_persona", "gender": "donna"}}
+{"testo": "per la signora", "atteso": {"gender": "donna"}}
+{"testo": "sono stato male tutta la notte", "atteso": {"gender": "uomo", "gender_source": "dedotto"}}
+{"testo": "sono preoccupata per la tosse", "atteso": {"gender": "donna", "gender_source": "dedotto"}}
+{"testo": "per il neonato di due mesi", "atteso": {"kind": "altra_persona", "age_band": "neonato"}}
+{"testo": "ha pochi mesi", "atteso": {"age_band": "neonato"}}
+{"testo": "per la mia gatta", "atteso": {"kind": "animale", "species": "gatto"}}
+{"testo": "mia figlia di 16 anni ha i brufoli", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "adolescente", "age_years": 16}}
+{"testo": "è per il mio fidanzato", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per mia figlia, anzi no, per mio figlio", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per la bimba di 18 mesi", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "bambino"}}
+{"testo": "lo prendo io", "atteso": {"kind": "sé"}}
+{"testo": "per me stessa", "atteso": {"kind": "sé"}}
+{"testo": "mia moglie non è più incinta, allatta", "atteso": {"gender": "donna", "states": ["allattamento"]}}
+{"testo": "per mio suocero", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "per il mio cucciolo di cane", "atteso": {"kind": "animale", "species": "cane"}}
+{"testo": "è per mio padre di 66 anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_band": "anziano", "age_years": 66}}
+{"testo": "mi fa male la gola da tre giorni", "atteso": {"kind": "sconosciuto", "age_years": null}}
+{"testo": "ne ha dieci anni", "atteso": {}}
+{"testo": "la ragazza ha 20 anni", "atteso": {"age_years": 20, "age_band": "adulto"}}
+{"testo": "per mio figlio. ha 17 anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_years": 17, "age_band": "adolescente"}}
+{"testo": "è per mia mamma", "atteso": {"kind": "altra_persona", "gender": "donna"}}
+{"testo": "per la bambina che ha la dermatite da pannolino", "atteso": {"kind": "altra_persona", "gender": "donna", "age_band": "bambino"}}
+{"testo": "per mio marito, ha 50 anni", "atteso": {"kind": "altra_persona", "gender": "uomo", "age_years": 50, "age_band": "adulto"}}
+{"testo": "sono stanco e stressato", "atteso": {"gender": "uomo", "gender_source": "dedotto"}}
+{"testo": "per me, sono incinta di tre mesi", "atteso": {"kind": "sé", "gender": "donna", "states": ["gravidanza"], "age_years": null}}
+{"testo": "per mio figlio, ha la cistite", "atteso": {"kind": "altra_persona", "gender": "uomo"}}
+{"testo": "la piccola ha cinque mesi", "atteso": {"gender": "donna", "age_band": "neonato"}}
+{"testo": "per il gatto di casa", "atteso": {"kind": "animale", "species": "gatto"}}

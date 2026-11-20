@@ -20,3 +20,16 @@ $deskPython = Join-Path $env:USERPROFILE 'AppData\Local\Python\pythoncore-3.14-6
 ```
 
 Le richieste interne di reintegro si aprono quando il catalogo ha tre unità o meno. Il file `database/reintegro.sqlite3` conserva codice, nome, quantità e data di apertura. La richiesta è unica per codice e viene chiusa quando il catalogo torna sopra soglia.
+
+## Banco a tre colonne e Scheda farmaco
+
+- Il banco mostra **Farmaci | Integratori collegati | Carrello**; ogni colonna scorre da sola. Tocca un farmaco (o premi 1–3) per evidenziare i suoi integratori; secondo tocco o Esc per deselezionare; ✓ conferma, + aggiunge al carrello, i apre fonti e dettagli, ▾ apre motivo, cautele e confezioni. La trascrizione in basso si riduce con **Riduci**; per nasconderla del tutto metti `"mostra_trascrizione": false` in `database/configurazione.json`.
+- **Scheda farmaco** (`http://127.0.0.1:8765/farmaco`, si apre in una nuova scheda): cerca per nome, principio attivo, AIC o EAN, anche con un lettore di codici USB. **Scansiona** (tasto Q) usa la telecamera: legge solo il codice, nessuna immagine viene salvata o inviata. Su Chrome per Windows serve la libreria locale ZXing: istruzioni in `frontend/vendor/LEGGIMI.md`.
+- Le modifiche dalla scheda chiedono il tuo nome una volta e finiscono in `registro_revisioni` con valore prima/dopo. Regime, età, verifiche e immagini richiedono una fonte https. Gli abbinamenti proposti restano «candidata» fino alla revisione.
+- Per il CSV AIFA locale la scheda usa `dati/aifa/confezioni.csv` o la cartella in `"import": {"aifa": {"cartella": "…"}}`.
+
+## Integratori per sintomo e controllo ogni 3 parole chiave
+
+- La colonna Integratori mostra «Per il farmaco scelto» e «Per i sintomi detti» (per esempio «per: Stanchezza»): entrambi si possono aggiungere con «+».
+- Sopra i Farmaci la riga «Controllo dopo N parole chiave» dice se la lista è coerente con quanto detto. Cliccala per vedere i suggerimenti: «Applica» o «Ignora». Un farmaco non più adatto (per esempio dopo «sono incinta») è segnato «da rivedere» anche nel carrello: lo togli solo tu.
+- Agente modello facoltativo: `"verifica_agente": {"modello": true}` in `database/configurazione.json`, con OpenAI già configurato per l'agente di fase. Riceve solo le parole chiave e i dati del catalogo.

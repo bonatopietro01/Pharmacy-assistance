@@ -1,0 +1,22 @@
+{"id": "c01", "turni": ["buongiorno ho il raffreddore", {"conferma": "REAL-MED-006"}, "e anche la tosse grassa da due giorni"], "atteso": {"correzioni": [["manca_sintomo", "REAL-MED-006"]], "da_rivedere": []}}
+{"id": "c02", "turni": ["ho il colon irritabile, la pancia gonfia", {"conferma": "REAL-DM-007"}, "ah, sono incinta di tre mesi"], "atteso": {"correzioni": [], "da_rivedere": ["REAL-DM-007"]}}
+{"id": "c03", "turni": ["ha la tosse secca da ieri", {"conferma": "REAL-DM-001"}, "è per mio figlio di 5 anni"], "atteso": {"correzioni": [], "da_rivedere": ["REAL-DM-001"]}}
+{"id": "c04", "turni": ["buongiorno ho il raffreddore e il naso chiuso"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c05", "turni": ["avrei bisogno di qualcosa per la candida, prurito intimo", {"conferma": "REAL-MED-049"}, "ah scusi è per mio marito"], "atteso": {"correzioni": [], "da_rivedere": ["REAL-MED-049"]}}
+{"id": "c06", "turni": ["ho mal di schiena, il colpo della strega", {"conferma": "REAL-MED-027"}, "e poi ho anche mal di gola"], "atteso": {"correzioni": [["manca_sintomo", "REAL-MED-027"]], "da_rivedere": []}}
+{"id": "c07", "turni": ["mi vengono i crampi alle gambe di notte, sono stanco"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c08", "turni": ["buongiorno mia figlia ha la febbre", "ha 7 anni"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c09", "turni": ["ho mal di testa, non ho febbre"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c10", "turni": ["ho la diarrea da ieri", {"conferma": "REAL-DM-005"}, "e anche un forte mal di testa"], "atteso": {"correzioni": [["manca_sintomo", "REAL-DM-005"]], "da_rivedere": []}}
+{"id": "c11", "turni": ["ho mal di gola, brucia quando deglutisco", {"conferma": "REAL-MED-010"}, "per me, ho 40 anni"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c12", "turni": ["ho le emorroidi", {"conferma": "REAL-DM-014"}, "e sono stitica da giorni"], "atteso": {"correzioni": [["manca_sintomo", "REAL-DM-014"]], "da_rivedere": []}}
+{"id": "c13", "turni": ["non riesco a dormire bene", "sono stressata ultimamente"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c14", "turni": ["ho gli occhi secchi davanti al computer", {"conferma": "REAL-DM-017"}, "è per mia figlia di 10 anni"], "atteso": {"correzioni": [], "da_rivedere": [], "nota": "le istruzioni indicano gli adulti: cautela (info), non controindicazione"}}
+{"id": "c15", "turni": ["mi fa male il ginocchio, artrosi", {"conferma": "REAL-MED-021"}, "è per il ragazzo, ha 14 anni"], "atteso": {"correzioni": [], "da_rivedere": ["REAL-MED-021"]}}
+{"id": "c16", "turni": ["ho il naso chiuso", "non ho tosse e non ho febbre"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c17", "turni": ["ho un'afta in bocca", {"conferma": "REAL-MED-012"}, "e anche le gengive gonfie"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c18", "turni": ["ho la tosse grassa", {"conferma": "REAL-DM-001"}, "ho 35 anni"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c19", "turni": ["ho digestione lenta e pancia gonfia", {"conferma": "REAL-DM-015"}, "e anche la tosse"], "atteso": {"correzioni": [["manca_sintomo", "REAL-DM-015"]], "da_rivedere": []}}
+{"id": "c20", "turni": ["ho la micosi ai piedi", {"conferma": "REAL-MED-038"}, "e mi fa male la schiena"], "atteso": {"correzioni": [["manca_sintomo", "REAL-MED-038"]], "da_rivedere": []}}
+{"id": "c21", "turni": ["ho la candida", {"conferma": "REAL-MED-048"}, "allatto ancora la piccola"], "atteso": {"correzioni": [], "da_rivedere": []}}
+{"id": "c22", "turni": ["mal di gola e raffreddore", {"conferma": "REAL-MED-010"}, "non ho più il raffreddore, solo gola"], "atteso": {"correzioni": [], "da_rivedere": []}}

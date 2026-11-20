@@ -15,6 +15,14 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CATALOG = ROOT / "database" / "farmacia.sqlite3"
 DEFAULT_MIGRATION = ROOT / "database" / "004_catalogo_v4.sql"
 DEFAULT_SPECIES_MIGRATION = ROOT / "database" / "005_specie_destinazione.sql"
+# Migrations after v5 are applied in order by `migrate-latest`; each sets user_version.
+VERSIONED_MIGRATIONS = (
+    (6, ROOT / "database" / "006_vendita_protocolli.sql"),
+    (7, ROOT / "database" / "007_alias_pulizia.sql"),
+    (8, ROOT / "database" / "008_popolazioni.sql"),
+    (9, ROOT / "database" / "009_feedback_origine.sql"),
+)
+LATEST_VERSION = VERSIONED_MIGRATIONS[-1][0]
 DEFAULT_SEED = ROOT / "database" / "catalogo-reale.json"
 DEFAULT_SYMPTOM_SEED = ROOT / "database" / "collegamenti-sintomo.json"
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}\Z")
@@ -27,7 +35,8 @@ SYMPTOM_SOURCE_DOMAINS = {
     "flector.it", "schwabe.it", "thea.it", "ucbpharma.it", "tachipirina.it",
     "nurofen.it", "multicentrum.it", "supradyn.it", "canesten.it", "hirudoid.it",
     "ema.europa.eu", "gazzettaufficiale.it", "lasonil.it", "pevaryl.com",
-    "haleonhealthpartner.com",
+    "haleonhealthpartner.com", "tantumverde.it", "aboca.com", "dicofarm.com",
+    "magnesiosupremo.it",
 }
 VERIFIED_LEAFLET_URLS = {
     "https://assets.ctfassets.net/hcd109vfxzqs/46uAxThECMNgO2RWcF2nEr/66298543d72019cbe3fcd61f4eac4fd3/12-2022_fi_actigrip_500.pdf",
@@ -64,8 +73,15 @@ def inspect_catalog(path=DEFAULT_CATALOG):
         foreign_keys = [tuple(row) for row in db.execute("PRAGMA foreign_key_check")]
         counts = {}
         if version >= 3:
-            for table in ("prodotti", "offerte", "relazioni_prodotti",
-                          "concetti", "relazioni_concetto_prodotto"):
+            tables = ["prodotti", "offerte", "relazioni_prodotti", "concetti", "relazioni_concetto_prodotto"]
+            if version >= 6:
+                tables += ["protocolli_banco", "protocollo_voci", "complementi_banco", "feedback_banco",
+                           "registro_revisioni"]
+            if version >= 7:
+                tables += ["registro_import"]
+            if version >= 8:
+                tables += ["prodotto_popolazione"]
+            for table in tables:
                 try:
                     counts[table] = db.execute(f"SELECT count(*) FROM {table}").fetchone()[0]
                 except sqlite3.Error:
@@ -353,8 +369,8 @@ def seed_products(path=DEFAULT_CATALOG, seed=DEFAULT_SEED, only_new=False):
     skipped_existing = 0
     with closing(_connect(path)) as db, db:
         version = db.execute("PRAGMA user_version").fetchone()[0]
-        if version not in {4, 5}:
-            raise sqlite3.DatabaseError(f"Il seed richiede lo schema v4 o v5, trovato v{version}.")
+        if version not in {4, 5, 6, 7, 8, 9}:
+            raise sqlite3.DatabaseError(f"Il seed richiede lo schema v4 o successivo, trovato v{version}.")
         species_column = version >= 5
         if not species_column and any(item["category"] == "medicinale_veterinario" for item in products):
             raise sqlite3.DatabaseError("I medicinali veterinari richiedono lo schema v5 con specie esplicita.")
@@ -435,7 +451,7 @@ def seed_products(path=DEFAULT_CATALOG, seed=DEFAULT_SEED, only_new=False):
                               VALUES (?,?,?,?,?)""",
                            (code,component_id,ingredient["amount"],ingredient["unit"],composition_id))
             for alias in item["aliases"]:
-                db.execute("INSERT INTO alias_prodotto VALUES (?,?,?,?)",
+                db.execute("INSERT INTO alias_prodotto (prodotto_codice, alias, tipo, fonte_id) VALUES (?,?,?,?)",
                            (code,alias["name"],alias["type"],market_id))
 
     return {"inserted_or_updated": len(products), "by_category": dict(sorted(counts.items())),
@@ -520,8 +536,8 @@ def seed_symptom_associations(path=DEFAULT_CATALOG, seed=DEFAULT_SYMPTOM_SEED):
         clean_relations.append((concept_id, code, relation_type, fields))
 
     with closing(_connect(path)) as db, db:
-        if db.execute("PRAGMA user_version").fetchone()[0] not in {4, 5}:
-            raise sqlite3.DatabaseError("I collegamenti sintomo richiedono lo schema v4 o v5.")
+        if db.execute("PRAGMA user_version").fetchone()[0] not in {4, 5, 6, 7, 8, 9}:
+            raise sqlite3.DatabaseError("I collegamenti sintomo richiedono lo schema v4 o successivo.")
         source_ids = {url: _source_id(db, source) for url, source in clean_sources.items()}
         for concept_id, name, kind in clean_concepts:
             db.execute("""INSERT INTO concetti (id,nome,tipo) VALUES (?,?,?)
@@ -593,9 +609,113 @@ def seed_symptom_associations(path=DEFAULT_CATALOG, seed=DEFAULT_SYMPTOM_SEED):
             "catalog": inspect_catalog(path)}
 
 
+def migrate_latest(path=DEFAULT_CATALOG, migrations=VERSIONED_MIGRATIONS):
+    """Apply every pending migration after v5, in order, checking integrity after each."""
+    path = Path(path)
+    if not path.is_file():
+        raise FileNotFoundError(f"Catalogo assente: {path}")
+    applied = []
+    for target, migration in migrations:
+        with closing(sqlite3.connect(path.resolve())) as db:
+            version = db.execute("PRAGMA user_version").fetchone()[0]
+            if version >= target:
+                continue
+            if version != target - 1:
+                raise sqlite3.DatabaseError(f"Migrazione v{target} attesa da v{target - 1}, trovato v{version}.")
+            try:
+                db.executescript(Path(migration).read_text(encoding="utf-8"))
+            except Exception:
+                if db.in_transaction:
+                    db.rollback()
+                db.execute("PRAGMA foreign_keys = ON")
+                raise
+        report = inspect_catalog(path)
+        if report["user_version"] != target or report["integrity_check"] != "ok" or report["foreign_key_check"]:
+            raise sqlite3.DatabaseError(f"La migrazione v{target} non supera i controlli di integrità.")
+        applied.append(target)
+    return {"applied": applied, **inspect_catalog(path)}
+
+
+V8_SYMPTOM_SEED = ROOT / "database" / "collegamenti-concetti-v8.json"
+V8_POPULATION_SEED = ROOT / "database" / "popolazioni-v8.json"
+V8_COMPLEMENT_SEED = ROOT / "database" / "complementi-candidati-v8.json"
+POPULATIONS = {"neonato", "bambino", "adolescente", "adulto", "anziano", "donna", "uomo", "gravidanza",
+               "allattamento", "cane", "gatto"}
+POPULATION_OUTCOMES = {"indicato", "formulazione_dedicata", "cautela", "sconsigliato", "controindicato"}
+COMPLEMENT_TYPES = {"supporto_igiene", "dispositivo", "integratore", "formato_convenienza", "prevenzione"}
+
+
+def seed_populations(path=DEFAULT_CATALOG, seed=V8_POPULATION_SEED):
+    """Load population suitability rows as candidates. Each row cites a source already in `fonti`."""
+    payload = json.loads(Path(seed).read_text(encoding="utf-8"))
+    if payload.get("version") != 1 or not isinstance(payload.get("rows"), list):
+        raise ValueError("Seed popolazioni non valido.")
+    urls = payload.get("sources") or {}
+    inserted = 0
+    with closing(_connect(path)) as db, db:
+        if db.execute("PRAGMA user_version").fetchone()[0] < 8:  # v8 or later
+            raise sqlite3.DatabaseError("Le popolazioni richiedono lo schema v8 (migrate-latest).")
+        for row in payload["rows"]:
+            population, outcome = row.get("population"), row.get("outcome")
+            if population not in POPULATIONS or outcome not in POPULATION_OUTCOMES:
+                raise ValueError(f"Riga popolazione non valida: {row}.")
+            url = urls.get(row.get("source"))
+            source = db.execute("SELECT id FROM fonti WHERE url = ?", (url,)).fetchone() if url else None
+            if not source:
+                raise ValueError(f"Fonte assente per {row.get('product_code')}: caricare prima il seed dei collegamenti.")
+            if not db.execute("SELECT 1 FROM prodotti WHERE codice = ?", (row["product_code"],)).fetchone():
+                raise ValueError(f"Prodotto assente: {row['product_code']}.")
+            if db.execute("""SELECT 1 FROM prodotto_popolazione WHERE prodotto_codice = ? AND popolazione = ?
+                             AND eta_min_mesi IS ? AND eta_max_mesi IS ?""",
+                          (row["product_code"], population, row.get("age_min_months"),
+                           row.get("age_max_months"))).fetchone():
+                continue
+            cursor = db.execute("""INSERT OR IGNORE INTO prodotto_popolazione (prodotto_codice, popolazione, eta_min_mesi,
+                                       eta_max_mesi, esito, nota, fonte_id, stato_revisione)
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, 'candidata')""",
+                                (row["product_code"], population, row.get("age_min_months"),
+                                 row.get("age_max_months"), outcome, row.get("note") or "", source["id"]))
+            inserted += cursor.rowcount
+    return {"populations": inserted}
+
+
+def seed_complements(path=DEFAULT_CATALOG, seed=V8_COMPLEMENT_SEED):
+    """Load candidate desk complements. Approval happens only in the review flow."""
+    payload = json.loads(Path(seed).read_text(encoding="utf-8"))
+    if payload.get("version") != 1 or not isinstance(payload.get("rows"), list):
+        raise ValueError("Seed complementi non valido.")
+    inserted = 0
+    with closing(_connect(path)) as db, db:
+        for row in payload["rows"]:
+            if row.get("type") not in COMPLEMENT_TYPES or not (row.get("product_code") or row.get("shelf")):
+                raise ValueError(f"Complemento non valido: {row}.")
+            if not db.execute("SELECT 1 FROM concetti WHERE id = ?", (row["concept_id"],)).fetchone():
+                raise ValueError(f"Concetto assente: {row['concept_id']}.")
+            exists = db.execute("""SELECT 1 FROM complementi_banco WHERE concetto_id = ?
+                                   AND coalesce(prodotto_complemento, '') = coalesce(?, '')
+                                   AND coalesce(categoria_scaffale, '') = coalesce(?, '')""",
+                                (row["concept_id"], row.get("product_code"), row.get("shelf"))).fetchone()
+            if exists:
+                continue
+            db.execute("""INSERT INTO complementi_banco (concetto_id, prodotto_complemento, categoria_scaffale, tipo,
+                              motivo, esclusioni, priorita, stato_revisione) VALUES (?, ?, ?, ?, ?, ?, ?, 'candidata')""",
+                       (row["concept_id"], row.get("product_code"), row.get("shelf"), row["type"], row["reason"],
+                        row.get("exclusions") or "", int(row.get("priority") or 100)))
+            inserted += 1
+    return {"complements": inserted}
+
+
+def seed_v8(path=DEFAULT_CATALOG):
+    """Concepts, relations, populations and complement candidates of the 19 Nov 2026 expansion."""
+    result = {"symptoms": seed_symptom_associations(path, V8_SYMPTOM_SEED)}
+    result.update(seed_populations(path))
+    result.update(seed_complements(path))
+    return result
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Gestisce migrazioni, prodotti e relazioni documentate.")
-    parser.add_argument("action", choices=("migrate", "migrate-species", "seed", "seed-symptoms", "check"))
+    parser.add_argument("action", choices=("migrate", "migrate-species", "migrate-latest", "seed", "seed-symptoms", "seed-v8", "check"))
     parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
     parser.add_argument("--seed", type=Path, default=DEFAULT_SEED)
     parser.add_argument("--only-new", action="store_true",
@@ -609,10 +729,14 @@ def main(argv=None):
             result = migrate_catalog(args.catalog, args.migration)
         elif args.action == "migrate-species":
             result = migrate_species_scope(args.catalog, args.species_migration)
+        elif args.action == "migrate-latest":
+            result = migrate_latest(args.catalog)
         elif args.action == "seed":
             result = seed_products(args.catalog, args.seed, only_new=args.only_new)
         elif args.action == "seed-symptoms":
             result = seed_symptom_associations(args.catalog, args.symptom_seed)
+        elif args.action == "seed-v8":
+            result = seed_v8(args.catalog)
         else:
             result = inspect_catalog(args.catalog)
             if result["integrity_check"] != "ok" or result["foreign_key_check"]:

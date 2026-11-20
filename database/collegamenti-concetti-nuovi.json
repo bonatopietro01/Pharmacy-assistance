@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "_nota": "Relazioni candidate per i concetti del lessico 2026-11-17. Testi riformulati dalle pagine ufficiali consultate il 2026-11-18. Restano 'candidata' finché il farmacista non le approva con backend/revisione.py.",
+  "concepts": [
+    {
+      "id": "mal-di-gola",
+      "name": "Mal di gola",
+      "type": "sintomo"
+    },
+    {
+      "id": "febbre",
+      "name": "Febbre",
+      "type": "sintomo"
+    },
+    {
+      "id": "stitichezza",
+      "name": "Stitichezza",
+      "type": "sintomo"
+    },
+    {
+      "id": "emorroidi",
+      "name": "Emorroidi",
+      "type": "condizione"
+    },
+    {
+      "id": "diarrea",
+      "name": "Diarrea",
+      "type": "sintomo"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.tantumverde.it/prodotti/tantum-verde-gola-spray-0-25/",
+      "title": "Tantum Verde Gola Spray 0,25% - pagina prodotto",
+      "owner": "Angelini Pharma",
+      "consulted_at": "2026-11-18",
+      "version": "Pagina ufficiale consultata 2026-11-18",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "commercializzazione",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/golamir-spray-no-alcool/",
+      "title": "Golamir Spray no alcool - pagina prodotto",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-18",
+      "version": "Pagina ufficiale consultata 2026-11-18",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "commercializzazione",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.tachipirina.it/prodotti/compresse/",
+      "title": "Tachipirina 500 mg compresse - pagina prodotto",
+      "owner": "Angelini Pharma",
+      "consulted_at": "2026-11-18",
+      "version": "Pagina ufficiale consultata 2026-11-18",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "commercializzazione",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/melilax-it/",
+      "title": "Melilax Adulti - pagina prodotto",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-18",
+      "version": "Pagina ufficiale consultata 2026-11-18",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "commercializzazione",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/it/prodotto/neofitoroid-biopomata/",
+      "title": "NeoFitoroid BioPomata - pagina prodotto",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-18",
+      "version": "Pagina ufficiale consultata 2026-11-18",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "commercializzazione",
+        "associazione_clinica"
+      ]
+    },
+    {
+      "url": "https://www.aboca.com/product/lenodiar-pediatric-en/",
+      "title": "LenoDiar Pediatric - pagina prodotto (versione inglese)",
+      "owner": "Aboca S.p.A.",
+      "consulted_at": "2026-11-18",
+      "version": "Pagina ufficiale consultata 2026-11-18",
+      "kind": "produttore",
+      "supports": [
+        "identita",
+        "commercializzazione",
+        "associazione_clinica"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "concept_id": "mal-di-gola",
+      "product_code": "REAL-MED-010",
+      "type": "indicazione_etichetta",
+      "context": "La pagina del titolare presenta il prodotto come spray contro dolore e infiammazione della gola (flurbiprofene).",
+      "claim": "Indicazione riportata dal titolare: trattamento sintomatico di infiammazione e dolore della gola.",
+      "prerequisites": "Verificare destinatario ed età, allergia a FANS o aspirina, gravidanza, ulcera e il foglio illustrativo vigente.",
+      "exclusions": "Non estendere a febbre alta, placche, difficoltà a respirare o mal di gola che dura oltre pochi giorni.",
+      "source_url": "https://www.tantumverde.it/prodotti/tantum-verde-gola-spray-0-25/",
+      "source_version": "Pagina ufficiale consultata 2026-11-18"
+    },
+    {
+      "concept_id": "mal-di-gola",
+      "product_code": "REAL-DM-010",
+      "type": "indicazione_etichetta",
+      "context": "La pagina del titolare indica il dispositivo nei casi di mal di gola con stati irritativi e infiammatori del cavo orofaringeo.",
+      "claim": "Indicazione riportata dal titolare: mal di gola con irritazione e infiammazione orofaringea.",
+      "prerequisites": "Verificare destinatario, età minima indicata dal produttore e istruzioni del dispositivo.",
+      "exclusions": "Non estendere a febbre alta, placche o sintomi che peggiorano; non sostituisce il medico.",
+      "source_url": "https://www.aboca.com/it/prodotto/golamir-spray-no-alcool/",
+      "source_version": "Pagina ufficiale consultata 2026-11-18"
+    },
+    {
+      "concept_id": "febbre",
+      "product_code": "REAL-MED-001",
+      "type": "indicazione_etichetta",
+      "context": "La pagina del titolare presenta il prodotto per il sollievo da febbre e dolore, con posologia per fascia di peso.",
+      "claim": "Indicazione riportata dal titolare: trattamento sintomatico della febbre e del dolore.",
+      "prerequisites": "Verificare peso ed età del destinatario, altri prodotti con paracetamolo già in uso, malattie del fegato e il foglio illustrativo.",
+      "exclusions": "Non estendere a febbre in neonati e lattanti piccoli, febbre che dura più giorni o con segnali d'allarme.",
+      "source_url": "https://www.tachipirina.it/prodotti/compresse/",
+      "source_version": "Pagina ufficiale consultata 2026-11-18"
+    },
+    {
+      "concept_id": "stitichezza",
+      "product_code": "REAL-DM-006",
+      "type": "indicazione_etichetta",
+      "context": "La pagina del titolare indica il microclisma per il trattamento della stipsi, anche con colon irritabile, ragadi ed emorroidi.",
+      "claim": "Indicazione riportata dal titolare: trattamento della stitichezza.",
+      "prerequisites": "Verificare destinatario ed età indicata dal produttore e le istruzioni del dispositivo.",
+      "exclusions": "Non estendere a stitichezza persistente o con dolore forte, sangue o perdita di peso: invio al medico.",
+      "source_url": "https://www.aboca.com/it/prodotto/melilax-it/",
+      "source_version": "Pagina ufficiale consultata 2026-11-18"
+    },
+    {
+      "concept_id": "emorroidi",
+      "product_code": "REAL-DM-014",
+      "type": "indicazione_etichetta",
+      "context": "La pagina del titolare indica la pomata per emorroidi interne ed esterne e i sintomi associati (dolore, bruciore, prurito).",
+      "claim": "Indicazione riportata dal titolare: trattamento delle emorroidi e dei sintomi associati.",
+      "prerequisites": "Verificare destinatario e istruzioni del dispositivo.",
+      "exclusions": "Non estendere a sanguinamento abbondante o ripetuto, dolore intenso o primo episodio non valutato: invio al medico.",
+      "source_url": "https://www.aboca.com/it/prodotto/neofitoroid-biopomata/",
+      "source_version": "Pagina ufficiale consultata 2026-11-18"
+    },
+    {
+      "concept_id": "diarrea",
+      "product_code": "REAL-DM-005",
+      "type": "indicazione_etichetta",
+      "context": "La pagina del titolare indica il prodotto per diarrea acuta e riacutizzazioni di diarrea cronica, nella linea pediatrica.",
+      "claim": "Indicazione riportata dal titolare: trattamento della diarrea acuta (linea pediatrica).",
+      "prerequisites": "Verificare l'età del bambino rispetto alla fascia indicata dal produttore e le istruzioni del dispositivo; curare l'idratazione.",
+      "exclusions": "Non estendere ad adulti, a diarrea con febbre alta, sangue o segni di disidratazione: invio al medico.",
+      "source_url": "https://www.aboca.com/product/lenodiar-pediatric-en/",
+      "source_version": "Pagina ufficiale consultata 2026-11-18"
+    }
+  ]
+}

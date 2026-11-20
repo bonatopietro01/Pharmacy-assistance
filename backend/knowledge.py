@@ -4,6 +4,7 @@ import json
 import re
 import sqlite3
 import sys
+import threading
 import tomllib
 from contextlib import closing
 from datetime import datetime, timezone
@@ -35,6 +36,19 @@ SYMPTOM_CONCEPT_IDS = frozenset({
     "artrosi-cane", "artrosi-gatto", "parassiti-cane", "parassiti-gatto",
 })
 CONTEXT_CONCEPT_IDS = frozenset({"supporto-immunitario"})
+
+
+def _lexicon_concept_ids():
+    """Concepts declared in the colloquial lexicon can also expose sourced relations."""
+    path = Path(__file__).resolve().parents[1] / "database" / "lessico-concetti.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return frozenset()
+    return frozenset(key for key in (data.get("concetti") or {}) if re.fullmatch(r"[a-z0-9-]+", key))
+
+
+SYMPTOM_CONCEPT_IDS = SYMPTOM_CONCEPT_IDS | _lexicon_concept_ids()
 _OFFICIAL_PRODUCT_DOMAINS = SYMPTOM_SOURCE_DOMAINS | {
     "aifa.gov.it", "aspirina.it", "rinazina.it", "aboca.com", "actigrip.it",
     "gazzettaufficiale.it",
@@ -216,13 +230,19 @@ def _supplement_ingredient_rows(db, code, product=None):
     return result
 
 
+def _column_exists(db, table, column):
+    return any(row[1] == column for row in db.execute(f"PRAGMA table_info({table})"))
+
+
 def _product_alias_rows(db, code, product=None):
     if not _table_exists(db, "alias_prodotto"):
         return []
     result = []
-    for row in db.execute("""
+    reviewed = _column_exists(db, "alias_prodotto", "stato_revisione")
+    for row in db.execute(f"""
             SELECT alias, tipo, fonte_id FROM alias_prodotto
-            WHERE prodotto_codice = ? ORDER BY alias COLLATE NOCASE, tipo
+            WHERE prodotto_codice = ? {"AND stato_revisione = 'approvata'" if reviewed else ""}
+            ORDER BY alias COLLATE NOCASE, tipo
         """, (code,)):
         source = _source_detail(db, row["fonte_id"])
         if (product or {}).get("dataset_tipo") == "reale" and not source:
@@ -353,6 +373,13 @@ def product_display(code, catalog=CATALOG):
             "market_status": product.get("stato_mercato", "dimostrativo"),
             "image": product.get("immagine") if image_verified else None,
             "image_source": image_source if image_verified else None,
+            "dispensing": product.get("regime_fornitura") or "non_verificato",
+            "dispensing_source": _source_detail(db, product.get("regime_fonte_id")),
+            "minimum_age": product.get("eta_minima_anni"),
+            "minimum_age_source": _source_detail(db, product.get("eta_fonte_id")),
+            "shortage": bool(product.get("carente")),
+            "atc": product.get("atc"),
+            "populations": _population_rows(db, code),
         }
         commercial = {
             "bank_price_cents": product.get("prezzo_cent") if bank_price_source else None,
@@ -365,6 +392,104 @@ def product_display(code, catalog=CATALOG):
                            else datetime.now(timezone.utc).isoformat(timespec="seconds")),
         }
         return {"display": display, "commercial": commercial}
+
+
+def _population_rows(db, code):
+    if not _table_exists(db, "prodotto_popolazione"):
+        return []
+    return [{"population": row["popolazione"], "age_min_months": row["eta_min_mesi"],
+             "age_max_months": row["eta_max_mesi"], "outcome": row["esito"], "note": row["nota"],
+             "review_status": row["stato_revisione"]}
+            for row in db.execute("""SELECT popolazione, eta_min_mesi, eta_max_mesi, esito, nota, stato_revisione
+                                     FROM prodotto_popolazione WHERE prodotto_codice = ? AND stato_revisione != 'respinta'
+                                     ORDER BY id""", (code,))]
+
+
+AGE_POPULATIONS = {"neonato", "bambino", "adolescente", "adulto", "anziano"}
+BAND_MONTHS = {"neonato": (0, 11), "bambino": (12, 143), "adolescente": (144, 215), "adulto": (216, 779),
+               "anziano": (780, 1500)}
+POPULATION_LABELS = {"gravidanza": "in gravidanza", "allattamento": "in allattamento", "donna": "per donna",
+                     "uomo": "per uomo", "bambino": "bambino", "neonato": "neonato", "adolescente": "adolescente",
+                     "adulto": "adulto", "anziano": "anziano", "cane": "cane", "gatto": "gatto"}
+
+
+def _population_matches(row, who):
+    """Does a population row apply to the declared recipient? `who` holds declared/manual fields only."""
+    population = row["population"]
+    if population in AGE_POPULATIONS:
+        months = who.get("age_months")
+        low, high = row.get("age_min_months"), row.get("age_max_months")
+        if months is not None:
+            if low is None and high is None:
+                low, high = BAND_MONTHS[population]
+            return (low is None or months >= low) and (high is None or months <= high)
+        band = who.get("age_band")
+        if not band:
+            return False
+        band_low, band_high = BAND_MONTHS[band]
+        # A band alone matches only if the whole band falls inside the row's range.
+        return (low is None or band_low >= low) and (high is None or band_high <= high) and (
+            population == band or low is not None or high is not None)
+    if population in ("donna", "uomo"):
+        return who.get("gender") == population
+    if population in ("gravidanza", "allattamento"):
+        return population in (who.get("states") or [])
+    return who.get("species") == population
+
+
+PRESCRIPTION_REGIMES = frozenset({"RR", "RNR", "RRL", "vet_RR"})
+
+
+def admissibility(display, age=None, who=None):
+    """Decide whether a product may be *proposed* at the counter, and with which labels.
+
+    Prescription-only products are never proposed from a symptom. A declared age
+    below the documented minimum excludes the product with its reason. Unknown
+    regime stays visible but labelled. Nothing here ranks or promotes.
+    """
+    labels = []
+    regime = (display or {}).get("dispensing") or "non_verificato"
+    if regime in PRESCRIPTION_REGIMES:
+        return {"allowed": False, "labels": ["richiede ricetta"],
+                "reason": "Medicinale con obbligo di ricetta: non si propone da un sintomo."}
+    if regime == "non_verificato" and (display or {}).get("dataset_type") == "reale" and \
+            (display or {}).get("category") in {"medicinale", "Farmaco da banco", "medicinale_veterinario"}:
+        labels.append("regime da verificare")
+    minimum = (display or {}).get("minimum_age")
+    if isinstance(minimum, int) and minimum > 0:
+        if isinstance(age, (int, float)) and age < minimum:
+            return {"allowed": False, "labels": [f"età minima {minimum}"],
+                    "reason": f"Età dichiarata {int(age)} anni, inferiore all'età minima documentata ({minimum})."}
+        labels.append(f"età minima {minimum}")
+    if (display or {}).get("shortage"):
+        labels.append("carente")
+    # Population rows (schema v8). `who` carries only declared or manual fields:
+    # an inferred gender or age never excludes a product.
+    who = dict(who or {})
+    if who.get("age_months") is None and isinstance(age, (int, float)):
+        who["age_months"] = int(age) * 12
+    boost = 0
+    for row in (display or {}).get("populations") or []:
+        if not _population_matches(row, who):
+            continue
+        name = POPULATION_LABELS.get(row["population"], row["population"])
+        note = row.get("note") or ""
+        if row["outcome"] == "controindicato":
+            return {"allowed": False, "labels": [f"non {name}"], "boost": 0,
+                    "reason": f"Non adatto: {name}. {note}".strip()}
+        if row["outcome"] in ("sconsigliato", "cautela"):
+            labels.append(f"{row['outcome']}: {name}")
+        elif row["outcome"] == "formulazione_dedicata":
+            labels.insert(0, f"formulazione {name}" if row["population"] not in ("donna", "uomo") else name)
+            boost = 1
+    gender = who.get("gender")
+    if gender:
+        dedicated = {row["population"] for row in (display or {}).get("populations") or []
+                     if row["outcome"] == "formulazione_dedicata" and row["population"] in ("donna", "uomo")}
+        if dedicated and gender not in dedicated:
+            labels.append("formulazione " + POPULATION_LABELS[next(iter(dedicated))])
+            boost = -1
+    return {"allowed": True, "labels": labels, "reason": None, "boost": boost}
 
 
 def documented_variants(code, catalog=CATALOG, packages=None):
@@ -422,11 +547,13 @@ def documented_variants(code, catalog=CATALOG, packages=None):
 
 
 def symptom_product_matches(concept_ids, catalog=CATALOG, species_scope="umana"):
-    """Return only source-backed, unreviewed label-indication matches.
+    """Return source-backed label-indication matches, candidate or approved.
 
     This is intentionally separate from product mentions and the normal
     product-relation filters: an explicit stable topic may expose a sourced
-    candidate, but no candidate is treated as approved advice.
+    candidate, but no candidate is treated as approved advice. A relation the
+    pharmacist approved (with reviewer) stays visible and carries
+    ``review_status='approvata'`` so the desk can drop the "non revisionata" label.
     """
     if species_scope not in {"umana", "cane", "gatto", "cane_gatto"}:
         return []
@@ -470,13 +597,15 @@ def _concept_product_matches(concept_ids, allowed, relation_type, catalog):
                    r.rischi AS risks, r.prerequisiti AS prerequisites,
                    r.esclusioni AS exclusions, r.fonte_id AS source_id,
                    r.versione_fonte AS source_version, r.stato_revisione AS review_status, c.tipo AS concept_type,
+                   r.revisore AS reviewer, r.revisionato_il AS reviewed_at,
                    p.*
             FROM concetti c
             JOIN relazioni_concetto_prodotto r ON r.concetto_id = c.id
             JOIN prodotti p ON p.codice = r.prodotto_codice
             WHERE c.id IN ({placeholders})
               AND r.tipo = ?
-              AND r.stato_revisione = 'candidata'
+              AND (r.stato_revisione = 'candidata'
+                   OR (r.stato_revisione = 'approvata' AND length(trim(coalesce(r.revisore, ''))) > 0))
               AND r.fonte_id IS NOT NULL
             ORDER BY c.id, p.nome COLLATE NOCASE, p.codice
         """, (*requested, relation_type)).fetchall()
@@ -515,6 +644,8 @@ def _concept_product_matches(concept_ids, allowed, relation_type, catalog):
                 "commercial": product_details["commercial"],
                 "relation_type": row["relation_type"],
                 "review_status": row["review_status"],
+                "reviewer": row["reviewer"],
+                "reviewed_at": row["reviewed_at"],
                 "claim": row["claim"],
                 "context": row["context"],
                 "risks": row["risks"],
@@ -742,6 +873,68 @@ def stock_for(codes, catalog=CATALOG, confirmed=None, cosmetic_complement=False,
         return rows
 
 
+# Function words carry no retrieval signal and made every short question match
+# the longest demo pages ("ho", "il", "di" ...). They are dropped from the FTS
+# query only; the full phrase is still used for exact-locution priority.
+_STOPWORDS = frozenset("""
+a ad al alla alle allo ai agli anche avete avrebbe c che chi ci come con cosa così cui da dal dalla
+dai dei del della delle dello degli di do dà da' e ed è era gli ha hai hanno ho i il in io la le lei
+li lo loro lui ma me mi mio mia miei mie ne nel nella nei negli no noi non o per più po poco qual
+quale quali quando quanto quel quella quelle quelli questo questa queste questi se si sì sono sta
+sto su sua sue suo sul sulla tu tua tuo un una uno vi voi vorrei cerco serve dia buongiorno
+buonasera grazie favore salve qualcosa avete ce c'è
+""".split())
+_INDEX_CACHE = {}
+_INDEX_LOCK = threading.Lock()
+
+
+def _query_terms(phrase):
+    terms = []
+    for word in dict.fromkeys(phrase.split()):
+        if word in _STOPWORDS or len(word) < 2:
+            continue
+        # Light Italian suffix folding: "dolori" -> dolor*, "mestruale" -> mestrual*.
+        if len(word) >= 6 and word[-1] in "aeiou":
+            terms.append(f'"{word[:-1]}"*')
+        else:
+            terms.append(f'"{word}"')
+    return terms
+
+
+def _search_index(catalog, wiki):
+    try:
+        stamp = (Path(catalog).stat().st_mtime_ns,
+                 max((p.stat().st_mtime_ns for p in Path(wiki).glob("*.md")), default=0))
+    except OSError:
+        stamp = None
+    key = (str(catalog), str(wiki))
+    cached = _INDEX_CACHE.get(key)
+    if cached and stamp is not None and cached[0] == stamp:
+        return cached[1:]
+    products, pages = reference_material(catalog, wiki)
+    index = sqlite3.connect(":memory:", check_same_thread=False)
+    index.execute("CREATE VIRTUAL TABLE ricerca USING fts5(id UNINDEXED, titolo, termini, testo, "
+                  "tokenize='unicode61 remove_diacritics 2')")
+    aliases = {}
+    for key_, page in pages.items():
+        product = page.get("catalogo") or {}
+        catalog_terms = [product[k] for k in ("codice", "nome", "categoria", "formato") if product.get(k)]
+        catalog_terms.extend(alias["name"] for alias in product.get("aliases", []))
+        catalog_terms.extend(item["name"] for item in product.get("active_ingredients", []))
+        catalog_terms.extend(item["name"] for item in product.get("supplement_ingredients", []))
+        terms = [page["titolo"], *page.get("termini", []), *catalog_terms]
+        aliases[key_] = [normalize(term) for term in terms if term]
+        index.execute("INSERT INTO ricerca VALUES (?, ?, ?, ?)", (
+            key_, page["titolo"], " ".join(aliases[key_]), page["testo"],
+        ))
+    if stamp is not None:
+        old = _INDEX_CACHE.pop(key, None)
+        if old:
+            old[1].close()
+        _INDEX_CACHE[key] = (stamp, index, products, pages, aliases)
+    return index, products, pages, aliases
+
+
 def search(query, catalog=CATALOG, wiki=WIKI):
     """Return reference material for an ephemeral text fragment."""
     if len(query) > 4096:
@@ -749,30 +942,20 @@ def search(query, catalog=CATALOG, wiki=WIKI):
     phrase = normalize(query)
     if not phrase:
         return []
+    query_terms = _query_terms(phrase)
+    if not query_terms:
+        return []
 
-    products, pages = reference_material(catalog, wiki)
-
-    with closing(sqlite3.connect(":memory:")) as index:
-        index.execute("CREATE VIRTUAL TABLE ricerca USING fts5(id UNINDEXED, titolo, termini, testo)")
-        aliases = {}
-        for key, page in pages.items():
-            product = page.get("catalogo") or {}
-            catalog_terms = [product[key] for key in ("codice", "nome", "categoria", "formato") if product.get(key)]
-            catalog_terms.extend(alias["name"] for alias in product.get("aliases", []))
-            catalog_terms.extend(item["name"] for item in product.get("active_ingredients", []))
-            catalog_terms.extend(item["name"] for item in product.get("supplement_ingredients", []))
-            terms = [page["titolo"], *page.get("termini", []), *catalog_terms]
-            aliases[key] = [normalize(term) for term in terms if term]
-            index.execute("INSERT INTO ricerca VALUES (?, ?, ?, ?)", (
-                key, page["titolo"], " ".join(aliases[key]), page["testo"],
-            ))
-        query_fts = " OR ".join(f'"{word}"' for word in dict.fromkeys(phrase.split()))
-        rows = index.execute("SELECT id, bm25(ricerca, 0, 4, 3, 1) FROM ricerca WHERE ricerca MATCH ?", (query_fts,))
-        matches = []
-        for key, rank in rows:
-            found = [term for term in aliases[key] if term and f" {term} " in f" {phrase} "]
-            priority = max((len(term.split()) for term in found), default=0)
-            matches.append((-priority, rank, key, found))
+    with _INDEX_LOCK:
+        index, products, pages, aliases = _search_index(catalog, wiki)
+        query_fts = " OR ".join(query_terms)
+        rows = index.execute("SELECT id, bm25(ricerca, 0, 4, 3, 1) FROM ricerca WHERE ricerca MATCH ?",
+                             (query_fts,)).fetchall()
+    matches = []
+    for key, rank in rows:
+        found = [term for term in aliases[key] if term and f" {term} " in f" {phrase} "]
+        priority = max((len(term.split()) for term in found), default=0)
+        matches.append((-priority, rank, key, found))
     results = []
     for _, _, key, found in sorted(matches)[:10]:
         page = pages[key]

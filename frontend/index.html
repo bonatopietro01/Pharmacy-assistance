@@ -8,55 +8,120 @@
   <link rel="stylesheet" href="/desk.css">
   <script src="/desk.js" defer></script>
 </head>
-<body>
-  <header class="topbar">
+<body class="desk-page">
+  <header class="topbar compact">
     <div class="brand">
-      <p class="eyebrow">Sales Agents · postazione riservata</p>
       <h1>Banco farmacia</h1>
     </div>
+    <nav id="sales-steps" class="sales-steps" aria-label="Passi della vendita">
+      <ol id="sales-step-list"></ol>
+      <p id="sales-step-reason" class="sales-reason" role="status"></p>
+      <button id="skip-step" type="button" class="small-button" hidden>Salta <kbd>S</kbd></button>
+    </nav>
     <div class="controls" aria-label="Controlli della sessione">
       <span id="status" class="badge" role="status">Collegamento al banco…</span>
       <button id="listen" class="primary" type="button" disabled>Inizia ascolto</button>
-      <button id="reset" type="button" disabled>Azzera sessione</button>
-      <button id="open-cart" type="button" disabled>Carrello · 0 · —</button>
-      <button id="open-settings" type="button" disabled>Impostazioni</button>
+      <button id="reset" type="button" disabled>Azzera</button>
+      <a id="drug-page" class="button-link" href="/farmaco" target="_blank" rel="noopener">Scheda farmaco</a>
+      <a id="review-page" class="button-link" href="/revisione" target="_blank" rel="noopener" title="Approva abbinamenti, complementi e protocolli">Revisione</a>
+      <button id="open-settings" type="button" disabled aria-label="Impostazioni" title="Impostazioni">⚙</button>
     </div>
   </header>
   <main>
     <p id="message" class="message" role="status"></p>
+    <section id="alarm" class="alarm" role="alert" hidden>
+      <div>
+        <strong>Segnale d'allarme · valutare l'invio al medico</strong>
+        <ul id="alarm-list"></ul>
+      </div>
+      <button id="alarm-handled" type="button">Gestito</button>
+    </section>
     <div class="desk-layout">
       <section class="product-panel" aria-labelledby="product-title">
-        <h2 id="product-title">Prodotti pertinenti</h2>
+        <h2 id="product-title">Farmaci</h2>
+        <div id="recipient-zone" class="recipient-zone">
+          <button id="recipient-chip" type="button" class="recipient-chip" aria-expanded="false" aria-controls="recipient-panel">Per: non indicato</button>
+          <div id="recipient-panel" class="recipient-panel" hidden>
+            <div class="recipient-options" role="group" aria-label="Per chi è">
+              <button type="button" data-profile='{"kind":"sé"}'>Sé</button>
+              <button type="button" data-profile='{"kind":"altra_persona","gender":"uomo","age_band":"adulto"}'>Uomo</button>
+              <button type="button" data-profile='{"kind":"altra_persona","gender":"donna","age_band":"adulto"}'>Donna</button>
+              <button type="button" data-profile='{"kind":"altra_persona","age_band":"anziano"}'>Anziano</button>
+              <button type="button" data-profile='{"states":["gravidanza"],"gender":"donna"}'>Gravidanza</button>
+              <button type="button" data-profile='{"states":["allattamento"],"gender":"donna"}'>Allattamento</button>
+              <button type="button" data-profile='{"kind":"animale","species":"cane"}'>Cane</button>
+              <button type="button" data-profile='{"kind":"animale","species":"gatto"}'>Gatto</button>
+              <button type="button" data-profile='{"gender":"altro"}'>Altro</button>
+            </div>
+            <form id="recipient-age" class="recipient-age">
+              <label>Bambino, anni <input id="recipient-years" inputmode="numeric" pattern="\d{1,2}" size="3"></label>
+              <label>Neonato, mesi <input id="recipient-months" inputmode="numeric" pattern="\d{1,2}" size="3"></label>
+              <button type="submit">Imposta età</button>
+              <button id="recipient-reset" type="button">Azzera</button>
+            </form>
+          </div>
+        </div>
+        <div id="check-row" class="check-row" hidden>
+          <button id="check-toggle" type="button" class="check-toggle" aria-expanded="false" aria-controls="check-panel"></button>
+          <div id="check-panel" class="check-panel" hidden></div>
+        </div>
+        <section id="questions-zone" class="zone questions-zone" aria-labelledby="questions-title" hidden>
+          <h3 id="questions-title">Da chiedere</h3>
+          <ul id="questions" class="questions"></ul>
+        </section>
+        <p id="semantic-hint" class="semantic-hint" hidden></p>
         <p id="result-state" class="result-state" role="status"></p>
         <p id="review-label" class="result-state" hidden>Riferimenti documentali non revisionati</p>
         <div id="products"></div>
         <nav id="products-pages" class="pagination" aria-label="Pagine prodotti" hidden></nav>
+        <p id="excluded" class="result-state excluded" hidden></p>
+      </section>
+      <section class="supplement-panel" aria-labelledby="linked-title">
+        <h2 id="linked-title">Integratori collegati</h2>
+        <div id="complement"></div>
+        <div id="complement-empty" class="complement-empty" hidden>
+          <p>Nessun integratore documentato per questo farmaco.</p>
+          <p><a id="propose-link" href="/farmaco" target="_blank" rel="noopener">Proponi abbinamento</a> · <a href="/revisione" target="_blank" rel="noopener">Apri revisione</a></p>
+        </div>
+        <p id="linked-state" class="result-state" role="status"></p>
+        <div id="linked"></div>
         <div id="supplement-section" hidden>
-          <h3>Integratori pertinenti</h3>
+          <p id="supplement-status" class="muted" hidden></p>
           <div id="supplements"></div>
           <nav id="supplements-pages" class="pagination" aria-label="Pagine integratori" hidden></nav>
         </div>
+      </section>
+      <aside class="sales-panel" aria-labelledby="sales-title">
+        <div class="panel-heading">
+          <h2 id="sales-title">Carrello</h2>
+          <button id="open-cart" type="button" class="small-button" disabled>0 pezzi · —</button>
+        </div>
+        <section id="with-product" class="with-product" aria-labelledby="with-product-title" hidden>
+          <h3 id="with-product-title">Con questo prodotto</h3>
+          <div id="with-product-items"></div>
+        </section>
         <div id="offer-section" hidden>
-          <h3>Offerte della farmacia</h3>
+          <h3>Offerte</h3>
           <div id="offers"></div>
           <nav id="offers-pages" class="pagination" aria-label="Pagine offerte" hidden></nav>
         </div>
-      </section>
-      <aside class="sales-panel" aria-labelledby="sales-title">
-        <h2 id="sales-title">Prezzo e disponibilità</h2>
-        <div id="product-sales" aria-live="polite"></div>
         <section id="cart-strip" class="cart-strip" aria-label="Nel carrello" hidden>
-          <h3>Nel carrello</h3>
           <ul id="cart-strip-items" class="cart-strip-items"></ul>
+        </section>
+        <div id="product-sales" aria-live="polite"></div>
+        <section id="advice-zone" class="advice-zone" aria-labelledby="advice-title" hidden>
+          <h3 id="advice-title">Da dire al cliente</h3>
+          <ul id="advice"></ul>
         </section>
       </aside>
     </div>
-    <section class="transcript-panel" aria-labelledby="transcript-title">
+    <section id="transcript-panel" class="transcript-panel" aria-labelledby="transcript-title">
       <div class="transcript-heading">
         <h2 id="transcript-title">Trascrizione</h2>
         <p id="phase-reason" class="result-state phase-reason" role="status"></p>
         <p id="recognized-name" class="result-state" role="status"></p>
         <button id="correct-name" type="button" class="small-button" disabled>Correggi nome</button>
+        <button id="toggle-transcript" type="button" class="small-button" aria-expanded="true">Riduci</button>
       </div>
       <div id="transcript" class="transcript" tabindex="0" aria-label="Trascrizione in diretta"></div>
     </section>

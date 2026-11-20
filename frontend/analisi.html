@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Analisi della settimana · Sales Agents</title>
+  <link rel="stylesheet" href="/desk.css">
+  <script src="/analisi.js" defer></script>
+</head>
+<body class="analysis-page">
+  <header class="topbar">
+    <div class="brand">
+      <p class="eyebrow">Sales Agents · solo conteggi anonimi</p>
+      <h1>Analisi della settimana</h1>
+    </div>
+    <div class="controls"><a href="/">Torna al banco</a></div>
+  </header>
+  <main class="analysis">
+    <p id="status" class="note" role="status">Caricamento…</p>
+    <section aria-labelledby="funnel-title">
+      <h2 id="funnel-title">Dal bisogno al complemento</h2>
+      <div id="funnel"></div>
+    </section>
+    <section aria-labelledby="needs-title">
+      <h2 id="needs-title">Sessioni per bisogno</h2>
+      <div id="needs"></div>
+    </section>
+    <section aria-labelledby="weeks-title">
+      <h2 id="weeks-title">Complemento: mostrati e accettati per settimana</h2>
+      <div id="weeks"></div>
+    </section>
+    <section aria-labelledby="misses-title">
+      <h2 id="misses-title">Bisogni con più «non pertinente»</h2>
+      <div id="misses"></div>
+      <p class="note">Per lavorarci: <code>python -m backend.lessico frasi-mancate</code></p>
+    </section>
+  </main>
+</body>
+</html>

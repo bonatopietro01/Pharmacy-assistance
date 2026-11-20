@@ -1,0 +1,871 @@
+{
+ "_descrizione": "Lessico colloquiale per riconoscere sintomi e bisogni nella conversazione. È solo riconoscimento linguistico: non crea collegamenti a prodotti. I prodotti compaiono soltanto tramite relazioni_concetto_prodotto con fonte ufficiale. Un concetto nuovo senza relazioni produce il topic (e la scheda protocollo, se esiste) ma nessun prodotto.",
+ "_regole": [
+  "termini: frasi semplici, minuscole; gli spazi diventano spazi flessibili, nessuna regex richiesta",
+  "radici: inizi di parola (es. 'zanzar' trova zanzara/zanzare); da usare solo se la parola è specifica del concetto",
+  "regex: opzionale, solo per forme che le frasi semplici non coprono",
+  "domanda: la prima domanda di inquadramento da mostrare al farmacista",
+  "stato: bozza finché il farmacista non ha riletto il lessico; il lessico in bozza è comunque attivo perché non mostra prodotti"
+ ],
+ "versione": "2026-11-19",
+ "stato": "bozza",
+ "concetti": {
+  "raffreddore": {
+   "termini": [
+    "mi cola il naso",
+    "naso che cola",
+    "naso che gocciola",
+    "colpo di freddo",
+    "preso freddo",
+    "sono raffreddato",
+    "sono raffreddata",
+    "starnutisco",
+    "continuo a starnutire"
+   ],
+   "radici": [
+    "raffreddat"
+   ]
+  },
+  "congestione-nasale": {
+   "termini": [
+    "naso intasato",
+    "non respiro col naso",
+    "non respiro dal naso",
+    "naso bloccato"
+   ]
+  },
+  "mal-di-testa": {
+   "termini": [
+    "emicrania",
+    "testa che scoppia",
+    "mi scoppia la testa",
+    "dolore alla testa",
+    "cerchio alla testa"
+   ]
+  },
+  "acidita-stomaco": {
+   "termini": [
+    "gastrite",
+    "bruciore allo stomaco",
+    "acido in gola",
+    "pesantezza di stomaco",
+    "ho mangiato pesante"
+   ]
+  },
+  "irritazione-oculare": {
+   "termini": [
+    "occhi rossi",
+    "occhio rosso",
+    "occhi che bruciano",
+    "occhi stanchi",
+    "sabbia negli occhi"
+   ]
+  },
+  "contusioni": {
+   "termini": [
+    "ho sbattuto",
+    "ho battuto"
+   ]
+  },
+  "mal-di-gola": {
+   "nome": "Mal di gola",
+   "tipo": "sintomo",
+   "termini": [
+    "mal di gola",
+    "male alla gola",
+    "gola infiammata",
+    "gola che brucia",
+    "brucia la gola",
+    "mi brucia quando deglutisco",
+    "fa male deglutire",
+    "raucedine",
+    "sono rauco",
+    "sono rauca",
+    "abbassamento di voce"
+   ],
+   "domanda": "Da quanti giorni? C'è febbre alta o placche? Per chi è?",
+   "radici": [
+    "gola",
+    "rauc"
+   ]
+  },
+  "febbre": {
+   "nome": "Febbre",
+   "tipo": "sintomo",
+   "termini": [
+    "febbre",
+    "febbricola",
+    "linee di febbre",
+    "ho la temperatura",
+    "38 di febbre"
+   ],
+   "domanda": "Che temperatura e da quanto? Per chi è e che età ha?",
+   "radici": [
+    "febbr"
+   ]
+  },
+  "dolore-muscolare": {
+   "nome": "Dolore muscolare e articolare",
+   "tipo": "sintomo",
+   "termini": [
+    "mal di schiena",
+    "male alla schiena",
+    "fa male la schiena",
+    "lombalgia",
+    "colpo della strega",
+    "torcicollo",
+    "cervicale",
+    "dolore muscolare",
+    "dolori muscolari",
+    "strappo",
+    "contrattura",
+    "mi fa male il ginocchio",
+    "dolore al ginocchio",
+    "mal di spalla",
+    "storta",
+    "distorsione",
+    "slogatura"
+   ],
+   "domanda": "Dopo un trauma o uno sforzo? Da quanto? Prende altri farmaci o ha problemi di stomaco?",
+   "radici": [
+    "schiena",
+    "cervical",
+    "muscol",
+    "articolazion",
+    "ossa"
+   ]
+  },
+  "dolore-mestruale": {
+   "nome": "Dolori mestruali",
+   "tipo": "sintomo",
+   "termini": [
+    "dolori mestruali",
+    "dolore mestruale",
+    "mal di pancia del ciclo",
+    "crampi del ciclo",
+    "dismenorrea"
+   ],
+   "domanda": "È il solito dolore o è diverso dal solito? Cosa usa di solito?"
+  },
+  "mal-di-denti": {
+   "nome": "Mal di denti",
+   "tipo": "sintomo",
+   "termini": [
+    "mal di denti",
+    "male a un dente",
+    "dolore al dente",
+    "dente che fa male",
+    "ascesso"
+   ],
+   "domanda": "C'è gonfiore o febbre? Ha già un appuntamento dal dentista?"
+  },
+  "diarrea": {
+   "nome": "Diarrea",
+   "tipo": "sintomo",
+   "termini": [
+    "diarrea",
+    "dissenteria",
+    "scariche",
+    "feci liquide",
+    "mal di pancia e diarrea",
+    "gastroenterite"
+   ],
+   "domanda": "Da quanto? Per chi (bambino, anziano)? C'è febbre o sangue?",
+   "radici": [
+    "diarr"
+   ]
+  },
+  "stitichezza": {
+   "nome": "Stitichezza",
+   "tipo": "sintomo",
+   "termini": [
+    "stitico",
+    "stitica",
+    "stitichezza",
+    "stipsi",
+    "non vado di corpo",
+    "intestino pigro",
+    "non riesco ad andare in bagno",
+    "vado poco in bagno",
+    "non vado in bagno"
+   ],
+   "domanda": "Da quanto? È un problema abituale o occasionale (viaggio, cambio dieta)?",
+   "radici": [
+    "stitic"
+   ]
+  },
+  "punture-insetti": {
+   "nome": "Punture di insetto e prurito",
+   "tipo": "sintomo",
+   "termini": [
+    "puntura di zanzara",
+    "punture di zanzara",
+    "puntura di insetto",
+    "punture di insetto",
+    "mi ha punto",
+    "pomfo",
+    "morso di insetto"
+   ],
+   "domanda": "C'è gonfiore esteso o difficoltà a respirare? Per chi è?",
+   "radici": [
+    "zanzar",
+    "puntur"
+   ]
+  },
+  "herpes-labiale": {
+   "nome": "Herpes labiale",
+   "tipo": "condizione",
+   "termini": [
+    "herpes",
+    "febbre sul labbro",
+    "bolla sul labbro",
+    "vescicola sul labbro"
+   ],
+   "domanda": "È già comparso altre volte? Siamo al pizzicore iniziale o c'è già la vescicola?",
+   "radici": [
+    "herpes"
+   ]
+  },
+  "emorroidi": {
+   "nome": "Emorroidi",
+   "tipo": "condizione",
+   "termini": [
+    "emorroidi",
+    "ragadi",
+    "prurito anale",
+    "bruciore anale"
+   ],
+   "domanda": "C'è sanguinamento? È la prima volta?",
+   "radici": [
+    "emorroid"
+   ]
+  },
+  "stanchezza": {
+   "nome": "Stanchezza",
+   "tipo": "bisogno",
+   "termini": [
+    "stanco",
+    "stanca",
+    "stanchezza",
+    "senza energie",
+    "spossato",
+    "spossata",
+    "affaticato",
+    "affaticata",
+    "giù di tono",
+    "cambio di stagione",
+    "non ho più energia",
+    "non ho energia",
+    "non ho più forze"
+   ],
+   "domanda": "Da quanto? Periodo di studio, lavoro o sport intenso?",
+   "radici": [
+    "energi",
+    "stanchezz",
+    "spossat"
+   ]
+  },
+  "sonno": {
+   "nome": "Sonno e rilassamento",
+   "tipo": "bisogno",
+   "termini": [
+    "non riesco a dormire",
+    "non dormo",
+    "dormo poco",
+    "dormo male",
+    "insonnia",
+    "mi sveglio di notte",
+    "faccio fatica ad addormentarmi",
+    "agitato la sera",
+    "agitata la sera"
+   ],
+   "domanda": "Difficoltà ad addormentarsi o risvegli notturni? Prende altri farmaci?"
+  },
+  "fermenti-lattici": {
+   "nome": "Fermenti lattici",
+   "tipo": "bisogno",
+   "termini": [
+    "fermenti",
+    "fermenti lattici",
+    "probiotici",
+    "flora intestinale",
+    "sto prendendo l'antibiotico",
+    "prendo l'antibiotico",
+    "dopo l'antibiotico"
+   ],
+   "domanda": "Durante una terapia antibiotica, un viaggio o per un disturbo intestinale?"
+  },
+  "gonfiore-addominale": {
+   "nome": "Gonfiore e digestione",
+   "tipo": "sintomo",
+   "termini": [
+    "pancia gonfia",
+    "gonfiore addominale",
+    "meteorismo",
+    "aria nella pancia",
+    "digestione lenta",
+    "colon irritabile",
+    "colite"
+   ],
+   "domanda": "Dopo i pasti o sempre? Ci sono dolori forti o alternanza con diarrea?",
+   "radici": [
+    "pancia",
+    "digeri",
+    "digestion"
+   ]
+  },
+  "micosi-cutanee": {
+   "termini": [
+    "fungo all'unghia",
+    "unghia con il fungo",
+    "funghi ai piedi",
+    "fungo ai piedi",
+    "micosi"
+   ]
+  },
+  "tosse-secca": {
+   "termini": [
+    "tosse che pizzica",
+    "tosse irritativa",
+    "tosse nervosa",
+    "tosse secca",
+    "tosse stizzosa",
+    "tossetta secca"
+   ],
+   "domanda": "La tosse è secca o con catarro? Da quanti giorni?"
+  },
+  "tosse-grassa": {
+   "termini": [
+    "catarro sul petto",
+    "ho catarro",
+    "sputo catarro",
+    "tosse con catarro",
+    "tosse con muco",
+    "tosse grassa",
+    "tosse produttiva"
+   ],
+   "radici": [
+    "catarr"
+   ],
+   "domanda": "Il catarro è chiaro o colorato? C'è febbre?"
+  },
+  "naso-chiuso-bambino": {
+   "termini": [
+    "bambino col naso chiuso",
+    "bimbo col naso chiuso",
+    "il piccolo ha il naso chiuso",
+    "la piccola ha il naso chiuso",
+    "lavaggi nasali per il bambino",
+    "naso chiuso al bambino",
+    "naso chiuso alla bambina"
+   ],
+   "domanda": "Quanti anni ha il bambino? Ha febbre o mangia meno?"
+  },
+  "dolori-articolari": {
+   "termini": [
+    "artrosi",
+    "dolore al ginocchio",
+    "dolore alla spalla",
+    "dolore alle articolazioni",
+    "dolori reumatici",
+    "male al ginocchio",
+    "male al polso",
+    "male alla caviglia",
+    "male alla spalla",
+    "male alle articolazioni",
+    "mi fanno male le giunture"
+   ],
+   "radici": [
+    "articolaz",
+    "reumati"
+   ],
+   "domanda": "Dove fa male? Dopo un trauma o da tempo?"
+  },
+  "mal-di-schiena": {
+   "termini": [
+    "cervicale",
+    "colpo della strega",
+    "dolore alla schiena",
+    "lombalgia",
+    "mal di schiena",
+    "male al collo",
+    "male alla schiena",
+    "mi sono bloccata con la schiena",
+    "mi sono bloccato con la schiena",
+    "torcicollo"
+   ],
+   "radici": [
+    "cervical",
+    "lombalg"
+   ],
+   "domanda": "Il dolore scende lungo la gamba o dà formicolii?"
+  },
+  "afte": {
+   "termini": [
+    "afta",
+    "afte",
+    "bollicine in bocca",
+    "ferita in bocca",
+    "ho un'afta",
+    "male in bocca",
+    "stomatite",
+    "taglietto in bocca"
+   ],
+   "radici": [
+    "stomatit"
+   ],
+   "domanda": "Da quanti giorni? Sono tante o ricorrenti?"
+  },
+  "infiammazione-gengive": {
+   "termini": [
+    "dopo l'estrazione del dente",
+    "gengive gonfie",
+    "gengive infiammate",
+    "gengivite",
+    "male alle gengive",
+    "mi sanguinano le gengive"
+   ],
+   "radici": [
+    "gengiv"
+   ],
+   "domanda": "Sanguinano spesso? Ha visto il dentista?"
+  },
+  "occhi-secchi": {
+   "termini": [
+    "lacrime artificiali",
+    "occhi che bruciano al computer",
+    "occhi secchi",
+    "occhi stanchi",
+    "occhio secco",
+    "porto le lenti a contatto e brucia",
+    "sabbia negli occhi",
+    "secchezza oculare"
+   ],
+   "domanda": "Porta lenti a contatto? L'occhio è rosso o fa male?"
+  },
+  "crampi": {
+   "termini": [
+    "crampi",
+    "crampi alle gambe",
+    "crampi notturni",
+    "crampo",
+    "crampo al polpaccio",
+    "mi viene il crampo",
+    "muscoli che tirano dopo lo sport"
+   ],
+   "radici": [
+    "cramp"
+   ],
+   "domanda": "Capitano spesso? Prende diuretici o altri farmaci?"
+  },
+  "insonnia-occasionale": {
+   "termini": [
+    "dormo male",
+    "faccio fatica a prendere sonno",
+    "fatico ad addormentarmi",
+    "insonnia",
+    "jet lag",
+    "mi sveglio di notte",
+    "non dormo",
+    "non riesco a dormire"
+   ],
+   "radici": [
+    "insonn"
+   ],
+   "domanda": "Da quanto tempo? Prende altri farmaci per dormire o per l'umore?"
+  },
+  "integrazione-gravidanza": {
+   "termini": [
+    "acido folico",
+    "integratore per l'allattamento",
+    "integratore per la gravidanza",
+    "sono incinta e vorrei delle vitamine",
+    "vitamine per l'allattamento",
+    "vitamine per la gravidanza"
+   ],
+   "radici": [
+    "folic"
+   ],
+   "domanda": "È in gravidanza, in allattamento o la sta programmando? Il ginecologo ha già prescritto qualcosa?"
+  },
+  "micosi-vaginale": {
+   "termini": [
+    "bruciore intimo",
+    "candida",
+    "fastidio intimo",
+    "micosi vaginale",
+    "perdite bianche",
+    "prurito intimo",
+    "prurito nelle parti intime"
+   ],
+   "radici": [
+    "candid"
+   ],
+   "domanda": "È la prima volta? È in gravidanza? Ha febbre o dolore al basso ventre?"
+  },
+  "colon-irritabile": {
+   "termini": [
+    "alterno stitichezza e diarrea",
+    "colite",
+    "colon irritabile",
+    "intestino irritabile",
+    "mi fa male la pancia quando sono nervosa",
+    "mi fa male la pancia quando sono nervoso",
+    "pancia gonfia e dolorante"
+   ],
+   "domanda": "Il medico ha già diagnosticato il colon irritabile? Ci sono sangue o calo di peso?"
+  },
+  "digestione-difficile": {
+   "termini": [
+    "digerisco male",
+    "digestione lenta",
+    "faccio fatica a digerire",
+    "non digerisco",
+    "pesantezza di stomaco",
+    "rutti",
+    "sazio subito",
+    "stomaco pesante"
+   ],
+   "radici": [
+    "digest"
+   ],
+   "domanda": "Capita dopo i pasti? Ha anche bruciore o reflusso?"
+  },
+  "terapia-antibiotica": {
+   "termini": [
+    "dopo l'antibiotico",
+    "durante l'antibiotico",
+    "fermenti con l'antibiotico",
+    "prendo l'antibiotico",
+    "sto prendendo l'antibiotico"
+   ],
+   "domanda": "Che antibiotico prende e da quanti giorni? Ha diarrea?"
+  },
+  "emicrania": {
+   "termini": [
+    "emicrania",
+    "fastidio alla luce",
+    "mal di testa che pulsa",
+    "mal di testa con nausea",
+    "mal di testa da un lato"
+   ],
+   "radici": [
+    "emicran"
+   ],
+   "domanda": "Ha già una diagnosi di emicrania? È diverso dal solito?"
+  },
+  "nausea-mal-d-auto": {
+   "termini": [
+    "chinetosi",
+    "mal d'aereo",
+    "mal d'auto",
+    "mal di mare",
+    "mi viene da vomitare",
+    "nausea",
+    "nausea in viaggio"
+   ],
+   "radici": [
+    "chinetos",
+    "nause"
+   ],
+   "domanda": "È in gravidanza? C'è vomito ripetuto o febbre?"
+  },
+  "coliche-lattante": {
+   "termini": [
+    "aria nella pancia del neonato",
+    "coliche",
+    "coliche del neonato",
+    "il bimbo ha le coliche",
+    "il neonato piange dopo la poppata"
+   ],
+   "radici": [
+    "colich"
+   ],
+   "domanda": "Quanti mesi ha? Mangia e cresce bene? Ha febbre o vomito?"
+  },
+  "dentizione": {
+   "termini": [
+    "dentini",
+    "dentizione",
+    "gengive gonfie al bambino",
+    "gli spuntano i dentini",
+    "le spuntano i dentini",
+    "stanno spuntando i denti"
+   ],
+   "radici": [
+    "dentin"
+   ],
+   "domanda": "Quanti mesi ha? Ha febbre alta?"
+  },
+  "cistite": {
+   "termini": [
+    "brucia quando urino",
+    "bruciore a urinare",
+    "bruciore quando faccio pipì",
+    "cistite",
+    "faccio pipì spesso",
+    "infezione urinaria"
+   ],
+   "radici": [
+    "cistit"
+   ],
+   "domanda": "È uomo o donna? Gravidanza? Febbre, mal di schiena o sangue nelle urine?"
+  },
+  "pidocchi": {
+   "termini": [
+    "a scuola ci sono i pidocchi",
+    "lendini",
+    "pidocchi",
+    "pidocchio"
+   ],
+   "radici": [
+    "pidocch"
+   ],
+   "domanda": "Per chi è e quanti anni ha?"
+  },
+  "acne-lieve": {
+   "termini": [
+    "acne",
+    "brufoli",
+    "pelle grassa con brufoli",
+    "punti neri"
+   ],
+   "radici": [
+    "brufol"
+   ],
+   "domanda": "Età? Usa già prodotti o farmaci per la pelle?"
+  },
+  "pelle-secca": {
+   "termini": [
+    "mani screpolate",
+    "pelle che si squama",
+    "pelle che tira",
+    "pelle screpolata",
+    "pelle secca"
+   ],
+   "radici": [
+    "screpol"
+   ],
+   "domanda": "È tutto il corpo o una zona? C'è prurito forte o arrossamento?"
+  },
+  "dermatite-pannolino": {
+   "termini": [
+    "arrossamento da pannolino",
+    "culetto rosso",
+    "dermatite da pannolino",
+    "eritema da pannolino",
+    "sederino arrossato"
+   ],
+   "domanda": "Quanti mesi ha? Ci sono vescicole o febbre?"
+  },
+  "verruche": {
+   "termini": [
+    "porri",
+    "porro",
+    "verruca",
+    "verruche"
+   ],
+   "radici": [
+    "verruc"
+   ],
+   "domanda": "Dove si trova? Diabete o problemi di circolazione?"
+  },
+  "ansia-stress": {
+   "termini": [
+    "nervosismo",
+    "sono agitata",
+    "sono agitato",
+    "sono stressata",
+    "sono stressato",
+    "stress",
+    "tensione nervosa"
+   ],
+   "radici": [
+    "stressat"
+   ],
+   "domanda": "Da quanto tempo? Prende farmaci per l'umore o il sonno?"
+  },
+  "menopausa": {
+   "termini": [
+    "caldane",
+    "sudorazioni notturne",
+    "vampate"
+   ],
+   "domanda": "Prende terapie ormonali? Ne ha parlato con il ginecologo?",
+   "_nota": "La parola «menopausa» resta al tema esistente menopausa-e-pillola; qui solo i sintomi."
+  },
+  "scottatura-solare": {
+   "termini": [
+    "eritema solare",
+    "mi sono scottata al sole",
+    "mi sono scottato al sole",
+    "pelle bruciata dal sole",
+    "scottatura"
+   ],
+   "radici": [
+    "scottat"
+   ],
+   "domanda": "Ci sono vescicole, febbre o è un bambino piccolo?"
+  },
+  "piccole-ferite": {
+   "termini": [
+    "escoriazione",
+    "ferita piccola",
+    "mi sono tagliata",
+    "mi sono tagliato",
+    "sbucciatura",
+    "taglietto",
+    "vescica al piede"
+   ],
+   "radici": [
+    "escoria"
+   ],
+   "domanda": "È profonda o sporca? Vaccino antitetanico in regola?"
+  },
+  "difese-bambino": {
+   "termini": [
+    "difese per il bambino",
+    "il bambino si ammala spesso",
+    "integratore per il bambino",
+    "vitamine per il bambino"
+   ],
+   "domanda": "Quanti anni ha? Ne ha parlato con il pediatra?"
+  }
+ },
+ "segnali_allarme": {
+  "_nota": "Bozza da validare con il farmacista. Un segnale riconosciuto sospende le proposte finché il farmacista non preme «gestito». Meglio un falso allarme che una vendita sbagliata.",
+  "respiro": {
+   "testo": "Difficoltà a respirare",
+   "termini": [
+    "difficoltà a respirare",
+    "fatica a respirare",
+    "non riesco a respirare",
+    "respiro corto",
+    "mi manca il respiro",
+    "fiato corto",
+    "respiro sibilante"
+   ]
+  },
+  "petto": {
+   "testo": "Dolore al petto",
+   "termini": [
+    "dolore al petto",
+    "male al petto",
+    "oppressione al petto",
+    "fitta al petto"
+   ]
+  },
+  "sangue": {
+   "testo": "Sangue (tosse, vomito, feci, urine)",
+   "termini": [
+    "tosse con sangue",
+    "sputo sangue",
+    "vomito con sangue",
+    "sangue nelle feci",
+    "feci nere",
+    "sangue nelle urine"
+   ]
+  },
+  "febbre_alta": {
+   "testo": "Febbre alta o che dura da giorni",
+   "termini": [
+    "febbre alta da",
+    "febbre da tre giorni",
+    "febbre da quattro giorni",
+    "febbre da cinque giorni",
+    "febbre da una settimana",
+    "quaranta di febbre",
+    "39 e mezzo",
+    "40 di febbre"
+   ]
+  },
+  "gonfiore": {
+   "testo": "Gonfiore di gola, labbra o viso",
+   "termini": [
+    "mi si gonfia la gola",
+    "gola gonfia e non respiro",
+    "labbra gonfie",
+    "viso gonfio",
+    "gonfiore alle labbra"
+   ]
+  },
+  "neurologico": {
+   "testo": "Sintomi neurologici improvvisi",
+   "termini": [
+    "collo rigido",
+    "rigidità del collo",
+    "è svenuto",
+    "è svenuta",
+    "sono svenuto",
+    "sono svenuta",
+    "confusione improvvisa",
+    "non riesce a parlare"
+   ]
+  },
+  "lattante": {
+   "testo": "Lattante con febbre",
+   "termini": [
+    "neonato con la febbre",
+    "neonato ha la febbre",
+    "ha pochi mesi e ha la febbre",
+    "bimbo di pochi mesi con la febbre"
+   ]
+  },
+  "cistite_complicata": {
+   "testo": "Cistite con febbre, dolore al fianco, in gravidanza o nell'uomo",
+   "termini": [
+    "bruciore e febbre",
+    "febbre e bruciore",
+    "dolore al fianco",
+    "cistite in gravidanza",
+    "sono incinta e ho la cistite",
+    "cistite a mio marito",
+    "cistite a un uomo"
+   ]
+  },
+  "testa_improvvisa": {
+   "testo": "Mal di testa improvviso e fortissimo o con rigidità",
+   "termini": [
+    "mal di testa improvviso",
+    "il peggior mal di testa",
+    "mal di testa fortissimo all'improvviso",
+    "mal di testa dopo una botta"
+   ]
+  },
+  "schiena_neurologico": {
+   "testo": "Mal di schiena con formicolio o perdita di forza",
+   "termini": [
+    "formicolio alla gamba",
+    "non sento la gamba",
+    "perdo forza alla gamba",
+    "non trattengo la pipì"
+   ]
+  },
+  "occhio_rosso": {
+   "testo": "Occhio rosso con dolore forte o vista ridotta",
+   "termini": [
+    "occhio rosso e dolore",
+    "non vedo bene",
+    "vedo annebbiato",
+    "dolore forte all'occhio"
+   ]
+  },
+  "disidratazione": {
+   "testo": "Segni di disidratazione in bambino o anziano",
+   "termini": [
+    "non fa pipì",
+    "non beve niente",
+    "vomita tutto",
+    "bocca secca e sonnolento"
+   ]
+  },
+  "ustione_estesa": {
+   "testo": "Scottatura estesa con vesciche o febbre",
+   "termini": [
+    "vesciche grandi",
+    "scottatura con febbre",
+    "bruciatura estesa"
+   ]
+  }
+ }
+}

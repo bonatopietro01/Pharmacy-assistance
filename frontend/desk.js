@@ -113,7 +113,8 @@ function renderTranscript(transcript, evidence) {
   const cuts = [...new Set(boundaries)].sort((a, b) => a - b);
   const scroller = $("transcript");
   const follow = scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 36;
-  refreshPart("transcript", [text, partialStart, cuts, evidence], () => {
+  const checkedSpans = list(snapshot?.checkpoint?.spans).filter(span => Number.isInteger(span?.start));
+  refreshPart("transcript", [text, partialStart, cuts, evidence, checkedSpans], () => {
     return cuts.slice(1).map((end, index) => {
       const start = cuts[index];
       const found = evidence.filter(({span}) => span.start < end && span.end > start);
@@ -121,6 +122,7 @@ function renderTranscript(transcript, evidence) {
       if (start >= partialStart) item.classList.add("partial");
       if (found.length) {
         item.classList.add("highlight");
+        if (checkedSpans.some(span => span.start < end && span.end > start)) item.classList.add("checked");
         item.title = found.map(entry => entry.reason || sourceLabel(entry.source)).filter(Boolean).join(" · ");
       }
       return item;
@@ -219,13 +221,19 @@ function renderCart(cart) {
   const items = cartItems(cart);
   const itemCount = Number.isInteger(cart?.item_count) && cart.item_count >= 0
     ? cart.item_count : items.reduce((sum, item) => sum + (Number.isInteger(item.quantity) ? item.quantity : 1), 0);
-  $("open-cart").textContent = "Carrello · " + itemCount + " · " + cartTotalText(cart);
+  $("open-cart").textContent = itemCount + (itemCount === 1 ? " pezzo · " : " pezzi · ") + cartTotalText(cart);
 
   const strip = items.map(item => [item.code, cartRowName(item)]);
   $("cart-strip").hidden = !items.length;
-  refreshPart("cart-strip-items", [strip, mutating], () => items.map(item => {
+  refreshPart("cart-strip-items", [strip, mutating, snapshot?.checkpoint?.da_rivedere], () => items.map(item => {
     const line = node("li", "", "cart-strip-item");
     line.append(node("span", item.name || item.display?.name || item.code));
+    const review = snapshot?.checkpoint?.da_rivedere?.[item.code];
+    if (typeof review === "string") {
+      const mark = node("span", "da rivedere", "label stop");
+      mark.title = review;
+      line.append(mark);
+    }
     const remove = node("button", "Rimuovi");
     remove.type = "button";
     remove.setAttribute("aria-label", "Rimuovi " + (item.name || item.code) + " dal carrello");
@@ -387,106 +395,228 @@ function selectProduct(row, code, source = "row") {
   }
 }
 
-function resultRow(row, selected, option, preference, preferredCode = null) {
+function rowLabels(row, product) {
+  const box = node("span", "", "row-labels");
+  const stock = product?.commercial?.stock ?? row?.commercial?.stock;
+  if (Number.isInteger(stock)) {
+    const dot = node("span", "", "stock-dot " + (stock <= 0 ? "out" : stock <= 3 ? "low" : "ok"));
+    const label = node("span", stock <= 0 ? "esaurito" : stock <= 3 ? "giacenza bassa" : "disponibile", "label");
+    label.prepend(dot);
+    box.append(label);
+  }
+  const reviewed = list(row.references).some(item => item?.review_status === "approvata");
+  if (list(row.references).length) box.append(node("span", reviewed ? "approvata" : "non revisionata", reviewed ? "label" : "label warn"));
+  for (const text of list(row.labels)) {
+    if (typeof text !== "string") continue;
+    box.append(node("span", text, text === "richiede ricetta" ? "label stop" : "label warn"));
+  }
+  if (typeof row.not_proposable === "string") box.append(node("span", "non proponibile", "label stop"));
+  return box;
+}
+
+const expandedRows = new Set();
+
+function coverageLabel(row) {
+  const covered = list(row.covered_symptoms).length;
+  const total = covered + list(row.uncovered_symptoms).length;
+  return total > 1 ? "copre " + covered + " su " + total : null;
+}
+
+function iconButton(symbol, label, style) {
+  const button = node("button", symbol, "icon-button " + style);
+  button.type = "button";
+  button.setAttribute("aria-label", label);
+  button.title = label;
+  return button;
+}
+
+function thumbnail(display) {
+  const image = typeof display?.image === "string" && display.image.startsWith("/farmaco/immagini/") ? display.image : null;
+  if (image) {
+    const img = node("img", "", "thumb");
+    img.src = image;
+    img.alt = "";
+    img.width = img.height = 40;
+    return img;
+  }
+  const category = String(display?.category || display?.classification_label || "").toLowerCase();
+  return node("span", category.includes("integrator") ? "🌿" : category.includes("dispositiv") ? "🩹" : "💊", "thumb thumb-icon");
+}
+
+function cardLabels(row, product) {
+  // At most three labels on the card: stock, coverage, then the most important caution.
+  const box = node("span", "", "row-labels");
+  const stock = product?.commercial?.stock ?? row?.commercial?.stock;
+  if (Number.isInteger(stock)) {
+    const label = node("span", stock <= 0 ? "esaurito" : stock <= 3 ? "giacenza " + stock : "disponibile", "label");
+    label.prepend(node("span", "", "stock-dot " + (stock <= 0 ? "out" : stock <= 3 ? "low" : "ok")));
+    box.append(label);
+  }
+  const coverage = coverageLabel(row);
+  if (coverage) box.append(node("span", coverage, "label"));
+  const cautions = [];
+  if (typeof row.not_proposable === "string") cautions.push(["non proponibile", "label stop"]);
+  for (const text of list(row.labels)) {
+    if (typeof text === "string") cautions.push([text, text === "richiede ricetta" ? "label stop" : "label warn"]);
+  }
+  if (list(row.references).length) {
+    const reviewed = list(row.references).some(item => item?.review_status === "approvata");
+    cautions.push(reviewed ? ["approvata", "label"] : ["non revisionata", "label warn"]);
+  }
+  const slots = Math.max(0, 3 - box.childElementCount);
+  for (const [text, style] of cautions.slice(0, slots)) box.append(node("span", text, style));
+  return {box, hidden: cautions.slice(slots)};
+}
+
+function resultRow(row, selected, option, preference, preferredCode = null, index = 0) {
   const product = selected ? productFor(row, preferredCode) : row;
-  const article = node("article", "", "result-row");
+  const key = rowKey(row);
+  const article = node("article", "", "result-row card");
+  article.classList.toggle("selected", selected);
   if (option || preference) article.classList.add("voice-match");
   const offer = offerDetails(row.offer);
   const select = node("button", "", "result-select");
   select.type = "button";
   select.setAttribute("aria-pressed", String(selected));
-  const percentage = row.affinity_percent;
-  const affinity = Number.isFinite(percentage) && percentage >= 0 && percentage <= 100
-    ? "Affinità documentale " + percentage + "%" : null;
-  const note = node("span", "", "relevance");
-  if (affinity) note.append(node("span", affinity, "affinity"));
-  if (offer) note.append(node("span", offer.demo ? "Offerta di prova" : "In offerta"));
-  else if (!affinity) note.append(node("span", row.relevance || "Nome rilevato"));
-  if (option) note.append(node("span", "Possibile scelta", "voice-marker"));
-  else if (preference) note.append(node("span", "Forma richiesta", "voice-marker"));
-  const identity = node("span", "", "result-identity");
-  const title = node("strong", product.display.name, "truncate");
-  title.title = product.display.name;
-  identity.append(title);
-  const facts = (offer ? [offer.benefit, offer.price, offer.validity]
-    : [compactFacts(product.display), list(row.symptoms).filter(Boolean).join(", ")]).filter(Boolean).join(" · ");
-  if (facts) {
-    const details = node("span", facts, "result-facts truncate");
-    details.title = facts;
-    identity.append(details);
+  select.dataset.row = key;
+  const first = node("span", "", "card-line");
+  const name = [product.display.name, product.display.form_label || product.display.form].filter(Boolean).join(" · ");
+  const title = node("strong", name, "card-name truncate");
+  title.title = [name, compactFacts(product.display)].filter(Boolean).join(" · ");
+  first.append(title);
+  const cents = offer?.price_cents ?? product.commercial?.bank_price_cents ?? row.commercial?.bank_price_cents;
+  first.append(node("span", offer ? (offer.price || offer.benefit || "Offerta") : prices(cents) || "—", "card-price"));
+  const second = node("span", "", "card-line");
+  const {box, hidden} = cardLabels(row, product);
+  const review = snapshot?.checkpoint?.da_rivedere?.[row.code] || snapshot?.checkpoint?.da_rivedere?.[product.code];
+  if (typeof review === "string") {
+    const mark = node("span", "da rivedere", "label stop");
+    mark.title = review;
+    box.prepend(mark);
+    if (box.childElementCount > 3) box.lastChild.remove();
   }
-  select.append(note, identity);
-  const key = rowKey(row);
+  if (offer) box.prepend(node("span", offer.demo ? "offerta di prova" : "in offerta", "label"));
+  if (option) box.prepend(node("span", "possibile scelta", "label voice-marker"));
+  else if (preference) box.prepend(node("span", "forma richiesta", "label voice-marker"));
+  second.append(box);
+  const body = node("span", "", "card-body");
+  body.append(first, second);
+  if (row.section === "products") select.append(node("span", String(index + 1), "rank-number"));
+  select.append(thumbnail(product.display), body);
   select.addEventListener("click", () => {
-    const source = selected && selectedByVoice ? "voice" : "row";
-    selectProduct(row, product.code, source);
+    if (selected && selectedCode === key && !selectedByVoice) {
+      resetSelection();
+      renderResults(snapshot?.desk_results);
+    } else {
+      selectProduct(row, product.code, selected && selectedByVoice ? "voice" : "row");
+    }
     [...document.querySelectorAll(".result-select")].find(button => button.dataset.row === key)?.focus();
   });
-  select.dataset.row = key;
   article.append(select);
 
+  const actions = node("div", "", "card-actions");
   const variants = variantsFor(row);
-  if (variants.length > 1) {
-    const options = node("select", "", "variants");
-    options.setAttribute("aria-label", "Confezione di " + row.display.name);
-    options.dataset.row = key;
-    const chosenCode = selected && selectedVariantSource !== "row" ? selectedVariant : "";
-    options.append(node("option", "Scegli confezione"));
-    options.lastChild.value = "";
-    options.lastChild.disabled = true;
-    for (const variant of variants) {
-      const option = node("option", variant.label || variant.display.package_label || variant.display.name);
-      option.value = variant.code;
-      options.append(option);
-    }
-    options.value = chosenCode || "";
-    options.addEventListener("change", () => {
-      selectProduct(row, options.value, "variant");
-      [...document.querySelectorAll(".variants")].find(menu => menu.dataset.row === key)?.focus();
-    });
-    article.append(options);
-  }
   const ambiguousVoice = list(snapshot?.desk_results?.voice_options).length > 1;
-  const explicitlySelected = selected && rowKey(row) === selectedCode && variants.some(item => item.code === selectedVariant)
+  const explicitlySelected = selected && key === selectedCode && variants.some(item => item.code === selectedVariant)
     && (["voice", "variant", "preferred"].includes(selectedVariantSource)
       || selectedVariantSource === "row" && variants.length === 1);
   const canAdd = !ambiguousVoice && variants.length === 1 || explicitlySelected;
   const addCode = variants.length === 1 ? variants[0].code : canAdd ? selectedVariant : null;
-  const add = node("button", canAdd ? "Aggiungi al carrello" : "Scegli confezione", "cart-add");
-  add.type = "button";
-  add.disabled = !canAdd || mutating;
-  add.setAttribute("aria-label", canAdd
+  if (row.section === "products") {
+    const confirmCode = addCode;
+    const confirmed = snapshot?.product?.confirmed_code === confirmCode && confirmCode;
+    const confirm = iconButton("✓", confirmed ? product.display.name + " confermato"
+      : "Conferma " + product.display.name + " come prodotto scelto", "confirm-row");
+    confirm.classList.toggle("done", Boolean(confirmed));
+    confirm.disabled = mutating || !confirmCode || Boolean(confirmed) || typeof row.not_proposable === "string"
+      || snapshot?.vendita?.proposals_blocked === true;
+    confirm.dataset.confirmCode = confirmCode || "";
+    confirm.addEventListener("click", () => confirmCode && mutateSessionAction("conferma_prodotto", {code: confirmCode}));
+    actions.append(confirm);
+  }
+  const add = iconButton("+", canAdd
     ? "Aggiungi " + (variants.find(item => item.code === addCode)?.display?.name || product.display.name) + " al carrello"
-    : "Scegli una confezione prima di aggiungerla al carrello");
-  add.addEventListener("click", () => {
-    if (addCode) mutateSessionAction("aggiungi_carrello", {code: addCode});
+    : "Scegli una confezione prima di aggiungerla al carrello", "cart-add");
+  add.disabled = !canAdd || mutating;
+  add.addEventListener("click", () => { if (addCode) mutateSessionAction("aggiungi_carrello", {code: addCode}); });
+  actions.append(add);
+  const hasSources = list(row.references).some(item => safeHttpsUrl(item?.source?.url))
+    || list(product.display.sources).some(item => safeHttpsUrl(item?.url))
+    || list(row.covered_symptoms).length || list(row.uncovered_symptoms).length
+    || documentedEquivalents(product.display).length;
+  const info = iconButton("i", "Fonti e dettagli di " + product.display.name, "sources-button");
+  info.disabled = !hasSources;
+  info.addEventListener("click", () => showSources(row, product));
+  actions.append(info);
+  const expanded = expandedRows.has(key);
+  const more = iconButton(expanded ? "▴" : "▾", (expanded ? "Chiudi" : "Apri") + " i dettagli di " + product.display.name,
+    "expand-row");
+  more.setAttribute("aria-expanded", String(expanded));
+  more.addEventListener("click", () => {
+    if (expandedRows.has(key)) expandedRows.delete(key); else expandedRows.add(key);
+    renderResults(snapshot?.desk_results);
+    [...document.querySelectorAll(".expand-row")].find(button => button.closest(".card")?.querySelector(".result-select")?.dataset.row === key)?.focus();
   });
-  article.append(add);
+  actions.append(more);
+  article.append(actions);
 
-  const isCheckout = snapshot?.desk_phase?.key === "closing"
-    || snapshot?.desk_results?.phase === "closing";
+  const isCheckout = snapshot?.desk_phase?.key === "closing" || snapshot?.desk_results?.phase === "closing";
   const offerCode = row.offer?.codice || row.offer?.offer_code || row.offer?.code;
   const inCart = cartItems(snapshot?.cart).some(item => item.code === product.code);
+  const details = node("div", "", "card-details");
+  details.hidden = !expanded && !(variants.length > 1 && selected && !explicitlySelected);
+  if (typeof row.rank_reason === "string" && row.rank_reason) details.append(node("p", "Perché è qui: " + row.rank_reason, "rank-reason"));
+  const facts = offer ? [offer.benefit, offer.validity ? "fino al " + offer.validity : null]
+    : [compactFacts(product.display), list(row.symptoms).filter(Boolean).join(", ")];
+  const factText = facts.filter(Boolean).join(" · ");
+  if (factText) details.append(node("p", factText, "result-facts"));
+  if (hidden.length) {
+    const cautionBox = node("p", "", "row-labels");
+    for (const [text, style] of hidden) cautionBox.append(node("span", text, style));
+    details.append(cautionBox);
+  }
+  if (typeof row.not_proposable === "string") details.append(node("p", row.not_proposable, "rank-reason"));
+  if (variants.length > 1) {
+    const options = node("select", "", "variants");
+    options.setAttribute("aria-label", "Confezione di " + row.display.name);
+    options.dataset.row = key;
+    options.append(node("option", "Scegli confezione"));
+    options.lastChild.value = "";
+    options.lastChild.disabled = true;
+    for (const variant of variants) {
+      const choice = node("option", variant.label || variant.display.package_label || variant.display.name);
+      choice.value = variant.code;
+      options.append(choice);
+    }
+    options.value = selected && selectedVariantSource !== "row" ? selectedVariant || "" : "";
+    options.addEventListener("change", () => {
+      selectProduct(row, options.value, "variant");
+      [...document.querySelectorAll(".variants")].find(menu => menu.dataset.row === key)?.focus();
+    });
+    details.append(options);
+  }
+  const detailActions = node("div", "", "actions");
+  if (row.section === "products" && list(row.references).length) {
+    const reject = node("button", "Non pertinente", "not-relevant small-button");
+    reject.type = "button";
+    reject.disabled = mutating;
+    reject.dataset.rejectCode = product.code;
+    reject.addEventListener("click", () => mutateSessionAction("feedback", {evento: "non_pertinente", code: product.code}));
+    detailActions.append(reject);
+  }
   if (row.section === "offers" && offer && isCheckout && inCart && typeof offerCode === "string" && offerCode) {
-    const applyOffer = node("button", "Applica offerta", "apply-offer");
+    const applyOffer = node("button", "Applica offerta", "apply-offer small-button");
     applyOffer.type = "button";
     applyOffer.disabled = mutating;
     applyOffer.setAttribute("aria-label", "Applica l’offerta a " + product.display.name);
     applyOffer.addEventListener("click", () => mutateSessionAction("applica_offerta", {
       code: product.code, offer_code: offerCode
     }));
-    article.append(applyOffer);
+    if (row.section === "offers") { details.hidden = false; }
+    detailActions.append(applyOffer);
   }
-  if (list(row.references).some(item => safeHttpsUrl(item?.source?.url))
-      || list(product.display.sources).some(item => safeHttpsUrl(item?.url))
-      || list(row.covered_symptoms).length || list(row.uncovered_symptoms).length
-      || documentedEquivalents(product.display).length) {
-    const details = node("button", "Fonti e dettagli", "sources-button");
-    details.type = "button";
-    details.setAttribute("aria-label", "Fonti e dettagli di " + product.display.name);
-    details.addEventListener("click", () => showSources(row, product));
-    article.append(details);
-  }
+  if (detailActions.childElementCount) details.append(detailActions);
+  if (details.childElementCount) article.append(details);
   return article;
 }
 
@@ -548,10 +678,15 @@ function renderPage(id, rows, limit, selected, voiceOptions, preferences, prefer
   });
   const key = visible.map(row => [rowKey(row), row.display, row.relevance, row.affinity_percent, row.symptoms,
     row.covered_symptoms, row.uncovered_symptoms, referenceDetails(row), row.offer,
-    list(row.variants).map(item => [item.code, item.display, item.label])]);
+    list(row.variants).map(item => [item.code, item.display, item.label]),
+    row.labels, row.rank_reason, row.not_proposable, row.commercial?.stock]);
   refreshPart(id, [key, selected && rowKey(selected), selectedVariant, selectedVariantSource,
-    selectedByVoice, preferredCode, flags, mutating],
-    () => visible.map((row, index) => resultRow(row, row === selected, ...flags[index], preferredCode)));
+    selectedByVoice, preferredCode, flags, mutating, snapshot?.product?.confirmed_code,
+    snapshot?.vendita?.proposals_blocked, [...expandedRows], cartItems(snapshot?.cart).map(item => item.code),
+    snapshot?.checkpoint?.da_rivedere,
+    snapshot?.desk_phase?.key],
+    () => visible.map((row, index) => resultRow(row, row === selected, ...flags[index], preferredCode,
+      page * limit + index)));
   $(id + "-pages").hidden = total < 2;
   refreshPart(id + "-pages", [page, total], () => {
     if (total < 2) return [];
@@ -636,9 +771,9 @@ function renderResults(results) {
   const preferences = list(results?.preference_codes).filter(code => typeof code === "string");
   const compact = window.innerHeight < 660 || window.innerWidth < 790;
   const limits = {
-    products: compact ? 3 : offers.length && supplements.length ? 3 : offers.length || supplements.length ? 4 : 6,
+    products: 8,
     supplements: compact ? 1 : 2,
-    offers: compact ? 1 : 2
+    offers: 2
   };
   syncVoiceSelection(results, visibleRows, sections, limits, voiceOptions);
   const manual = rows.find(row => rowKey(row) === selectedCode);
@@ -660,8 +795,13 @@ function renderResults(results) {
     voiceOptions.length ? "Scelta vocale ambigua" : ""].filter(Boolean).join(" · ");
   $("result-state").textContent = resultState;
   $("review-label").hidden = !rows.some(row => list(row.references).some(item => item?.review_status === "candidata"));
-  $("supplement-section").hidden = !supplements.length;
+  const followup = results?.supplement_followup;
+  $("supplement-section").hidden = !supplements.length && followup?.active !== true;
+  $("supplement-status").hidden = supplements.length > 0 || followup?.active !== true;
+  $("supplement-status").textContent = followup?.active === true && !supplements.length
+    ? "Nessun abbinamento documentato disponibile per il prodotto scelto." : "";
   $("offer-section").hidden = !offers.length;
+  document.querySelector(".sales-panel").classList.toggle("has-offers", offers.length > 0);
   $("recognized-name").textContent = selectedProduct
     && results?.manual_corrected_code === selectedProduct.code
     ? "Nome corretto · " + selectedProduct.display.name
@@ -676,6 +816,8 @@ function renderResults(results) {
   const pinnedCartItem = cartItems(snapshot?.cart).find(item => item.code === pinned?.code);
   renderSales(pinned, visibleRows.length > 0, pinnedCartItem?.applied_offer);
   renderCart(snapshot?.cart || {items: [], item_count: 0, total_cents: 0, partial: false});
+  renderLinked(results, selected?.section === "products" ? selected.code : null, products.length);
+  renderWithProduct(results?.with_product);
   updateCorrections(previous ? [] : rows, voiceOptions);
 }
 
@@ -766,15 +908,330 @@ function render(data) {
     : ({spento: "Microfono spento", avvio: "Avvio microfono…", attivo: "In ascolto", errore: "Microfono non disponibile"})[data?.status?.microphone] || "Microfono spento";
   if ($("status").textContent !== status) $("status").textContent = status;
   $("status").classList.toggle("recording", recording);
-  $("listen").textContent = recording ? "Termina ascolto" : "Inizia ascolto";
+  $("listen").textContent = recording ? "Termina" : "Inizia ascolto";
 
   const live = recording ? data : null;
   const evidence = currentEvidence(live);
   renderPhase(live?.desk_phase, evidence, live?.transcript, live?.recipient);
   renderTranscript(live?.transcript, evidence);
   renderResults(live?.desk_results);
+  renderVendita(live?.vendita, live?.desk_results);
+  renderRecipient(live?.recipient_profile);
+  renderCheckpoint(live?.checkpoint);
   updateControls();
 }
+
+function linkFor(item, code) {
+  return list(item?.linked_to).find(link => link?.code_farmaco === code) || null;
+}
+
+const levelNames = {1: "Abbinamento approvato", 2: "Approvato per il bisogno", 3: "Stesso bisogno · non revisionato"};
+
+function symptomNames(item) {
+  return list(item?.for_symptoms).map(entry => entry?.nome).filter(Boolean);
+}
+
+function linkedCard(item, mode, link) {
+  const card = node("article", "", "linked-card");
+  card.classList.toggle("focus", mode === "focus");
+  card.classList.toggle("dimmed", mode === "dimmed");
+  const head = node("div", "", "card-line");
+  head.append(thumbnail({category: item.kind}), node("strong", item.name || item.code, "card-name truncate"),
+    node("span", prices(item.price_cents) || "—", "card-price"));
+  const add = iconButton("+", "Aggiungi " + (item.name || item.code) + " al carrello", "cart-add");
+  add.disabled = mutating || !activeMic(snapshot);
+  add.addEventListener("click", () => mutateSessionAction("aggiungi_carrello", {code: item.code}));
+  head.append(add);
+  card.append(head);
+  const labels = node("span", "", "row-labels");
+  const symptom = mode === "symptom" ? list(item.for_symptoms)[0] : null;
+  const level = link ? link.livello : symptom ? symptom.livello : item.level;
+  if (symptom) labels.append(node("span", "per: " + symptomNames(item).join(", "), "label symptom"));
+  labels.append(node("span", level >= 3 ? "non revisionato" : levelNames[level] || item.level_label,
+    level >= 3 ? "label warn level" : "label level"));
+  if (Number.isInteger(item.stock)) {
+    const stock = node("span", item.stock <= 3 ? "giacenza " + item.stock : "disponibile", "label");
+    stock.prepend(node("span", "", "stock-dot " + (item.stock <= 3 ? "low" : "ok")));
+    labels.append(stock);
+  }
+  if (!symptom && list(item.linked_to).length > 1) labels.append(node("span", "per " + list(item.linked_to).length + " farmaci", "label"));
+  card.append(labels);
+  const reason = (link || symptom || list(item.linked_to)[0] || list(item.for_symptoms)[0])?.motivo;
+  if (reason) {
+    const text = node("span", reason, "rank-reason truncate");
+    text.title = reason;
+    card.append(text);
+  }
+  return card;
+}
+
+function renderLinked(results, selectedDrug, drugCount) {
+  const confirmed = snapshot?.product?.confirmed_code || null;
+  const focus = selectedDrug || confirmed;
+  const complementCode = snapshot?.vendita?.complement?.code;
+  const items = list(results?.linked_supplements).filter(item => typeof item?.code === "string")
+    .filter(item => !(confirmed && complementCode === item.code));
+  // Group 1: for the chosen drug (highlighted) · other drugs on the list (dimmed when a drug is chosen)
+  // Group 2: for the symptoms said — always visible, never dimmed: they are useful anyway.
+  const forDrug = [], otherDrugs = [], forSymptoms = [];
+  for (const item of items) {
+    const link = focus ? linkFor(item, focus) : null;
+    if (link) forDrug.push([item, link]);
+    else if (list(item.linked_to).length && (!focus || !list(item.for_symptoms).length)) otherDrugs.push(item);
+    else if (list(item.for_symptoms).length) forSymptoms.push(item);
+  }
+  forDrug.sort((a, b) => a[1].livello - b[1].livello);
+  const complementShown = Boolean(confirmed && complementCode);
+  const emptyBox = snapshot?.vendita?.complement_empty === true;
+  $("linked-state").textContent = (!drugCount && !items.length) || (complementShown && !items.length) || emptyBox ? ""
+    : !items.length ? "Nessun integratore documentato per i farmaci in lista o per i sintomi detti."
+    : !focus && otherDrugs.length ? "Tocca un farmaco (o 1–3) per evidenziare i suoi integratori." : "";
+  refreshPart("linked", [items, focus, mutating, activeMic(snapshot)], () => {
+    const out = [];
+    if (!items.length) return out;
+    if (focus && (forDrug.length || !complementShown)) {
+      out.push(node("h3", "Per il farmaco scelto", "linked-group"));
+      if (forDrug.length) out.push(...forDrug.map(([item, link]) => linkedCard(item, "focus", link)));
+      else out.push(node("p", "Nessun abbinamento documentato per il farmaco scelto.", "result-state"));
+    }
+    if (otherDrugs.length) {
+      if (!focus) out.push(node("h3", "Per i farmaci in lista", "linked-group"));
+      out.push(...otherDrugs.map(item => linkedCard(item, focus ? "dimmed" : "plain", null)));
+    }
+    if (forSymptoms.length) {
+      out.push(node("h3", "Per i sintomi detti", "linked-group"));
+      out.push(...forSymptoms.map(item => linkedCard(item, "symptom", null)));
+    }
+    return out;
+  });
+}
+
+function renderRecipient(profile) {
+  const text = typeof profile?.label === "string" && profile.label ? profile.label : null;
+  const chip = $("recipient-chip");
+  chip.textContent = "Per: " + (text || "non indicato");
+  chip.classList.toggle("unsure", Boolean(text && text.includes("da confermare")));
+  chip.classList.toggle("known", Boolean(text && !text.includes("da confermare")));
+  chip.disabled = !activeMic(snapshot) || mutating;
+  if (chip.disabled) $("recipient-panel").hidden = true;
+}
+
+function renderWithProduct(info) {
+  const box = $("with-product");
+  const items = [];
+  if (info?.supplement) items.push(["supplement", info.supplement]);
+  for (const offer of list(info?.offers)) items.push(["offer", offer]);
+  box.hidden = !info?.code;
+  refreshPart("with-product-items", [info, mutating], () => {
+    if (!info?.code) return [];
+    const out = items.map(([kind, item]) => {
+      const card = node("article", "", "linked-card focus compact");
+      const head = node("div", "", "card-line");
+      const title = kind === "offer" ? (item.title || "Offerta") + (item.name ? " · " + item.name : "") : item.name;
+      head.append(node("strong", title, "card-name truncate"),
+        node("span", prices(item.price_cents) || "—", "card-price"));
+      const add = iconButton("+", "Aggiungi " + (item.name || item.code) + " al carrello", "cart-add");
+      add.disabled = mutating || !activeMic(snapshot);
+      add.addEventListener("click", () => mutateSessionAction("aggiungi_carrello", {code: item.code}));
+      head.append(add);
+      card.append(head);
+      const labels = node("span", "", "row-labels");
+      if (kind === "offer") {
+        labels.append(node("span", item.demo ? "offerta di prova" : "offerta", "label"));
+        labels.append(node("span", item.reason, "label"));
+        if (item.end) labels.append(node("span", "fino al " + item.end, "label"));
+      } else {
+        if (item.origin === "sintomo" && symptomNames(item).length) {
+          labels.append(node("span", "per: " + symptomNames(item).join(", "), "label symptom"));
+        }
+        labels.append(node("span", item.level >= 3 ? "non revisionato" : levelNames[item.level] || item.level_label,
+          item.level >= 3 ? "label warn" : "label level"));
+      }
+      card.append(labels);
+      const reason = kind === "offer" ? item.benefit : (list(item.linked_to)[0] || list(item.for_symptoms)[0])?.motivo;
+      if (reason) card.append(node("span", reason, "rank-reason truncate"));
+      return card;
+    });
+    if (info.offers_empty) {
+      const line = node("p", "Nessuna offerta attiva su questo prodotto · ", "result-state");
+      const link = node("a", "Crea offerta");
+      link.href = "/farmaco#" + encodeURIComponent(info.code) + "&offerta";
+      link.target = "_blank";
+      link.rel = "noopener";
+      line.append(link);
+      out.push(line);
+    }
+    return out;
+  });
+}
+
+const correctionNames = {manca_sintomo: "Sintomo non coperto", prodotto_non_coerente: "Farmaco da rivedere",
+  integratore_non_adatto: "Integratore da rivedere", ordine: "Ordine"};
+const agentNames = {in_corso: "agente al lavoro", ok: "agente ok", timeout: "agente: tempo scaduto",
+  scartato: "agente: risposta scartata", provider_non_disponibile: "agente non disponibile"};
+
+function renderCheckpoint(checkpoint) {
+  const row = $("check-row");
+  row.hidden = !checkpoint?.n;
+  if (!checkpoint?.n) { $("check-panel").hidden = true; return; }
+  const open = list(checkpoint.correzioni).filter(item => !item?.automatica);
+  const auto = list(checkpoint.correzioni).filter(item => item?.automatica);
+  const review = Object.keys(checkpoint.da_rivedere || {}).length;
+  const count = open.length + (open.length ? 0 : review);
+  const label = "Controllo dopo " + checkpoint.n + (checkpoint.n === 1 ? " parola chiave · " : " parole chiave · ")
+    + (count ? count + (count === 1 ? " suggerimento" : " suggerimenti") : "ok")
+    + (agentNames[checkpoint.agente] ? " · " + agentNames[checkpoint.agente] : "");
+  const toggle = $("check-toggle");
+  toggle.textContent = label;
+  toggle.classList.toggle("warn", count > 0);
+  toggle.title = list(checkpoint.parole).length ? "Ultime parole controllate: " + checkpoint.parole.join(", ") : "";
+  refreshPart("check-panel", [checkpoint, mutating], () => {
+    const out = [];
+    for (const item of open) {
+      const line = node("div", "", "check-item");
+      line.append(node("strong", correctionNames[item.tipo] || item.tipo), node("span", " · " + (item.motivo || ""),
+        "result-facts"));
+      if (item.da === "modello") line.append(node("span", "modello", "label"));
+      const actions = node("span", "", "check-actions");
+      if (item.applicabile) {
+        const apply = node("button", item.azione === "togli dal carrello" ? "Togli dal carrello" : "Applica", "small-button primary");
+        apply.type = "button";
+        apply.disabled = mutating || !activeMic(snapshot);
+        apply.addEventListener("click", () => mutateSessionAction("controllo", {id: item.id, decisione: "applica"}));
+        actions.append(apply);
+      }
+      const ignore = node("button", "Ignora", "small-button");
+      ignore.type = "button";
+      ignore.disabled = mutating || !activeMic(snapshot);
+      ignore.addEventListener("click", () => mutateSessionAction("controllo", {id: item.id, decisione: "ignora"}));
+      actions.append(ignore);
+      line.append(actions);
+      out.push(line);
+    }
+    for (const item of auto) out.push(node("p", "Fatto: " + (item.motivo || ""), "result-state"));
+    for (const item of list(checkpoint.info)) {
+      const line = node("p", item.testo, "check-info");
+      line.append(node("span", " · " + item.fonte, "field-source"));
+      out.push(line);
+    }
+    if (!out.length) out.push(node("p", "Nessuna correzione: lista coerente con quanto detto.", "result-state"));
+    return out;
+  });
+}
+
+function sendProfile(payload) {
+  if (!activeMic(snapshot) || mutating) return;
+  $("recipient-panel").hidden = true;
+  $("recipient-chip").setAttribute("aria-expanded", "false");
+  mutateSessionAction("profilo_destinatario", payload);
+}
+
+let lastStep = null;
+const stepNames = new Map([["bisogno", "Bisogno"], ["inquadramento", "Domande"], ["proposta", "Prodotto"],
+  ["complemento", "Complemento"], ["offerta", "Offerta"]]);
+
+function renderVendita(view, results) {
+  const steps = list(view?.steps).filter(item => stepNames.has(item?.key));
+  refreshPart("sales-step-list", [steps], () => steps.map(item => {
+    const li = node("li", stepNames.get(item.key), ["done", "current", "blocked"].includes(item.state) ? item.state : "");
+    if (item.state === "current") li.setAttribute("aria-current", "step");
+    return li;
+  }));
+  $("sales-step-reason").textContent = typeof view?.reason === "string" ? view.reason : "";
+  const skippable = ["inquadramento", "complemento"].includes(view?.step);
+  $("skip-step").hidden = !skippable;
+  $("skip-step").disabled = mutating;
+
+  const flags = list(view?.red_flags).filter(item => typeof item?.text === "string");
+  $("alarm").hidden = !flags.length;
+  document.querySelector("main").classList.toggle("alarm-active", flags.length > 0);
+  refreshPart("alarm-list", [flags], () => flags.map(item =>
+    node("li", item.text + (item.matched ? " · «" + item.matched + "»" : ""))));
+  $("alarm-handled").disabled = mutating;
+
+  const questions = list(view?.questions).filter(item => typeof item?.text === "string");
+  const answered = list(view?.answered).filter(item => typeof item?.text === "string");
+  // Once a product is confirmed the questions are behind us: give the room to complement and offer.
+  $("questions-zone").hidden = (!questions.length && !answered.length) || Boolean(snapshot?.product?.confirmed_code);
+  refreshPart("questions", [questions, answered], () => [
+    ...questions.map(item => {
+      const li = node("li", item.text);
+      if (item.source) li.append(node("span", item.source, "source"));
+      return li;
+    }),
+    ...answered.map(item => node("li", item.text, "answered"))
+  ]);
+
+  const hint = view?.semantic_hint;
+  $("semantic-hint").hidden = !hint?.name;
+  refreshPart("semantic-hint", [hint], () => {
+    if (!hint?.name) return [];
+    const ask = node("button", "Sì, usa questo bisogno", "small-button");
+    ask.type = "button";
+    ask.addEventListener("click", () => mutateSessionAction("accetta_suggerimento", {}));
+    return [node("span", "Intendeva: " + hint.name + "?"), ask];
+  });
+
+  const excluded = list(view?.excluded).filter(item => typeof item?.name === "string");
+  $("excluded").hidden = !excluded.length;
+  $("excluded").textContent = excluded.length
+    ? "Esclusi: " + excluded.map(item => item.name + " (" + (item.reason || "non ammissibile") + ")").join(" · ") : "";
+
+  const confirmed = snapshot?.product?.confirmed_code;
+  const complement = view?.complement;
+  const decision = view?.complement_decision;
+  refreshPart("complement", [complement, decision, confirmed, mutating], () => {
+    if (!confirmed || !complement) return [];
+    const card = node("div", "", "complement-card linked-card focus");
+    const head = node("div", "", "card-line");
+    head.append(node("strong", complement.name || complement.shelf || "Complemento", "card-name truncate"),
+      node("span", prices(complement.price_cents) || (complement.shelf && !complement.code ? "scaffale" : "—"), "card-price"));
+    card.append(head);
+    const labels = node("span", "", "row-labels");
+    labels.append(node("span", complement.level_label || "Complemento approvato",
+      complement.reviewed === false ? "label warn level" : "label level"));
+    if (complement.reviewed === false) labels.append(node("span", "valuta tu", "label warn"));
+    if (complement.origin_kind === "sintomo" && symptomNames(complement).length) {
+      labels.prepend(node("span", "per: " + symptomNames(complement).join(", "), "label symptom"));
+    }
+    if (Number.isInteger(complement.stock)) labels.append(node("span", "giacenza " + complement.stock, "label"));
+    card.append(labels);
+    if (complement.reason) card.append(node("span", complement.reason, "rank-reason"));
+    if (complement.exclusions) card.append(node("span", "Escludere se: " + complement.exclusions, "result-facts"));
+    if (decision) {
+      card.append(node("span", decision === "accettato" ? "Accettato" : decision === "rifiutato" ? "Rifiutato" : "Saltato",
+        "label decision"));
+      return [card];
+    }
+    const actions = node("div", "", "actions");
+    const accept = node("button", complement.code ? "Accettato · al carrello" : "Accettato", "small-button primary");
+    accept.type = "button";
+    accept.disabled = mutating;
+    accept.addEventListener("click", () => mutateSessionAction("complemento", {decision: "accettato"}));
+    const refuse = node("button", "Rifiutato", "small-button");
+    refuse.type = "button";
+    refuse.disabled = mutating;
+    refuse.addEventListener("click", () => mutateSessionAction("complemento", {decision: "rifiutato"}));
+    actions.append(accept, refuse);
+    card.append(actions);
+    return [card];
+  });
+  $("supplement-section").hidden = true;
+  $("complement-empty").hidden = view?.complement_empty !== true;
+  if (confirmed) $("propose-link").href = "/farmaco#" + encodeURIComponent(confirmed);
+  if (view?.step !== lastStep && view?.step === "complemento") $("complement").scrollIntoView({block: "nearest"});
+  lastStep = view?.step;
+
+  const checkInfo = list(snapshot?.checkpoint?.info).filter(item => item?.per_cliente === true)
+    .map(item => item?.testo).filter(text => typeof text === "string");
+  const advice = [...new Set([...list(view?.advice).filter(item => typeof item === "string"), ...checkInfo])].slice(0, 6);
+  const follow = typeof view?.follow_up === "string" ? view.follow_up : "";
+  $("advice-zone").hidden = !advice.length && !follow;
+  refreshPart("advice", [advice, follow], () => [
+    ...advice.map(text => node("li", text)), ...(follow ? [node("li", "Quando tornare: " + follow)] : [])
+  ]);
+}
+
 
 function updateControls() {
   $("listen").disabled = mutating || !reachable;
@@ -1220,3 +1677,80 @@ $("sources-dialog").addEventListener("close", () => {
 });
 
 poll();
+
+$("check-toggle").addEventListener("click", () => {
+  const open = $("check-panel").hidden;
+  $("check-panel").hidden = !open;
+  $("check-toggle").setAttribute("aria-expanded", String(open));
+});
+$("recipient-chip").addEventListener("click", () => {
+  const open = $("recipient-panel").hidden;
+  $("recipient-panel").hidden = !open;
+  $("recipient-chip").setAttribute("aria-expanded", String(open));
+});
+for (const button of document.querySelectorAll("#recipient-panel [data-profile]")) {
+  button.addEventListener("click", () => {
+    try { sendProfile(JSON.parse(button.dataset.profile)); } catch { /* malformed preset */ }
+  });
+}
+$("recipient-age").addEventListener("submit", event => {
+  event.preventDefault();
+  const years = Number.parseInt($("recipient-years").value, 10);
+  const months = Number.parseInt($("recipient-months").value, 10);
+  if (Number.isInteger(months) && months >= 0 && months < 36) {
+    sendProfile({kind: "altra_persona", age_months: months, age_years: Math.floor(months / 12)});
+  } else if (Number.isInteger(years) && years >= 0 && years <= 120) {
+    sendProfile({kind: "altra_persona", age_years: years});
+  }
+  $("recipient-years").value = $("recipient-months").value = "";
+});
+$("recipient-reset").addEventListener("click", () => sendProfile({azzera: true}));
+
+const TRANSCRIPT_KEY = "banco.trascrizione.ridotta";
+function setTranscriptCollapsed(collapsed) {
+  $("transcript-panel").classList.toggle("collapsed", collapsed);
+  $("toggle-transcript").textContent = collapsed ? "Mostra" : "Riduci";
+  $("toggle-transcript").setAttribute("aria-expanded", String(!collapsed));
+}
+try { setTranscriptCollapsed(localStorage.getItem(TRANSCRIPT_KEY) === "1"); } catch { setTranscriptCollapsed(false); }
+$("toggle-transcript").addEventListener("click", () => {
+  const collapsed = !$("transcript-panel").classList.contains("collapsed");
+  setTranscriptCollapsed(collapsed);
+  try { localStorage.setItem(TRANSCRIPT_KEY, collapsed ? "1" : "0"); } catch { /* storage unavailable: keep in memory */ }
+});
+fetch("/api/interfaccia", {cache: "no-store"}).then(response => response.ok ? response.json() : null).then(data => {
+  const hidden = data?.mostra_trascrizione === false;
+  $("transcript-panel").hidden = hidden;
+  document.body.classList.toggle("no-transcript", hidden);
+}).catch(() => {});
+$("skip-step").addEventListener("click", () => {
+  const step = snapshot?.vendita?.step;
+  if (["inquadramento", "complemento"].includes(step)) mutateSessionAction("salta_passo", {step});
+});
+$("alarm-handled").addEventListener("click", () => mutateSessionAction("allarme_gestito", {}));
+document.addEventListener("keydown", event => {
+  if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.target.closest("input, select, textarea, dialog[open]")) {
+    if (event.key === "Escape" && openedSources) closeSources();
+    return;
+  }
+  const key = event.key.toLowerCase();
+  if (event.key === "Escape") {
+    if (openedSources) closeSources();
+    else if (selectedCode) { resetSelection(); renderResults(snapshot?.desk_results); }
+    return;
+  }
+  if (!activeMic(snapshot) || mutating) return;
+  const rows = [...document.querySelectorAll("#products .result-row")];
+  if (["1", "2", "3"].includes(key)) {
+    const button = rows[Number(key) - 1]?.querySelector(".result-select");
+    if (button) { event.preventDefault(); button.click(); }
+  } else if (key === "n") {
+    const button = (document.querySelector("#products .result-row.selected") || rows[0])
+      ?.querySelector(".not-relevant:not(:disabled)");
+    if (button) { event.preventDefault(); button.click(); }
+  } else if (key === "s" && !$("skip-step").hidden) {
+    event.preventDefault();
+    $("skip-step").click();
+  }
+});

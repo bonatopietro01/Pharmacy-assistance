@@ -25,10 +25,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from queue import Empty, Full, Queue
 from tempfile import NamedTemporaryFile
+import urllib.parse
 from urllib.parse import parse_qsl, quote, urlsplit
 from uuid import uuid4
 
-from backend import knowledge, phase_agent
+from backend import destinatario, knowledge, phase_agent, revisione_web, scheda_farmaco, vendita, verifica_banco, voce
+from backend.import_dati import import_status
+from backend.semantica import semantic_status
 from backend.cart import (add_item as cart_add_item, apply_offer as cart_apply_offer,
                           empty_cart, remove_item as cart_remove_item,
                           remove_offer as cart_remove_offer, serialize_cart)
@@ -79,6 +82,7 @@ DIAGNOSTIC_CODES = {
     "ricerca": {"ricerca_non_disponibile"},
     "frontend": FRONTEND_CODES,
     "agente": {"timeout", "provider_non_disponibile", "risposta_non_valida"},
+    "telecamera": {"lettura_trovato", "lettura_multipli", "lettura_aifa", "lettura_sconosciuto", "lettura_nessuno"},
 }
 
 _SPEECH_BRAND_STOPWORDS = {
@@ -216,6 +220,10 @@ def _write_configuration(path, config):
             temp_path.unlink(missing_ok=True)
 
 
+PRESERVED_CONFIG_KEYS = ("import", "mostra_trascrizione", "ricerca_semantica", "scheda_farmaco", "vad", "verifica_agente",
+                         "vocabolario_asr")
+
+
 def save_configuration(payload, path=SETTINGS):
     config = normalize_configuration(payload)
     with SETTINGS_LOCK:
@@ -225,7 +233,9 @@ def save_configuration(payload, path=SETTINGS):
         if speech_engine not in ("vosk", "whisper.cpp", "ibrido"):
             speech_engine = "vosk"
         input_device = current.get("input_device")
-        _write_configuration(path, {**config, "agent": agent, "speech_engine": speech_engine,
+        # Sections owned by other tools (imports, semantic search, voice activity) are kept as they are.
+        preserved = {key: current[key] for key in PRESERVED_CONFIG_KEYS if key in current}
+        _write_configuration(path, {**preserved, **config, "agent": agent, "speech_engine": speech_engine,
                                     "input_device": input_device})
     return config
 
@@ -347,10 +357,36 @@ def unknown_recipient():
     return {"kind": "sconosciuto", "relation": None, "declared_fields": {}, "source": "unknown"}
 
 
+def cart_items_codes(cart):
+    return [item.get("code") for item in (cart or {}).get("items", []) if item.get("code")]
+
+
+def empty_checkpoint():
+    return {"n": 0, "parole": [], "spans": [], "esito": None, "correzioni": [], "info": [], "da_rivedere": {},
+            "modo": None, "agente": None, "ms": None}
+
+
 def empty_desk_results():
     return {"previous": False, "rows": [], "preferred_code": None, "supplements": [], "offers": [],
+            "linked_supplements": [], "with_product": None,
+            "supplement_followup": {"active": False, "origin_codes": [], "status": None},
             "recognized_name": None, "phase": None, "voice_choice": None, "voice_options": [],
-            "preference_codes": [], "correction_options": []}
+            "preference_codes": [], "correction_options": [], "excluded": []}
+
+
+def rank_reason(row, approved, stock):
+    """One line that tells the pharmacist why a card sits where it does."""
+    parts = []
+    if row.get("named"):
+        parts.append("nominato dal cliente")
+    covered = row.get("covered_symptoms") or []
+    if covered:
+        parts.append("copre " + ", ".join(name.lower() for name in covered[:3]))
+    if row.get("references"):
+        parts.append("revisionato" if approved else "non revisionato")
+    if stock is not None:
+        parts.append("disponibile" if stock > 0 else "esaurito")
+    return " · ".join(parts)
 
 
 def recognize(recognizer, audio):
@@ -501,6 +537,7 @@ class Listening:
             "status": {"session": session, "microphone": microphone, "error_code": error},
             "transcript": {"revision": 0, "final_segments": [], "partial": None, "testo": ""},
             "phase": phase(), "recipient": unknown_recipient(), "evidence": [], "cards": [],
+            "recipient_profile": {**destinatario.empty_profile(), "label": None},
             "desk_phase": desk_phase(),
             "sales_stage": "collecting", "closing_signal": None, "symptom_matches": [],
             "desk_results": empty_desk_results(),
@@ -509,10 +546,22 @@ class Listening:
                         "display": None, "commercial": dict(EMPTY_COMMERCIAL)},
             "cart": serialize_cart(empty_cart()),
             "offers": [], "stock": [], "service": public_service(), "restock": self.state["restock"],
+            "vendita": None,
+            "checkpoint": empty_checkpoint(),
         }
         self.auto_cards, self.manual_cards, self.locked_cards = [], [], {}
         self.manual_phase = self.manual_recipient = self.manual_service = None
         self.stability, self.applied_corrections, self.suppressed = {}, set(), set()
+        self.followup_origins = {}
+        self.scheda_pin = None
+        self.manual_profile = {}
+        self._reset_keywords()
+        self.sales_choices = {"skipped": set(), "flags_handled": set(), "complement_decision": None,
+                              "manual_concepts": []}
+        self.feedback_seen = set()
+        self.followup_acceptance = None
+        self.followup_action_boundary = -1
+        self.followup_action_codes = {}
         self.segment_start = 0
         self.segment_sequence = 0
         self.discarded_transcript_units = 0
@@ -705,6 +754,12 @@ class Listening:
         self.stability.clear()
         self.applied_corrections.clear()
         self.suppressed.clear()
+        # A closed segment is a new request: questions, skips and complement start over.
+        self.scheda_pin = None
+        self.manual_profile = {}
+        self._reset_keywords()
+        self.sales_choices = {"skipped": set(), "flags_handled": set(), "complement_decision": None,
+                              "manual_concepts": []}
         self._clear_choice()
         self.auto_cards = []
         self._rebuild_cards()
@@ -808,6 +863,11 @@ class Listening:
             previous = latest_topics.get(concept_id)
             if previous is None or item["span"]["end"] > previous["span"]["end"]:
                 latest_topics[concept_id] = item
+        # A concept the pharmacist accepted from the semantic hint behaves like a spoken topic.
+        for concept_id in self.sales_choices["manual_concepts"]:
+            latest_topics.setdefault(concept_id, {
+                "id": f"manual-{concept_id}", "kind": "topic", "concept_id": concept_id, "state": "active",
+                "span": {"start": 0, "end": 0}, "species_scope": "umana", "matched_term": None})
 
         # Candidate indication matches are informational only. Keep them tied
         # to the exact active topic evidence and the same transcript revision.
@@ -1032,8 +1092,154 @@ class Listening:
         self._refresh_desk_results(stable, latest_topics, symptom_matches, product_events, event_clauses,
                                    code_barriers, global_barrier, latest_closing_event)
         self.state["desk_results"]["correction_options"] = correction_options
+        self._refresh_sales_view()
+        self._collect_keywords(stable)
+        self._apply_demotions()
         if self.state != before:
             self.state["version"] += 1
+
+    # --- keywords and checkpoint every 3 keywords ---------------------------------------------
+
+    def _reset_keywords(self):
+        self.keywords, self.keyword_keys = [], set()
+        self.checkpoint_count = 0
+        self.checkpoint_pending = self.checkpoint_rerun = False
+        self.checkpoint_ignored, self.checkpoint_demoted = set(), set()
+        self.checkpoint_seq = 0
+        self.checkpoint_profile = None
+        if hasattr(self, "state"):
+            self.state["checkpoint"] = empty_checkpoint()
+
+    def _collect_keywords(self, stable):
+        """Count each new highlighted keyword once (stable, finalized). Kept in memory only."""
+        text = self.state["transcript"]["testo"]
+        for item in stable:
+            if item.get("state") != "active":
+                continue
+            key = verifica_banco.keyword_key(item, text, self.discarded_transcript_units)
+            if not key[1] or key in self.keyword_keys:
+                continue
+            self.keyword_keys.add(key)
+            self.keywords.append({"text": text[item["span"]["start"]:item["span"]["end"]], "kind": item["kind"],
+                                  "span": dict(item["span"])})
+        profile = json.dumps(destinatario.filtering(self.state.get("recipient_profile")), sort_keys=True)
+        chosen = self.state["product"].get("confirmed_code") or cart_items_codes(self.state.get("cart"))
+        if len(self.keywords) - self.checkpoint_count >= verifica_banco.CHECK_EVERY:
+            self.checkpoint_count = len(self.keywords) - len(self.keywords) % verifica_banco.CHECK_EVERY
+            self.checkpoint_profile = profile
+            self._run_checkpoint()
+        elif self.checkpoint_profile is not None and profile != self.checkpoint_profile or (
+                self.checkpoint_profile is None and chosen and profile != json.dumps(
+                    destinatario.filtering(None), sort_keys=True)):
+            # Safety: who the product is for changed (age, pregnancy, sex, species) after a
+            # choice: check now, without waiting for three keywords.
+            self.checkpoint_profile = profile
+            self._run_checkpoint()
+
+    def _apply_demotions(self):
+        if not self.checkpoint_demoted:
+            return
+        rows = self.state["desk_results"].get("rows") or []
+        self.state["desk_results"]["rows"] = sorted(rows, key=lambda row: row.get("code") in self.checkpoint_demoted)
+
+    @staticmethod
+    def _correction_key(item):
+        return (item.get("tipo"), item.get("code"), item.get("concetto_id"))
+
+    def _run_checkpoint(self):
+        try:
+            result = verifica_banco.verify(self.state, self.catalog)
+        except (OSError, sqlite3.Error, ValueError):
+            diagnostic("backend", "operazione_non_disponibile", "errore")
+            return
+        self.checkpoint_seq += 1
+        corrections = []
+        for item in result["correzioni"]:
+            if self._correction_key(item) in self.checkpoint_ignored:
+                continue
+            if item.get("automatica") and item["tipo"] == "ordine":
+                self.checkpoint_demoted.add(item["code"])
+            corrections.append({**item, "id": "c:" + ":".join(str(part or "") for part in self._correction_key(item))})
+        last = self.keywords[-verifica_banco.CHECK_EVERY:]
+        text = self.state["transcript"]["testo"]
+        spans = [entry["span"] for entry in last if text[entry["span"]["start"]:entry["span"]["end"]] == entry["text"]]
+        pending_actions = [item for item in corrections if not item.get("automatica")]
+        self.state["checkpoint"] = {
+            "n": len(self.keywords), "parole": [entry["text"] for entry in last], "spans": spans,
+            "esito": "suggerimenti" if pending_actions or result["da_rivedere"] else "ok",
+            "correzioni": corrections, "info": result["info"], "da_rivedere": result["da_rivedere"],
+            "modo": "locale", "agente": None, "ms": None}
+        self.checkpoint_ms = result["ms"]  # timing kept out of the snapshot so equal results cause no new version
+        self._apply_demotions()
+        provider = self._checkpoint_model()
+        if provider is None:
+            return
+        if self.checkpoint_pending:
+            self.checkpoint_rerun = True
+            return
+        payload = verifica_banco.model_payload(self.state, self.keywords, self.catalog)
+        self.checkpoint_pending = True
+        self.state["checkpoint"]["agente"] = "in_corso"
+        threading.Thread(target=self._checkpoint_agent, args=(provider, payload, self.state["session_id"],
+                                                              self.checkpoint_seq), daemon=True).start()
+
+    def checkpoint_diagnostics(self):
+        """Counts only: never the keywords themselves."""
+        with self.lock:
+            return {"parole_contate": len(self.keywords), "controlli": self.checkpoint_seq,
+                    "ultimo_ms": getattr(self, "checkpoint_ms", None), "agente": self.state["checkpoint"].get("agente"),
+                    "modello_attivo": self._checkpoint_model() is not None}
+
+    def _checkpoint_model(self):
+        """Callable for the optional model check, or None (default: off)."""
+        if getattr(self, "checkpoint_provider", None) is not None:
+            return self.checkpoint_provider
+        try:
+            config = _read_configuration(self.settings)
+        except (OSError, ValueError):
+            return None
+        if (config.get("verifica_agente") or {}).get("modello") is not True:
+            return None
+        agent = phase_agent.normalize_settings(config.get("agent", {}))
+        key = phase_agent.read_key() if agent["provider"] == "openai" else None
+        if not key:
+            return None
+        return lambda payload: verifica_banco.ask_model(payload, agent["model"], key, timeout=4)
+
+    def _checkpoint_agent(self, provider, payload, session_id, sequence):
+        status, merged = "ok", None
+        try:
+            merged = verifica_banco.validate_model(provider(payload), self.catalog)
+        except phase_agent.ProviderError as error:
+            status = str(error) if str(error) in ("timeout", "provider_non_disponibile", "risposta_non_valida") \
+                else "provider_non_disponibile"
+        except (ValueError, TypeError, KeyError, sqlite3.Error, OSError):
+            status = "risposta_non_valida"
+        if status != "ok":
+            diagnostic("agente", status, "warning")
+        with self.lock:
+            self.checkpoint_pending = False
+            if session_id != self.state["session_id"]:
+                return
+            checkpoint = self.state["checkpoint"]
+            checkpoint["agente"] = "scartato" if status == "risposta_non_valida" else status
+            if merged and sequence == self.checkpoint_seq:
+                known = {self._correction_key(item) for item in checkpoint["correzioni"]}
+                for item in merged["correzioni"]:
+                    if self._correction_key(item) in known | self.checkpoint_ignored:
+                        continue
+                    checkpoint["correzioni"].append({**item, "id": "m:" + ":".join(
+                        str(part or "") for part in self._correction_key(item))})
+                texts = {item["testo"] for item in checkpoint["info"]}
+                checkpoint["info"] = (checkpoint["info"] + [item for item in merged["info"]
+                                                            if item["testo"] not in texts])[:3]
+                checkpoint["modo"] = "locale+modello"
+                if any(not item.get("automatica") for item in checkpoint["correzioni"]):
+                    checkpoint["esito"] = "suggerimenti"
+            self.state["version"] += 1
+            rerun, self.checkpoint_rerun = self.checkpoint_rerun, False
+            if rerun:
+                self._run_checkpoint()
 
     def _absolute_final_end(self):
         return self.discarded_transcript_units + sum(
@@ -1210,6 +1416,10 @@ class Listening:
 
         rows = []
         scores = {}
+        excluded = []
+        age = (self.state.get("recipient") or {}).get("declared_fields", {}).get("age")
+        self._refresh_profile()
+        who = destinatario.filtering(self.state.get("recipient_profile"))
         for code in dict.fromkeys([*named_by_code, *references]):
             links = references.get(code, [])
             row = self._desk_row(code, links, named=code in named_by_code, topic_names=topic_names,
@@ -1218,12 +1428,29 @@ class Listening:
                 continue
             if row["display"]["category"].casefold() in SUPPLEMENT_CATEGORIES and code not in named_by_code:
                 continue
+            # Admissibility comes before any ranking: a symptom never proposes a
+            # prescription-only product or one below the declared age. A product
+            # the customer names stays visible, with the label that explains why.
+            verdict = knowledge.admissibility(row["display"], age, who)
+            row["labels"] = verdict["labels"]
+            if not verdict["allowed"]:
+                if code not in named_by_code:
+                    excluded.append({"code": code, "name": row["display"]["name"], "reason": verdict["reason"]})
+                    continue
+                row["not_proposable"] = verdict["reason"]
             row["variants"] = [variant for variant in row["variants"]
                                if variant["code"] == code or (variant["code"] not in code_barriers
                                                             and variant["code"] not in self.suppressed)]
+            approved = any(link.get("review_status") == "approvata" for link in row["references"])
+            stock = row["commercial"].get("stock")
+            available = stock is None or stock > 0
+            row["rank_reason"] = rank_reason(row, approved, stock)
+            if verdict.get("boost", 0) > 0:
+                row["rank_reason"] = (verdict["labels"][0] + " · " + row["rank_reason"]).strip(" ·")
             rows.append(row)
-            scores[code] = (code in named_by_code, len(row["symptoms"]))
-        rows.sort(key=lambda row: (not scores[row["code"]][0], -scores[row["code"]][1],
+            scores[code] = (code in named_by_code, verdict.get("boost", 0), len(row["symptoms"]), approved, available)
+        rows.sort(key=lambda row: (not scores[row["code"]][0], -scores[row["code"]][1], -scores[row["code"]][2],
+                                   not scores[row["code"]][3], not scores[row["code"]][4],
                                    row["display"]["name"].casefold()))
         preferred = rows[0]["code"] if rows and len(named_by_code) <= 1 and (
             len(rows) == 1 or scores[rows[0]["code"]] > scores[rows[1]["code"]]) else None
@@ -1238,7 +1465,8 @@ class Listening:
             preferred = None
 
         result = {**empty_desk_results(), "rows": rows, "preferred_code": preferred,
-                  "recognized_name": latest.get("recognized_name") if latest else None}
+                  "recognized_name": latest.get("recognized_name") if latest else None,
+                  "excluded": excluded}
         if not rows and previous["previous"]:
             withdrawn_codes = {code for item in stable if item["kind"] in
                                {"spoken_exclusion", "negation", "refusal", "product_mention"}
@@ -1314,6 +1542,151 @@ class Listening:
             corrected = self.manual_name_correction[0]
             result.update(preferred_code=corrected, manual_corrected_code=corrected, voice_choice=None, voice_options=[])
         self.state["desk_results"] = result
+        self._apply_scheda_pin()
+        self._refresh_supplement_followup(stable)
+
+    def _refresh_profile(self):
+        """Recipient profile from the transcript plus the pharmacist's quick choice (memory only)."""
+        text = (self.state.get("transcript") or {}).get("testo", "")
+        profile = destinatario.merge_manual(destinatario.extract(text), self.manual_profile)
+        profile["label"] = destinatario.label(profile)
+        self.state["recipient_profile"] = profile
+
+    def _apply_profile_to_rows(self):
+        """Re-check the rows on screen after a manual change of recipient."""
+        result = self.state["desk_results"]
+        who = destinatario.filtering(self.state.get("recipient_profile"))
+        kept, excluded = [], [item for item in result.get("excluded", [])]
+        for row in result.get("rows", []):
+            verdict = knowledge.admissibility(row["display"], None, who)
+            row["labels"] = verdict["labels"]
+            if not verdict["allowed"] and not row.get("named"):
+                excluded.append({"code": row["code"], "name": row["display"]["name"], "reason": verdict["reason"]})
+                continue
+            row.pop("not_proposable", None)
+            if not verdict["allowed"]:
+                row["not_proposable"] = verdict["reason"]
+            row["_boost"] = verdict.get("boost", 0)
+            kept.append(row)
+        kept.sort(key=lambda row: -row.pop("_boost", 0))
+        result["rows"] = kept
+        result["excluded"] = excluded
+
+    def _apply_scheda_pin(self):
+        """Keep the drug sent from the Scheda farmaco page on top of the list."""
+        code = self.scheda_pin
+        if not code:
+            return
+        result = self.state["desk_results"]
+        rows = [row for row in result["rows"] if row["code"] != code]
+        row = next((row for row in result["rows"] if row["code"] == code), None) or self._desk_row(code, [], named=True)
+        if row is None:
+            self.scheda_pin = None
+            return
+        row["rank_reason"] = "Inviato dalla scheda farmaco"
+        result["rows"] = [row, *rows]
+
+    def desk_active(self):
+        with self.lock:
+            return self._active()
+
+    def scheda_llm(self):
+        """(model, key) only when the pharmacist enabled model answers for the Scheda farmaco page."""
+        try:
+            config = _read_configuration(self.settings)
+            if (config.get("scheda_farmaco") or {}).get("chiedi_llm") is not True:
+                return None
+            agent = phase_agent.normalize_settings(config.get("agent", {}))
+            key = phase_agent.read_key() if agent["provider"] == "openai" else None
+            return (agent["model"], key) if key else None
+        except (OSError, ValueError, phase_agent.ProviderError):
+            return None
+
+    def show_from_scheda(self, code):
+        """«Mostra al banco»: select the drug in the active session. Never confirms or adds to the cart."""
+        with self.lock:
+            self._expire()
+            if not self._active():
+                raise LookupError("Nessuna sessione attiva al banco.")
+            if not isinstance(code, str) or product_display(code, catalog=self.catalog) is None:
+                raise ValueError("Prodotto non presente nel catalogo consultabile.")
+            self._product_action("seleziona_prodotto", code)
+            self.scheda_pin = code
+            self.state["phase"] = phase("Verifica prodotto", "manuale", "Prodotto inviato dalla scheda farmaco.",
+                                        ["Conferma del farmacista"])
+            self._apply_scheda_pin()
+            self._refresh_sales_view()
+            self._renew_lease()
+            self.state["version"] += 1
+            return {"ok": True, "code": code, "evidenza": "scheda farmaco"}
+
+    def _refresh_supplement_followup(self, stable):
+        """Consult documented extras after a choice; never record a sale."""
+        result = self.state["desk_results"]
+        cart_codes = {row["code"] for row in self.state["cart"]["items"]}
+        acceptance = max((item for item in stable if item["kind"] == "acceptance"
+                          and item["state"] == "active"),
+                         key=lambda item: item["span"]["end"], default=None)
+        if acceptance:
+            token = (self.segment_sequence, self.discarded_transcript_units + acceptance["span"]["start"])
+            if token != self.followup_acceptance:
+                self.followup_acceptance = token
+                codes = acceptance["product_codes"]
+                code = self.state["product"].get("current_code")
+                if len(codes) == 1 and code in codes:
+                    self.followup_origins = {key: ids for key, ids in self.followup_origins.items()
+                                             if key in cart_codes}
+                    self.followup_origins[code] = [acceptance["id"]]
+        barrier = max((item["span"]["end"] for item in stable
+                       if item["kind"] in {"offer_decline", "correction"}), default=-1)
+        if (barrier >= 0 and self.discarded_transcript_units + barrier > self.followup_action_boundary
+                and (not acceptance or barrier >= acceptance["span"]["end"])):
+            self.followup_origins.clear()
+        positive = {}
+        for item in stable:
+            if item["kind"] in {"acceptance", "product_candidate", "spoken_match", "proposal"}:
+                for code in item["product_codes"]:
+                    positive[code] = max(positive.get(code, -1),
+                                         self.discarded_transcript_units + item["span"]["start"])
+        excluded = {code for item in stable if item["kind"] in
+                    {"spoken_exclusion", "negation", "refusal"} for code in item["product_codes"]
+                    if self.discarded_transcript_units + item["span"]["end"] >
+                    max(positive.get(code, -1), self.followup_action_codes.get(code, -1))}
+        for code in list(self.followup_origins):
+            if (code in excluded or code in self.suppressed
+                    or code not in cart_codes and code != self.state["product"].get("current_code")):
+                self.followup_origins.pop(code)
+        origins = {}
+        for code, ids in self.followup_origins.items():
+            summary = product_display(code, catalog=self.catalog)
+            if summary and summary["display"]["category"].casefold() not in SUPPLEMENT_CATEGORIES:
+                origins[code] = ids
+        rows = [row for row in result["supplements"] if not row.get("followup_origin_codes")]
+        if origins and stable and not any(item["kind"] == "offer_decline" and item["span"]["end"] == barrier
+                                          for item in stable):
+            self._add_documented_needs(rows, stable, max(stable, key=lambda item: item["span"]["end"]))
+        present = {row["code"] for row in rows}
+        for stock in stock_for(origins, self.catalog, complement_eligible=True,
+                               include_unknown_complements=True):
+            for link in stock["complements"]:
+                if link["review_status"] != "approvata" or not link.get("reviewer") or not link.get("source"):
+                    continue
+                code = link["product_code"]
+                row = self._desk_row(code, [link], approved=True,
+                                     evidence_ids=origins[stock["product_code"]])
+                if row and row["display"]["category"].casefold() in SUPPLEMENT_CATEGORIES and code not in present:
+                    row["followup_origin_codes"] = [stock["product_code"]]
+                    rows.append(row)
+                    present.add(code)
+        rows = [{**row, **summary} for row in rows
+                if (summary := product_display(row["code"], catalog=self.catalog))]
+        result["supplements"] = [row for row in rows if row["code"] not in cart_codes
+                                 and row["code"] not in excluded and row["code"] not in self.suppressed
+                                 and row.get("commercial", {}).get("stock") != 0]
+        result["supplement_followup"] = {
+            "active": bool(origins), "origin_codes": list(origins),
+            "status": "available" if result["supplements"] else "no_documented_matches" if origins else None,
+        }
 
     def _add_documented_needs(self, rows, stable, cue):
         needs = {}
@@ -1349,7 +1722,16 @@ class Listening:
         interests = {code: item for item in stable if item["kind"] == "commercial_intent"
                      and item["state"] == "active"
                      for code in item["product_codes"] if code not in self.suppressed}
-        eligible_codes = set(interests) | cart_codes
+        confirmed = self.state["product"].get("confirmed_code")
+        base_codes = set(interests) | cart_codes | ({confirmed} if confirmed else set())
+        # A larger or different pack of a product already in the conversation can
+        # carry its own offer ("formato_convenienza"); other products never do.
+        variant_of = {}
+        for code in base_codes:
+            for variant in knowledge.documented_variants(code, catalog=self.catalog):
+                if variant["code"] not in base_codes and variant["code"] not in self.suppressed:
+                    variant_of[variant["code"]] = code
+        eligible_codes = base_codes | set(variant_of)
         budgets = {code: item["budget_cent"] for code, item in interests.items() if item.get("budget_cent") is not None}
         offers = active_offers(date.today(), {"product_codes": eligible_codes, "budgets_by_code": budgets}, self.catalog)
         rows = []
@@ -1363,8 +1745,13 @@ class Listening:
                 # the product row and does not inherit the promotion.
                 row["variants"] = []
                 row["offer"] = {**offer, "data_fine": offer["fine"]}
+                if code in variant_of:
+                    row["offer"]["formato_convenienza"] = True
+                    row["offer"]["formato_di"] = variant_of[code]
                 rows.append(row)
-        return rows
+        # At most two offers: those on products in the cart or confirmed first.
+        rows.sort(key=lambda row: (row["code"] not in base_codes, row["code"] not in cart_codes))
+        return rows[:2]
 
     @staticmethod
     def _desk_visible_skus(results, sections=("rows", "supplements", "offers")):
@@ -1610,6 +1997,7 @@ class Listening:
                     row["offer"]["codice"] == results["voice_choice"].get("offer_code")
                     for row in results["offers"]):
                 results["voice_choice"] = None
+        self._refresh_supplement_followup(self.state["evidence"])
         if self.state != before:
             self.state["version"] += 1
 
@@ -1689,6 +2077,33 @@ class Listening:
                 recipient = manual_recipient(payload)
                 self.manual_recipient = recipient
                 session["recipient"] = recipient
+            elif action == "controllo":
+                checkpoint = self.state["checkpoint"]
+                item = next((entry for entry in checkpoint["correzioni"] if entry.get("id") == payload.get("id")), None)
+                decision = payload.get("decisione")
+                if item is None or decision not in ("applica", "ignora"):
+                    raise ValueError("Suggerimento del controllo non trovato.")
+                checkpoint["correzioni"] = [entry for entry in checkpoint["correzioni"] if entry is not item]
+                if decision == "ignora":
+                    self.checkpoint_ignored.add(self._correction_key(item))
+                elif item["tipo"] == "manca_sintomo" and item.get("concetto_id"):
+                    if item["concetto_id"] not in self.sales_choices["manual_concepts"]:
+                        self.sales_choices["manual_concepts"].append(item["concetto_id"])
+                    self.next_evaluation = 0
+                    self.analyzed_revision = -1
+                elif item.get("code") and item["code"] in [entry.get("code") for entry in
+                                                           (session.get("cart") or {}).get("items", [])]:
+                    # Only on the pharmacist's click: never removed automatically.
+                    session["cart"] = cart_remove_item(session["cart"], item["code"])
+                if not any(not entry.get("automatica") for entry in checkpoint["correzioni"]):
+                    checkpoint["esito"] = "ok" if not checkpoint.get("da_rivedere") else "suggerimenti"
+                session["checkpoint"] = checkpoint
+            elif action == "profilo_destinatario":
+                # Quick choice from the desk chip: becomes «manuale» and may exclude products.
+                self.manual_profile = {} if payload.get("azzera") is True else {
+                    **self.manual_profile, **destinatario.validate_manual(payload)}
+                self._refresh_profile()
+                self._apply_profile_to_rows()
             elif action in ("seleziona_prodotto", "conferma_prodotto", "correggi_prodotto", "correggi_nome"):
                 code = payload.get("code")
                 if action == "correggi_nome":
@@ -1734,18 +2149,35 @@ class Listening:
             elif action == "aggiungi_carrello":
                 code = payload.get("code")
                 visible = self._desk_visible_skus(session["desk_results"])
-                if not isinstance(code, str) or code not in visible:
+                linked = {item["code"]: item for item in session["desk_results"].get("linked_supplements") or []}
+                extra = session["desk_results"].get("with_product") or {}
+                if extra.get("supplement"):
+                    linked.setdefault(extra["supplement"]["code"], extra["supplement"])
+                for offer in extra.get("offers") or []:
+                    linked.setdefault(offer["code"], {"code": offer["code"], "complement_id": None})
+                if not isinstance(code, str) or (code not in visible and code not in linked):
                     raise ValueError("Aggiungi soltanto uno SKU esatto visibile nel catalogo.")
                 source = product_display(code, catalog=self.catalog)
                 if not source:
                     raise ValueError("Il prodotto non è più disponibile nel catalogo.")
-                package_label = visible[code][2].get("package_label")
+                package_label = visible[code][2].get("package_label") if code in visible else None
+                if code in linked and code not in visible:
+                    concepts = (session.get("vendita") or {}).get("concepts", [])
+                    vendita.record_feedback(self.catalog, "accettato", product_code=code,
+                                            complement_id=linked[code].get("complement_id"),
+                                            origin=linked[code].get("origin"),
+                                            concept_id=concepts[-1] if concepts else None)
                 session["cart"] = cart_add_item(session["cart"], source, code, package_label=package_label)
+                self.followup_origins[code] = []
+                self.followup_action_boundary = self.discarded_transcript_units + utf16_length(session["transcript"]["testo"])
+                self.followup_action_codes[code] = self.followup_action_boundary
             elif action == "rimuovi_carrello":
                 code = payload.get("code")
                 if not isinstance(code, str):
                     raise ValueError("Seleziona uno SKU del carrello.")
                 session["cart"] = cart_remove_item(session["cart"], code)
+                self.followup_origins.pop(code, None)
+                self.followup_action_codes.pop(code, None)
             elif action == "applica_offerta":
                 code, offer_code = payload.get("code"), payload.get("offer_code")
                 if (not isinstance(code, str) or not isinstance(offer_code, str)
@@ -1761,14 +2193,117 @@ class Listening:
                 if not offer:
                     raise ValueError("L’offerta non è più valida o disponibile.")
                 session["cart"] = cart_apply_offer(session["cart"], code, offer)
+            elif action == "salta_passo":
+                step = payload.get("step")
+                if step not in ("inquadramento", "complemento"):
+                    raise ValueError("Si possono saltare solo le domande o il complemento.")
+                self.sales_choices["skipped"].add(step)
+                if step == "complemento":
+                    self.sales_choices["complement_decision"] = "saltato"
+            elif action == "accetta_suggerimento":
+                hint = (session.get("vendita") or {}).get("semantic_hint")
+                if not hint or not hint.get("concept_id"):
+                    raise ValueError("Nessun suggerimento da confermare.")
+                if hint["concept_id"] not in self.sales_choices["manual_concepts"]:
+                    self.sales_choices["manual_concepts"].append(hint["concept_id"])
+                self.next_evaluation = 0
+            elif action == "allarme_gestito":
+                flags = (session.get("vendita") or {}).get("red_flags", [])
+                if not flags:
+                    raise ValueError("Nessun segnale d'allarme da chiudere.")
+                self.sales_choices["flags_handled"].update(flag["id"] for flag in flags)
+            elif action == "complemento":
+                decision = payload.get("decision")
+                shown = (session.get("vendita") or {}).get("complement")
+                if decision not in ("accettato", "rifiutato") or not shown:
+                    raise ValueError("Nessun complemento visibile da accettare o rifiutare.")
+                self.sales_choices["complement_decision"] = decision
+                vendita.record_feedback(self.catalog, decision, product_code=shown.get("code"),
+                                        complement_id=shown.get("id"), origin=shown.get("origin_kind"),
+                                        concept_id=next(iter((session.get("vendita") or {}).get("concepts", [])), None))
+                if decision == "accettato" and shown.get("code"):
+                    source = product_display(shown["code"], catalog=self.catalog)
+                    if source:
+                        session["cart"] = cart_add_item(session["cart"], source, shown["code"])
+            elif action == "feedback":
+                event, code = payload.get("evento"), payload.get("code")
+                if event not in ("non_pertinente", "errore_riconoscimento") or (code is not None and not isinstance(code, str)):
+                    raise ValueError("Feedback non valido.")
+                concepts = (session.get("vendita") or {}).get("concepts", [])
+                vendita.record_feedback(self.catalog, event, product_code=code,
+                                        concept_id=concepts[-1] if concepts else None)
+                if code:
+                    self.suppressed.add(code)
             else:
                 raise ValueError("Azione non riconosciuta.")
+            if action == "conferma_prodotto" and code:
+                concepts = (session.get("vendita") or {}).get("concepts", [])
+                vendita.record_feedback(self.catalog, "accettato", product_code=code,
+                                        concept_id=concepts[-1] if concepts else None)
+                self.sales_choices["complement_decision"] = None
+                self.sales_choices["skipped"].discard("complemento")
             self._rebuild_cards()
             self._refresh_inventory()
+            if action == "conferma_prodotto" and code:
+                self.followup_origins[code] = []
+                self.followup_action_boundary = self.discarded_transcript_units + utf16_length(session["transcript"]["testo"])
+                self.followup_action_codes[code] = self.followup_action_boundary
+            elif action in ("correggi_prodotto", "correggi_nome"):
+                self.followup_origins.clear()
+            self._refresh_supplement_followup(session["evidence"])
+            self._refresh_sales_view()
             session["action_version"] += 1
             session["version"] += 1
             self._renew_lease()
             return 200, deepcopy(session)
+
+    def _refresh_sales_view(self):
+        """Derive the sales step, questions, red flags and the single complement."""
+        try:
+            view = vendita.sales_view(self.state, self.catalog, self.sales_choices)
+        except (OSError, sqlite3.Error, ValueError):
+            diagnostic("backend", "operazione_non_disponibile", "errore")
+            return
+        self.state["vendita"] = view  # supplements «per il sintomo» read the current needs
+        if view["step"] == "allarme":
+            # Proposals stay visible for context but are not actionable while a red flag is open.
+            self.state["desk_results"]["supplements"] = []
+            self.state["desk_results"]["offers"] = []
+            self.state["desk_results"]["linked_supplements"] = []
+            self.state["desk_results"]["with_product"] = None
+        else:
+            try:
+                self.state["desk_results"]["linked_supplements"] = vendita.linked_supplements(self.state, self.catalog)
+                product = self.state["product"]
+                focus = product.get("confirmed_code") or product.get("current_code")
+                self.state["desk_results"]["with_product"] = vendita.with_product(self.state, self.catalog, focus)
+            except (OSError, sqlite3.Error, ValueError):
+                self.state["desk_results"]["linked_supplements"] = []
+                self.state["desk_results"]["with_product"] = None
+        self.state["vendita"] = view
+        if self.state["status"]["session"] != "attiva":
+            return
+        concept = view["concepts"][-1] if view["concepts"] else None
+        for concept_id in view["concepts"]:
+            if ("concetto", concept_id) not in self.feedback_seen:
+                self.feedback_seen.add(("concetto", concept_id))
+                vendita.record_feedback(self.catalog, "mostrato", concept_id=concept_id)
+        for row in self.state["desk_results"].get("rows", [])[:3]:
+            if row.get("references") and ("proposto", row["code"]) not in self.feedback_seen:
+                self.feedback_seen.add(("proposto", row["code"]))
+                vendita.record_feedback(self.catalog, "proposto", product_code=row["code"], concept_id=concept)
+        complement = view.get("complement")
+        if complement and ("complemento", complement.get("id"), complement.get("code")) not in self.feedback_seen:
+            self.feedback_seen.add(("complemento", complement.get("id"), complement.get("code")))
+            vendita.record_feedback(self.catalog, "mostrato", product_code=complement.get("code"),
+                                    complement_id=complement.get("id"), concept_id=concept,
+                                    origin=complement.get("origin_kind"))
+        supplement = (self.state["desk_results"].get("with_product") or {}).get("supplement")
+        if supplement and ("con_prodotto", supplement["code"]) not in self.feedback_seen:
+            self.feedback_seen.add(("con_prodotto", supplement["code"]))
+            vendita.record_feedback(self.catalog, "mostrato", product_code=supplement["code"],
+                                    complement_id=supplement.get("complement_id"), concept_id=concept,
+                                    origin=supplement.get("origin"))
 
     def _product_action(self, action, code):
         products, pages = reference_material(self.catalog)
@@ -1847,7 +2382,8 @@ class Listening:
                 raise ValueError("Configura una chiave prima di abilitare l’agente.")
             if value or clear:
                 phase_agent.write_key(value or None)
-            _write_configuration(self.settings, {**normalize_configuration(current), "agent": config,
+            preserved = {key: current[key] for key in PRESERVED_CONFIG_KEYS if key in current}
+            _write_configuration(self.settings, {**preserved, **normalize_configuration(current), "agent": config,
                                                  "speech_engine": speech_engine, "input_device": input_device})
             self.agent_config = config
             self.speech_engine = speech_engine
@@ -2167,6 +2703,8 @@ class Listening:
         worker_state, worker_lock = {"busy": False}, threading.Lock()
 
         def transcribe():
+            # Product names and active ingredients guide Whisper towards catalog spellings.
+            vocabulary = None
             while not worker_stop.is_set():
                 try:
                     pcm_bytes, final = jobs.get(timeout=0.1)
@@ -2174,7 +2712,10 @@ class Listening:
                     continue
                 error = None
                 try:
-                    text = server.transcribe_wav(self._whisper_wav(pcm_bytes))
+                    if vocabulary is None:
+                        _, _, terms = self._catalog_material()
+                        vocabulary = voce.vocabulary_prompt(terms)
+                    text = server.transcribe_wav(self._whisper_wav(pcm_bytes), prompt=vocabulary)
                     self.ingest(session_id, text, final=final)
                 except WhisperError as failure:
                     error = failure.code
@@ -2207,6 +2748,7 @@ class Listening:
                 except (Empty, Full):
                     pass
 
+        gate = voce.SpeechGate()  # Silero VAD when enabled and installed, energy threshold otherwise
         pcm = bytearray()
         last_partial_size = 0
         silence_seconds = 0.0
@@ -2232,9 +2774,10 @@ class Listening:
                 if audio_chunk is not None:
                     converted, energy = self._resample_whisper_audio(audio_chunk, rate)
                     block_seconds = len(converted) / 32000
-                    if energy >= 220 or started:
+                    speaking = gate.is_speech(converted, energy)
+                    if speaking or started:
                         pcm.extend(converted)
-                        if energy >= 220:
+                        if speaking:
                             started = True
                             silence_seconds = 0.0
                             final_ready = False
@@ -2327,6 +2870,14 @@ class Desk(BaseHTTPRequestHandler):
         "/desk.js": ("desk.js", "text/javascript"),
         "/diagnostica": ("diagnostica.html", "text/html"),
         "/diagnostica.js": ("diagnostica.js", "text/javascript"),
+        "/analisi": ("analisi.html", "text/html"),
+        "/analisi.js": ("analisi.js", "text/javascript"),
+        "/farmaco": ("farmaco.html", "text/html"),
+        "/farmaco.js": ("farmaco.js", "text/javascript"),
+        "/scanner.js": ("scanner.js", "text/javascript"),
+        "/barcode1d.js": ("barcode1d.js", "text/javascript"),
+        "/revisione": ("revisione.html", "text/html"),
+        "/revisione.js": ("revisione.js", "text/javascript"),
     }
 
     def log_message(self, *_):
@@ -2353,7 +2904,8 @@ class Desk(BaseHTTPRequestHandler):
         size = int(self.headers.get("Content-Length", 0))
         if not size:
             return {}
-        if self.headers.get_content_type() != "application/json" or not 0 < size <= 16384:
+        limit = 4_200_000 if self.path == "/api/farmaco/aggiorna" else 16384
+        if self.headers.get_content_type() != "application/json" or not 0 < size <= limit:
             raise ValueError("Corpo JSON non valido.")
         raw = self.rfile.read(size)
         payload = json.loads(raw)
@@ -2374,10 +2926,29 @@ class Desk(BaseHTTPRequestHandler):
                 return self.json(self.diagnostics())
             if self.path == "/api/offerte":
                 return self.json(offer_listing(self.listening.catalog))
+            if self.path == "/api/analisi":
+                return self.json(vendita.weekly_analysis(self.listening.catalog))
             if self.path == "/api/configurazione":
                 return self.json(load_configuration(self.listening.settings))
             if self.path == "/api/impostazioni":
                 return self.json(self.listening.settings_snapshot())
+            if self.path == "/vendor/zxing.min.js":
+                vendor = ROOT / "frontend" / "vendor" / "zxing.min.js"
+                if not vendor.is_file():
+                    return self.json({"errore": "Libreria non installata."}, 404)
+                return self.send(vendor.read_bytes(), "text/javascript")
+            if self.path == "/api/interfaccia":
+                raw = _read_configuration(self.listening.settings)
+                return self.json({"mostra_trascrizione": raw.get("mostra_trascrizione") is not False})
+            if self.path.startswith("/api/farmaco/") or self.path.startswith("/farmaco/immagini/"):
+                return self.farmaco_get()
+            if self.path.startswith("/api/revisione"):
+                query = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
+                kind = (query.get("tipo") or [None])[0]
+                concept = (query.get("concetto") or [None])[0]
+                if kind not in (None, *revisione_web.KINDS) or (concept and not re.fullmatch(r"[a-z0-9-]{1,80}", concept)):
+                    return self.json({"errore": "Filtro non valido."}, 400)
+                return self.json({"voci": revisione_web.queue(Path(self.listening.catalog), kind=kind, concept=concept)})
             self.json({"errore": "Pagina assente."}, 404)
         except (OSError, ValueError, sqlite3.Error):
             diagnostic("backend", "operazione_non_disponibile", "errore")
@@ -2410,6 +2981,18 @@ class Desk(BaseHTTPRequestHandler):
                 return self.json(self.listening.update_agent_settings(payload))
             if self.path == "/api/impostazioni/verifica":
                 return self.json(self.listening.verify_agent_connection())
+            if self.path.startswith("/api/farmaco/"):
+                return self.farmaco_post(payload)
+            if self.path == "/api/revisione/decidi":
+                try:
+                    return self.json(revisione_web.decide(
+                        payload.get("tipo"), str(payload.get("chiave") or ""), payload.get("decisione"),
+                        payload.get("revisore"), Path(self.listening.catalog), fields=payload.get("campi"),
+                        note=payload.get("nota") or ""))
+                except LookupError as error:
+                    return self.json({"errore": str(error)}, 404)
+                except ValueError as error:
+                    return self.json({"errore": str(error)}, 400)
             if self.path.startswith("/api/errore-frontend/"):
                 code = self.path.rsplit("/", 1)[-1]
                 if code not in FRONTEND_CODES:
@@ -2425,6 +3008,88 @@ class Desk(BaseHTTPRequestHandler):
         except (OSError, sqlite3.Error):
             diagnostic("backend", "operazione_non_disponibile", "errore", time.monotonic() - started)
             self.json({"errore": "Operazione non disponibile. Controlla i dati locali."}, 503)
+
+    def _scheda_paths(self):
+        catalog = Path(self.listening.catalog)
+        config = _read_configuration(self.listening.settings)
+        folder = ((config.get("import") or {}).get("aifa") or {}).get("cartella")
+        if not folder:
+            return catalog, scheda_farmaco.AIFA_DIR
+        return catalog, Path(folder) if Path(folder).is_absolute() else ROOT / folder
+
+    def farmaco_get(self):
+        """GET /api/farmaco/scheda?code=…, /consigli?code=…, /storico?code=…, /farmaco/immagini/<file>."""
+        parsed = urllib.parse.urlsplit(self.path)
+        if parsed.path.startswith("/farmaco/immagini/"):
+            name = parsed.path.rsplit("/", 1)[-1]
+            target = scheda_farmaco.IMAGES / name
+            if not re.fullmatch(r"[a-z0-9-]+\.(?:jpg|png)", name) or not target.is_file():
+                return self.json({"errore": "Immagine assente."}, 404)
+            return self.send(target.read_bytes(), "image/jpeg" if name.endswith(".jpg") else "image/png")
+        code = (urllib.parse.parse_qs(parsed.query).get("code") or [""])[0]
+        catalog, _ = self._scheda_paths()
+        if not re.fullmatch(r"[A-Za-z0-9._-]{1,60}", code):
+            return self.json({"errore": "Codice non valido."}, 400)
+        if parsed.path == "/api/farmaco/scheda":
+            sheet = scheda_farmaco.scheda(code, catalog)
+            if sheet is None:
+                return self.json({"errore": "Prodotto non trovato."}, 404)
+            sheet["banco_attivo"] = self.listening.desk_active()
+            return self.json(sheet)
+        if parsed.path == "/api/farmaco/consigli":
+            return self.json(scheda_farmaco.consigli(code, catalog))
+        if parsed.path == "/api/farmaco/storico":
+            return self.json(scheda_farmaco.storico(code, catalog))
+        return self.json({"errore": "Pagina assente."}, 404)
+
+    def farmaco_post(self, payload):
+        catalog, aifa_dir = self._scheda_paths()
+        route = self.path.removeprefix("/api/farmaco/")
+        try:
+            if route == "codice":
+                # Only the decoded text is accepted: no frames, images or other fields.
+                if set(payload) - {"codice", "origine", "lettore"} or not isinstance(payload.get("codice"), str) \
+                        or payload.get("lettore") not in (None, "nativo", "zxing", "integrato", "sconosciuto"):
+                    return self.json({"errore": "Invia soltanto il testo del codice."}, 400)
+                result = scheda_farmaco.find(payload["codice"], catalog, aifa_dir)
+                if payload.get("origine") == "telecamera":
+                    scheda_farmaco.note_camera(result["parsed"], result["status"], payload.get("lettore"))
+                    diagnostic("telecamera", "lettura_" + result["status"])
+                return self.json(result)
+            if route == "cerca":
+                if not isinstance(payload.get("testo"), str):
+                    return self.json({"errore": "Inserisci un testo."}, 400)
+                return self.json(scheda_farmaco.find(payload["testo"], catalog, aifa_dir))
+            if route == "aggiungi":
+                reviewer = payload.get("revisore")
+                if payload.get("aic"):
+                    row = scheda_farmaco._aifa_row(str(payload["aic"]), aifa_dir)
+                    if not row:
+                        return self.json({"errore": "AIC non presente nell'anagrafica AIFA locale."}, 404)
+                    return self.json(scheda_farmaco.register(row, catalog, reviewer))
+                return self.json(scheda_farmaco.add_manual(payload.get("campi"), catalog, reviewer))
+            if route == "aggiorna":
+                return self.json(scheda_farmaco.aggiorna(payload.get("code"), payload.get("modifiche"), catalog,
+                                                         payload.get("revisore")))
+            if route == "proponi":
+                return self.json(scheda_farmaco.proponi(payload.get("code"), payload.get("integratore"),
+                                                        payload.get("motivo"), payload.get("esclusioni"),
+                                                        payload.get("fonte_url"), catalog, payload.get("revisore")))
+            if route == "chiedi":
+                return self.json(scheda_farmaco.chiedi(payload.get("code"), payload.get("domanda"), catalog,
+                                                       llm=self.listening.scheda_llm()))
+            if route == "offerta":
+                return self.json(scheda_farmaco.crea_offerta(payload.get("code"), payload.get("offerta"), catalog,
+                                                             payload.get("revisore")))
+            if route == "mostra-al-banco":
+                return self.json(self.listening.show_from_scheda(payload.get("code")))
+        except LookupError as error:
+            return self.json({"errore": str(error)}, 404 if "trovato" in str(error) else 409)
+        except FileExistsError as error:
+            return self.json({"errore": str(error)}, 409)
+        except ValueError as error:
+            return self.json({"errore": str(error)}, 400)
+        return self.json({"errore": "Azione assente."}, 404)
 
     def diagnostics(self):
         model = Path(os.environ.get("SALES_VOSK_MODEL", str(MODEL)))
@@ -2443,6 +3108,10 @@ class Desk(BaseHTTPRequestHandler):
             "ricerca": "errore" if any(event["componente"] == "ricerca" for event in events) else
                        "disponibile" if catalog_present else "non_disponibile",
             "fonti": {kind: bool(sources.get(kind)) for kind in SERVICES}, "eventi": events,
+            "import": import_status(self.listening.catalog) if catalog_present else [],
+            "ricerca_semantica": semantic_status(),
+            "telecamera": dict(scheda_farmaco.CAMERA_STATUS),
+            "controllo": self.listening.checkpoint_diagnostics(),
         }
 
 

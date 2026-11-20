@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Revisione · Sales Agents</title>
+  <link rel="stylesheet" href="/desk.css">
+  <script src="/revisione.js" defer></script>
+</head>
+<body class="drug-page review-page">
+  <header class="topbar">
+    <div class="brand"><h1>Revisione del farmacista</h1></div>
+    <form id="filters" class="review-filters">
+      <label>Tipo
+        <select id="kind">
+          <option value="">Tutto</option>
+          <option value="protocollo">Protocolli</option>
+          <option value="complemento">Complementi di banco</option>
+          <option value="relazione">Bisogno → prodotto</option>
+          <option value="abbinamento">Abbinamenti tra prodotti</option>
+          <option value="popolazione">Idoneità per popolazione</option>
+        </select>
+      </label>
+      <label>Bisogno <input id="concept" maxlength="80" placeholder="es. raffreddore" pattern="[a-z0-9-]*"></label>
+      <label>Il tuo nome <input id="reviewer" maxlength="80" required autocomplete="name"></label>
+    </form>
+    <a class="button-link" href="/">Banco</a>
+  </header>
+  <main>
+    <p id="message" class="message" role="status"></p>
+    <p class="note">Approvare qui rende la voce attiva al banco. Leggi sempre la fonte. Ogni decisione resta nel registro con il tuo nome. Le voci in alto sono quelle dei bisogni più frequenti al banco.</p>
+    <p id="count" class="result-state"></p>
+    <div id="items" class="review-list"></div>
+  </main>
+</body>
+</html>

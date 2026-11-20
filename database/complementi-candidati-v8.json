@@ -1,0 +1,186 @@
+{
+ "version": 1,
+ "_nota": "Complementi di banco candidati (2026-11-19). Da approvare in /revisione.",
+ "rows": [
+  {
+   "concept_id": "raffreddore",
+   "product_code": "REAL-SUP-014",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Vitamine e minerali per le difese nei periodi di raffreddore (claim del titolare).",
+   "exclusions": "gravidanza, allattamento, bambini sotto l'età indicata",
+   "priority": 20
+  },
+  {
+   "concept_id": "raffreddore",
+   "product_code": null,
+   "shelf": "Soluzione fisiologica o acqua di mare per lavaggi nasali",
+   "type": "supporto_igiene",
+   "reason": "Lavaggi nasali di supporto.",
+   "exclusions": "",
+   "priority": 10
+  },
+  {
+   "concept_id": "tosse",
+   "product_code": null,
+   "shelf": "Caramelle balsamiche al miele",
+   "type": "supporto_igiene",
+   "reason": "Lenire la gola irritata.",
+   "exclusions": "diabete (zuccheri), bambini piccoli",
+   "priority": 30
+  },
+  {
+   "concept_id": "tosse-secca",
+   "product_code": null,
+   "shelf": "Umidificatore o caramelle balsamiche",
+   "type": "supporto_igiene",
+   "reason": "Aria umida e gola lenita.",
+   "exclusions": "",
+   "priority": 30
+  },
+  {
+   "concept_id": "diarrea",
+   "product_code": "REAL-SUP-008",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Probiotici per l'equilibrio della flora (indicazione del titolare, nessun claim UE).",
+   "exclusions": "diarrea con sangue, febbre alta, disidratazione",
+   "priority": 20
+  },
+  {
+   "concept_id": "diarrea",
+   "product_code": null,
+   "shelf": "Soluzione reidratante orale",
+   "type": "supporto_igiene",
+   "reason": "Reidratazione durante la diarrea.",
+   "exclusions": "",
+   "priority": 10
+  },
+  {
+   "concept_id": "terapia-antibiotica",
+   "product_code": "REAL-SUP-007",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Probiotici per l'equilibrio della flora durante l'antibiotico (indicazione del titolare).",
+   "exclusions": "immunodepressione senza parere medico",
+   "priority": 10
+  },
+  {
+   "concept_id": "stanchezza",
+   "product_code": "REAL-SUP-016",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Magnesio per ridurre stanchezza e affaticamento (claim UE).",
+   "exclusions": "insufficienza renale",
+   "priority": 10
+  },
+  {
+   "concept_id": "crampi",
+   "product_code": "REAL-SUP-016",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Magnesio per la normale funzione muscolare (claim UE).",
+   "exclusions": "insufficienza renale, diuretici senza parere medico",
+   "priority": 10
+  },
+  {
+   "concept_id": "insonnia-occasionale",
+   "product_code": "REAL-SUP-018",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Melatonina per ridurre il tempo di addormentamento (claim UE).",
+   "exclusions": "gravidanza, allattamento, bambini, terapie per il sonno o l'umore",
+   "priority": 10
+  },
+  {
+   "concept_id": "mal-di-gola",
+   "product_code": null,
+   "shelf": "Pastiglie o caramelle per la gola",
+   "type": "supporto_igiene",
+   "reason": "Lenire la gola tra un'applicazione e l'altra.",
+   "exclusions": "bambini piccoli",
+   "priority": 20
+  },
+  {
+   "concept_id": "febbre",
+   "product_code": null,
+   "shelf": "Termometro",
+   "type": "dispositivo",
+   "reason": "Misurare la febbre se il cliente non ha un termometro.",
+   "exclusions": "",
+   "priority": 10
+  },
+  {
+   "concept_id": "contusioni",
+   "product_code": null,
+   "shelf": "Ghiaccio istantaneo",
+   "type": "dispositivo",
+   "reason": "Freddo sulla botta nelle prime ore.",
+   "exclusions": "",
+   "priority": 10
+  },
+  {
+   "concept_id": "mal-di-schiena",
+   "product_code": null,
+   "shelf": "Fascia o cuscino termico",
+   "type": "dispositivo",
+   "reason": "Calore locale nel mal di schiena muscolare.",
+   "exclusions": "formicolii, febbre",
+   "priority": 20
+  },
+  {
+   "concept_id": "occhi-secchi",
+   "product_code": null,
+   "shelf": "Salviettine per palpebre",
+   "type": "supporto_igiene",
+   "reason": "Igiene palpebrale.",
+   "exclusions": "",
+   "priority": 20
+  },
+  {
+   "concept_id": "micosi-cutanee",
+   "product_code": null,
+   "shelf": "Detergente delicato e calze in cotone",
+   "type": "supporto_igiene",
+   "reason": "Igiene e asciugatura dei piedi.",
+   "exclusions": "",
+   "priority": 20
+  },
+  {
+   "concept_id": "micosi-vaginale",
+   "product_code": null,
+   "shelf": "Detergente intimo delicato",
+   "type": "supporto_igiene",
+   "reason": "Igiene intima delicata durante il trattamento.",
+   "exclusions": "",
+   "priority": 20
+  },
+  {
+   "concept_id": "mal-di-testa",
+   "product_code": "REAL-SUP-016",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Magnesio per stanchezza e affaticamento (claim UE), solo se il cliente lo chiede.",
+   "exclusions": "insufficienza renale",
+   "priority": 40
+  },
+  {
+   "concept_id": "integrazione-gravidanza",
+   "product_code": "REAL-SUP-005",
+   "shelf": null,
+   "type": "integratore",
+   "reason": "Multivitaminico con acido folico e DHA per la gravidanza.",
+   "exclusions": "già prescritto dal ginecologo",
+   "priority": 10
+  },
+  {
+   "concept_id": "digestione-difficile",
+   "product_code": null,
+   "shelf": "Tisana digestiva",
+   "type": "supporto_igiene",
+   "reason": "Supporto dopo i pasti.",
+   "exclusions": "gravidanza per alcune piante",
+   "priority": 20
+  }
+ ]
+}

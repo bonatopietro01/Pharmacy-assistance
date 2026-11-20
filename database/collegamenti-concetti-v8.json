@@ -1,0 +1,923 @@
+{
+ "version": 1,
+ "_nota": "Seed v8 (2026-11-19): 30 bisogni nuovi e relazioni candidate con fonte del titolare. Gli integratori sono collegati come contesto_ricerca solo con claim dichiarati dal titolare; nessuna relazione è approvata.",
+ "concepts": [
+  {
+   "id": "tosse-secca",
+   "name": "Tosse secca",
+   "type": "sintomo"
+  },
+  {
+   "id": "tosse-grassa",
+   "name": "Tosse grassa",
+   "type": "sintomo"
+  },
+  {
+   "id": "naso-chiuso-bambino",
+   "name": "Naso chiuso nel bambino",
+   "type": "condizione"
+  },
+  {
+   "id": "dolori-articolari",
+   "name": "Dolori articolari",
+   "type": "sintomo"
+  },
+  {
+   "id": "mal-di-schiena",
+   "name": "Mal di schiena",
+   "type": "sintomo"
+  },
+  {
+   "id": "afte",
+   "name": "Afte e stomatite",
+   "type": "sintomo"
+  },
+  {
+   "id": "infiammazione-gengive",
+   "name": "Gengive infiammate",
+   "type": "sintomo"
+  },
+  {
+   "id": "occhi-secchi",
+   "name": "Occhi secchi",
+   "type": "sintomo"
+  },
+  {
+   "id": "crampi",
+   "name": "Crampi muscolari",
+   "type": "sintomo"
+  },
+  {
+   "id": "insonnia-occasionale",
+   "name": "Difficoltà ad addormentarsi",
+   "type": "sintomo"
+  },
+  {
+   "id": "integrazione-gravidanza",
+   "name": "Integrazione in gravidanza",
+   "type": "bisogno"
+  },
+  {
+   "id": "micosi-vaginale",
+   "name": "Candida e prurito intimo",
+   "type": "condizione"
+  },
+  {
+   "id": "colon-irritabile",
+   "name": "Colon irritabile",
+   "type": "condizione"
+  },
+  {
+   "id": "digestione-difficile",
+   "name": "Digestione difficile",
+   "type": "sintomo"
+  },
+  {
+   "id": "terapia-antibiotica",
+   "name": "Fermenti durante l'antibiotico",
+   "type": "bisogno"
+  },
+  {
+   "id": "emicrania",
+   "name": "Emicrania",
+   "type": "condizione"
+  },
+  {
+   "id": "nausea-mal-d-auto",
+   "name": "Nausea e mal d'auto",
+   "type": "sintomo"
+  },
+  {
+   "id": "coliche-lattante",
+   "name": "Coliche del lattante",
+   "type": "condizione"
+  },
+  {
+   "id": "dentizione",
+   "name": "Dentizione",
+   "type": "condizione"
+  },
+  {
+   "id": "cistite",
+   "name": "Cistite",
+   "type": "condizione"
+  },
+  {
+   "id": "pidocchi",
+   "name": "Pidocchi",
+   "type": "condizione"
+  },
+  {
+   "id": "acne-lieve",
+   "name": "Acne lieve",
+   "type": "condizione"
+  },
+  {
+   "id": "pelle-secca",
+   "name": "Pelle secca",
+   "type": "sintomo"
+  },
+  {
+   "id": "dermatite-pannolino",
+   "name": "Arrossamento da pannolino",
+   "type": "condizione"
+  },
+  {
+   "id": "verruche",
+   "name": "Verruche",
+   "type": "condizione"
+  },
+  {
+   "id": "ansia-stress",
+   "name": "Stress e tensione",
+   "type": "tema"
+  },
+  {
+   "id": "menopausa",
+   "name": "Menopausa",
+   "type": "tema"
+  },
+  {
+   "id": "scottatura-solare",
+   "name": "Scottatura solare",
+   "type": "condizione"
+  },
+  {
+   "id": "piccole-ferite",
+   "name": "Piccole ferite e vesciche",
+   "type": "condizione"
+  },
+  {
+   "id": "difese-bambino",
+   "name": "Difese del bambino",
+   "type": "bisogno"
+  },
+  {
+   "id": "congestione-nasale",
+   "name": "Congestione nasale",
+   "type": "sintomo"
+  },
+  {
+   "id": "dolore-mestruale",
+   "name": "Dolori mestruali",
+   "type": "sintomo"
+  },
+  {
+   "id": "mal-di-denti",
+   "name": "Mal di denti",
+   "type": "sintomo"
+  },
+  {
+   "id": "gonfiore-addominale",
+   "name": "Gonfiore e digestione",
+   "type": "sintomo"
+  },
+  {
+   "id": "stanchezza",
+   "name": "Stanchezza",
+   "type": "bisogno"
+  },
+  {
+   "id": "fermenti-lattici",
+   "name": "Fermenti lattici",
+   "type": "bisogno"
+  },
+  {
+   "id": "dolore-muscolare",
+   "name": "Dolore muscolare e articolare",
+   "type": "sintomo"
+  }
+ ],
+ "sources": [
+  {
+   "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+   "title": "Grintuss Adulti Sciroppo - pagina prodotto",
+   "owner": "Aboca S.p.A.",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+   "title": "Grintuss Adulti Compresse - pagina prodotto",
+   "owner": "Aboca S.p.A.",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.aboca.com/it/prodotto/fitonasal-pediatric-spray-it/",
+   "title": "Fitonasal Pediatric spray - pagina prodotto",
+   "owner": "Aboca S.p.A.",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://flector.it/flectorartro/",
+   "title": "Flectorartro 1% gel - pagina prodotto",
+   "owner": "IBSA Farmaceutici Italia",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://flector.it/flector/",
+   "title": "Flector cerotto medicato - pagina prodotto",
+   "owner": "IBSA Farmaceutici Italia",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://flector.it/flectorunidie-cerotto-medicato/",
+   "title": "FlectorUnidie cerotto medicato - pagina prodotto",
+   "owner": "IBSA Farmaceutici Italia",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://flector.it/flectorgo/",
+   "title": "Flectorgo capsule molli - pagina prodotto",
+   "owner": "IBSA Farmaceutici Italia",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.tantumverde.it/media/zrlhyav4/it_tantum-verde_0-15-spray-per-mucosa-orale.pdf",
+   "title": "Tantum Verde 0,15% spray - foglio illustrativo",
+   "owner": "Angelini Pharma",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.tantumverde.it/media/twoakqbx/confronto-rcp-030-spray.pdf",
+   "title": "Tantum Verde 0,30% spray - RCP",
+   "owner": "Angelini Pharma",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.tantumverde.it/media/mubhho2f/fi_tantum-verde-antisettico-e-antinfiammatorio_pl-name-042025.pdf",
+   "title": "Tantum Verde Antisettico e Antinfiammatorio - foglio illustrativo",
+   "owner": "Angelini Pharma",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.thea.it/media/1616/080223_fi-thealoz-duo_10-e-15ml.pdf",
+   "title": "Thealoz Duo - istruzioni",
+   "owner": "Laboratoires Théa",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-150g/",
+   "title": "Magnesio Supremo 150g - pagina prodotto",
+   "owner": "Farmaceutici Dott. Ciccarelli",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "claim_supporto_fisiologico"
+   ]
+  },
+  {
+   "url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-donna/",
+   "title": "Magnesio Supremo Donna - pagina prodotto",
+   "owner": "Farmaceutici Dott. Ciccarelli",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "claim_supporto_fisiologico"
+   ]
+  },
+  {
+   "url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-notte-relax/",
+   "title": "Magnesio Supremo Notte Relax - pagina prodotto",
+   "owner": "Farmaceutici Dott. Ciccarelli",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "claim_supporto_fisiologico"
+   ]
+  },
+  {
+   "url": "https://www.multicentrum.it/prodotti/gravidanza/multicentrum-mamma-dha/",
+   "title": "Multicentrum Mamma DHA - pagina prodotto",
+   "owner": "Haleon Italy",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "claim_supporto_fisiologico"
+   ]
+  },
+  {
+   "url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-donna/",
+   "title": "Multicentrum Donna - pagina prodotto",
+   "owner": "Haleon Italy",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "claim_supporto_fisiologico"
+   ]
+  },
+  {
+   "url": "https://pevaryl.com/it/prodotto/pevaryl-50-mg-ovuli/",
+   "title": "Pevaryl 50 mg ovuli - pagina prodotto",
+   "owner": "Karo Pharma",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://pevaryl.com/it/prodotto/pevaryl-150-mg-6-ovuli/",
+   "title": "Pevaryl 150 mg ovuli - pagina prodotto",
+   "owner": "Karo Pharma",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea-per-genitali-esterni/",
+   "title": "Pevaryl 1% soluzione per genitali esterni - pagina prodotto",
+   "owner": "Karo Pharma",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.aboca.com/it/prodotto/colilen-ibs-96-opercoli/",
+   "title": "Colilen IBS - pagina prodotto",
+   "owner": "Aboca S.p.A.",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://www.aboca.com/it/prodotto/gastrodiger-sciroppo-180g/",
+   "title": "GastroDiger Sciroppo - pagina prodotto",
+   "owner": "Aboca S.p.A.",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "associazione_clinica"
+   ]
+  },
+  {
+   "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-capsule/",
+   "title": "Dicoflor 60 capsule - pagina prodotto",
+   "owner": "Dicofarm",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "claim_supporto_fisiologico"
+   ]
+  },
+  {
+   "url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-bustine/",
+   "title": "Dicoflor 60 bustine - pagina prodotto",
+   "owner": "Dicofarm",
+   "consulted_at": "2026-11-19",
+   "version": "Pagina ufficiale consultata 2026-11-19",
+   "kind": "produttore",
+   "supports": [
+    "identita",
+    "commercializzazione",
+    "claim_supporto_fisiologico"
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "concept_id": "tosse-secca",
+   "product_code": "REAL-DM-001",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica lo sciroppo per la tosse secca e grassa, acuta e persistente, da 12 anni.",
+   "claim": "Indicazione del titolare: trattamento della tosse secca e grassa da 12 anni.",
+   "prerequisites": "Verificare età (da 12 anni), diabete per lo zucchero, durata della tosse.",
+   "exclusions": "Non estendere a tosse con febbre alta, respiro corto, sangue o tosse oltre tre settimane.",
+   "source_url": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "tosse-grassa",
+   "product_code": "REAL-DM-001",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica lo sciroppo per la tosse secca e grassa, acuta e persistente, da 12 anni.",
+   "claim": "Indicazione del titolare: trattamento della tosse secca e grassa da 12 anni.",
+   "prerequisites": "Verificare età (da 12 anni), diabete per lo zucchero, durata della tosse.",
+   "exclusions": "Non estendere a tosse con febbre alta, respiro corto, catarro con sangue o tosse oltre tre settimane.",
+   "source_url": "https://www.aboca.com/it/prodotto/grintuss-adulti-sciroppo/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "tosse-secca",
+   "product_code": "REAL-DM-002",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica le compresse per la tosse secca e grassa di adulti e ragazzi da 12 anni.",
+   "claim": "Indicazione del titolare: tosse secca e grassa da 12 anni.",
+   "prerequisites": "Verificare età (da 12 anni) e durata della tosse.",
+   "exclusions": "Non estendere a tosse con febbre alta, respiro corto o sangue.",
+   "source_url": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "tosse-grassa",
+   "product_code": "REAL-DM-002",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica le compresse per la tosse secca e grassa di adulti e ragazzi da 12 anni.",
+   "claim": "Indicazione del titolare: tosse secca e grassa da 12 anni.",
+   "prerequisites": "Verificare età (da 12 anni) e durata della tosse.",
+   "exclusions": "Non estendere a tosse con febbre alta, respiro corto o sangue.",
+   "source_url": "https://www.aboca.com/it/prodotto/grintuss-adulti-compresse/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "naso-chiuso-bambino",
+   "product_code": "REAL-DM-004",
+   "type": "indicazione_etichetta",
+   "context": "Spray nasale pediatrico del titolare per congestione e irritazione nasale da raffreddore, sindromi influenzali, rinite e sinusite (indicazione riportata sulle pagine Aboca).",
+   "claim": "Indicazione del titolare: congestione nasale dei più piccoli.",
+   "prerequisites": "Verificare l'età minima indicata nelle istruzioni del dispositivo (pagine estere: da un anno).",
+   "exclusions": "Non estendere a lattante con febbre, respiro difficile, otite dolorosa o sintomi che peggiorano.",
+   "source_url": "https://www.aboca.com/it/prodotto/fitonasal-pediatric-spray-it/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "congestione-nasale",
+   "product_code": "REAL-DM-004",
+   "type": "indicazione_etichetta",
+   "context": "Spray nasale pediatrico per congestione e irritazione nasale.",
+   "claim": "Indicazione del titolare: congestione nasale dei più piccoli.",
+   "prerequisites": "Usare solo per bambini; verificare età minima nelle istruzioni.",
+   "exclusions": "Non estendere a adulti né a bambini con febbre alta o respiro difficile.",
+   "source_url": "https://www.aboca.com/it/prodotto/fitonasal-pediatric-spray-it/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "dolori-articolari",
+   "product_code": "REAL-MED-021",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta il gel per dolori muscolari e articolari di natura reumatica o traumatica.",
+   "claim": "Indicazione del titolare: dolori muscolari e articolari reumatici o traumatici (uso cutaneo).",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a dolore dopo trauma importante, febbre, gonfiore caldo dell'articolazione o dolore che dura oltre pochi giorni.",
+   "source_url": "https://flector.it/flectorartro/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "mal-di-schiena",
+   "product_code": "REAL-MED-027",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta il cerotto medicato ad azione mirata contro il mal di schiena.",
+   "claim": "Indicazione del titolare: mal di schiena e dolori muscolari e articolari (uso cutaneo).",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a mal di schiena con formicolii, perdita di forza, febbre o dopo una caduta.",
+   "source_url": "https://flector.it/flector/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "mal-di-schiena",
+   "product_code": "REAL-MED-028",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta il cerotto per mal di schiena, dolori articolari e muscolari, fino a 24 ore.",
+   "claim": "Indicazione del titolare: mal di schiena, dolori articolari e muscolari (da 12 anni, foglio illustrativo).",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a mal di schiena con formicolii, perdita di forza, febbre o dopo una caduta.",
+   "source_url": "https://flector.it/flectorunidie-cerotto-medicato/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "dolori-articolari",
+   "product_code": "REAL-MED-028",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta il cerotto per mal di schiena, dolori articolari e muscolari.",
+   "claim": "Indicazione del titolare: dolori articolari e muscolari.",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a dolore dopo trauma importante, febbre, gonfiore caldo dell'articolazione o dolore che dura oltre pochi giorni.",
+   "source_url": "https://flector.it/flectorunidie-cerotto-medicato/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "mal-di-schiena",
+   "product_code": "REAL-MED-026",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta le capsule per dolori reumatici e muscolari, mal di schiena, mal di denti, mal di testa e dolori mestruali.",
+   "claim": "Indicazione del titolare: dolore da lieve a moderato, compreso mal di schiena.",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a dolore con febbre, formicolii o perdita di forza.",
+   "source_url": "https://flector.it/flectorgo/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "dolore-mestruale",
+   "product_code": "REAL-MED-026",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta le capsule anche per i dolori mestruali.",
+   "claim": "Indicazione del titolare: dolori mestruali.",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a dolore pelvico forte, febbre, sanguinamento anomalo o possibile gravidanza.",
+   "source_url": "https://flector.it/flectorgo/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "mal-di-denti",
+   "product_code": "REAL-MED-026",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta le capsule anche per il mal di denti.",
+   "claim": "Indicazione del titolare: mal di denti da lieve a moderato.",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a gonfiore del viso, febbre o ascesso: dentista.",
+   "source_url": "https://flector.it/flectorgo/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "afte",
+   "product_code": "REAL-MED-012",
+   "type": "indicazione_etichetta",
+   "context": "Il foglio illustrativo indica lo spray per infiammazioni e irritazioni di gengive, bocca e gola (gengiviti, stomatiti, faringiti).",
+   "claim": "Indicazione del foglio: infiammazioni della bocca, incluse le stomatiti.",
+   "prerequisites": "Verificare età e allergie; uso per brevi periodi.",
+   "exclusions": "Non estendere a afte molto numerose, ricorrenti, con febbre o che non guariscono in due settimane.",
+   "source_url": "https://www.tantumverde.it/media/zrlhyav4/it_tantum-verde_0-15-spray-per-mucosa-orale.pdf",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "infiammazione-gengive",
+   "product_code": "REAL-MED-012",
+   "type": "indicazione_etichetta",
+   "context": "Il foglio illustrativo indica lo spray per gengiviti, stomatiti e faringiti, anche dopo cure dentarie.",
+   "claim": "Indicazione del foglio: gengiviti e irritazioni della bocca.",
+   "prerequisites": "Verificare età e allergie; uso per brevi periodi.",
+   "exclusions": "Non estendere a gonfiore del viso, febbre o sanguinamento persistente: dentista.",
+   "source_url": "https://www.tantumverde.it/media/zrlhyav4/it_tantum-verde_0-15-spray-per-mucosa-orale.pdf",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "afte",
+   "product_code": "REAL-MED-013",
+   "type": "indicazione_etichetta",
+   "context": "L'RCP indica stati irritativo-infiammatori del cavo orofaringeo, ad es. gengiviti e stomatiti.",
+   "claim": "Indicazione dell'RCP: stomatiti e gengiviti.",
+   "prerequisites": "Verificare età e allergie; uso per brevi periodi.",
+   "exclusions": "Non estendere a afte numerose, ricorrenti o con febbre.",
+   "source_url": "https://www.tantumverde.it/media/twoakqbx/confronto-rcp-030-spray.pdf",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "infiammazione-gengive",
+   "product_code": "REAL-MED-013",
+   "type": "indicazione_etichetta",
+   "context": "L'RCP indica stati irritativo-infiammatori del cavo orofaringeo, ad es. gengiviti.",
+   "claim": "Indicazione dell'RCP: gengiviti.",
+   "prerequisites": "Verificare età e allergie.",
+   "exclusions": "Non estendere a gonfiore del viso o febbre: dentista.",
+   "source_url": "https://www.tantumverde.it/media/twoakqbx/confronto-rcp-030-spray.pdf",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "infiammazione-gengive",
+   "product_code": "REAL-MED-014",
+   "type": "indicazione_etichetta",
+   "context": "Il foglio illustrativo indica il trattamento di supporto di irritazioni di gola, bocca e gengive, gengiviti e faringiti, da 6 anni.",
+   "claim": "Indicazione del foglio: gengiviti e irritazioni della bocca da 6 anni.",
+   "prerequisites": "Verificare età (da 6 anni) e allergie.",
+   "exclusions": "Non estendere a sintomi che non migliorano in 3 giorni.",
+   "source_url": "https://www.tantumverde.it/media/mubhho2f/fi_tantum-verde-antisettico-e-antinfiammatorio_pl-name-042025.pdf",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "occhi-secchi",
+   "product_code": "REAL-DM-017",
+   "type": "indicazione_etichetta",
+   "context": "Le istruzioni indicano protezione, idratazione e lubrificazione dell'occhio nella sindrome da occhio secco.",
+   "claim": "Indicazione del fabbricante: sindrome da occhio secco negli adulti.",
+   "prerequisites": "Verificare età (adulti) e uso con lenti a contatto.",
+   "exclusions": "Non estendere a occhio rosso doloroso, calo della vista, secrezioni o trauma: oculista.",
+   "source_url": "https://www.thea.it/media/1616/080223_fi-thealoz-duo_10-e-15ml.pdf",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "micosi-vaginale",
+   "product_code": "REAL-MED-049",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica gli ovuli per le micosi vulvovaginali (medicinale SOP consegnato dal farmacista).",
+   "claim": "Indicazione del titolare: micosi vulvovaginali.",
+   "prerequisites": "Verificare gravidanza, primo episodio o recidive, età.",
+   "exclusions": "Non estendere a febbre, dolore al basso ventre, perdite maleodoranti o colorate, primo episodio sotto i 16 anni.",
+   "source_url": "https://pevaryl.com/it/prodotto/pevaryl-50-mg-ovuli/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "micosi-vaginale",
+   "product_code": "REAL-MED-048",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta gli ovuli per la candidosi vaginale, trattamento di 3 giorni.",
+   "claim": "Indicazione del titolare: micosi vulvovaginali.",
+   "prerequisites": "Verificare gravidanza, primo episodio o recidive, età.",
+   "exclusions": "Non estendere a febbre, dolore al basso ventre o perdite maleodoranti.",
+   "source_url": "https://pevaryl.com/it/prodotto/pevaryl-150-mg-6-ovuli/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "micosi-vaginale",
+   "product_code": "REAL-MED-047",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica la soluzione per micosi vulvovaginali e balanite micotica, come complemento a ovuli o crema.",
+   "claim": "Indicazione del titolare: micosi dei genitali esterni (donna e uomo).",
+   "prerequisites": "Uso negli adulti; verificare gravidanza.",
+   "exclusions": "Non estendere a lesioni, febbre o sintomi ricorrenti.",
+   "source_url": "https://pevaryl.com/it/prodotto/pevaryl-1-soluzione-cutanea-per-genitali-esterni/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "colon-irritabile",
+   "product_code": "REAL-DM-007",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica il dispositivo per la sindrome dell'intestino irritabile con dolore, gonfiore e irregolarità (pagine Aboca; serve una prima diagnosi medica).",
+   "claim": "Indicazione del titolare: sindrome dell'intestino irritabile già diagnosticata.",
+   "prerequisites": "Serve una diagnosi medica; secondo le pagine Aboca non in gravidanza e allattamento, da 8 anni.",
+   "exclusions": "Non estendere a sangue nelle feci, calo di peso, febbre, sintomi notturni o dopo i 50 anni senza controlli.",
+   "source_url": "https://www.aboca.com/it/prodotto/colilen-ibs-96-opercoli/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "digestione-difficile",
+   "product_code": "REAL-DM-015",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica lo sciroppo per i disturbi della digestione difficile: pesantezza, gonfiore, sazietà precoce, nausea.",
+   "claim": "Indicazione del titolare: digestione difficile.",
+   "prerequisites": "Verificare età e terapie per acidità o reflusso.",
+   "exclusions": "Non estendere a vomito ripetuto, dolore forte, calo di peso o difficoltà a deglutire.",
+   "source_url": "https://www.aboca.com/it/prodotto/gastrodiger-sciroppo-180g/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "gonfiore-addominale",
+   "product_code": "REAL-DM-015",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica lo sciroppo per pesantezza e gonfiore di stomaco.",
+   "claim": "Indicazione del titolare: gonfiore e pesantezza di stomaco.",
+   "prerequisites": "Verificare età e terapie in corso.",
+   "exclusions": "Non estendere a dolore forte o febbre.",
+   "source_url": "https://www.aboca.com/it/prodotto/gastrodiger-sciroppo-180g/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "crampi",
+   "product_code": "REAL-SUP-016",
+   "type": "contesto_ricerca",
+   "context": "Il titolare dichiara che il magnesio contribuisce alla normale funzione muscolare e all'equilibrio elettrolitico.",
+   "claim": "Claim del titolare: normale funzione muscolare (claim UE sul magnesio). Non tratta i crampi.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a crampi con gonfiore o dolore al polpaccio, insufficienza renale o diuretici senza parere medico.",
+   "source_url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-150g/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "stanchezza",
+   "product_code": "REAL-SUP-016",
+   "type": "contesto_ricerca",
+   "context": "Il titolare dichiara che il magnesio contribuisce alla riduzione di stanchezza e affaticamento.",
+   "claim": "Claim del titolare: riduzione di stanchezza e affaticamento.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a stanchezza che dura settimane, con calo di peso o febbre: medico.",
+   "source_url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-150g/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "ansia-stress",
+   "product_code": "REAL-SUP-016",
+   "type": "contesto_ricerca",
+   "context": "Il titolare dichiara che il magnesio contribuisce alla normale funzione psicologica e del sistema nervoso.",
+   "claim": "Claim del titolare: normale funzione psicologica.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere ad ansia importante, attacchi di panico o tristezza persistente: medico.",
+   "source_url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-150g/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "crampi",
+   "product_code": "REAL-SUP-017",
+   "type": "contesto_ricerca",
+   "context": "Il titolare dichiara che magnesio e vitamina D contribuiscono alla normale funzione muscolare.",
+   "claim": "Claim del titolare: normale funzione muscolare.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a crampi con gonfiore o dolore al polpaccio.",
+   "source_url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-donna/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "menopausa",
+   "product_code": "REAL-SUP-017",
+   "type": "contesto_ricerca",
+   "context": "Il titolare presenta l'integratore per la donna con magnesio, vitamine B, D3 e K2 per ossa e stanchezza.",
+   "claim": "Claim del titolare: mantenimento di ossa normali e riduzione della stanchezza.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a sanguinamenti anomali o terapie ormonali senza parere medico.",
+   "source_url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-donna/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "insonnia-occasionale",
+   "product_code": "REAL-SUP-018",
+   "type": "contesto_ricerca",
+   "context": "Il titolare dichiara che la melatonina contribuisce a ridurre il tempo necessario per addormentarsi (con 1 mg poco prima di coricarsi).",
+   "claim": "Claim UE della melatonina dichiarato dal titolare: riduzione del tempo di addormentamento.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento. Melatonina: sconsigliata in gravidanza, allattamento e bambini senza parere medico.",
+   "exclusions": "Non estendere a insonnia che dura settimane, russamento con pause del respiro o umore basso.",
+   "source_url": "https://www.magnesiosupremo.it/prodotti-magnesio/magnesio-supremo-notte-relax/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "integrazione-gravidanza",
+   "product_code": "REAL-SUP-005",
+   "type": "contesto_ricerca",
+   "context": "Il titolare presenta l'integratore multivitaminico con acido folico e DHA specifico per le donne in gravidanza.",
+   "claim": "Claim del titolare: supporto nutrizionale in gravidanza (acido folico, DHA).",
+   "prerequisites": "Solo in gravidanza; verificare cosa ha già prescritto il ginecologo per evitare doppioni.",
+   "exclusions": "Non estendere a nausea grave, sanguinamenti o dolori: ginecologo.",
+   "source_url": "https://www.multicentrum.it/prodotti/gravidanza/multicentrum-mamma-dha/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "stanchezza",
+   "product_code": "REAL-SUP-003",
+   "type": "contesto_ricerca",
+   "context": "Il titolare dichiara che acido folico e vitamina C contribuiscono a ridurre stanchezza e fatica.",
+   "claim": "Claim del titolare: riduzione di stanchezza e affaticamento nella donna.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a stanchezza persistente, mestruazioni molto abbondanti o calo di peso: medico.",
+   "source_url": "https://www.multicentrum.it/prodotti/multivitaminici/multicentrum-donna/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "terapia-antibiotica",
+   "product_code": "REAL-SUP-007",
+   "type": "contesto_ricerca",
+   "context": "Il titolare indica i probiotici (L. rhamnosus GG) per favorire l'equilibrio della flora batterica intestinale.",
+   "claim": "Indicazione del titolare: equilibrio della flora intestinale. Nessun claim UE autorizzato per i probiotici: non presentarlo come cura.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento. Distanziare dall'antibiotico come da foglietto del produttore.",
+   "exclusions": "Non estendere a diarrea con sangue, febbre alta o disidratazione.",
+   "source_url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-capsule/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "fermenti-lattici",
+   "product_code": "REAL-SUP-007",
+   "type": "contesto_ricerca",
+   "context": "Il titolare indica i probiotici per favorire l'equilibrio della flora batterica intestinale.",
+   "claim": "Indicazione del titolare: equilibrio della flora intestinale.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a diarrea con sangue, febbre alta o disidratazione.",
+   "source_url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-capsule/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "terapia-antibiotica",
+   "product_code": "REAL-SUP-008",
+   "type": "contesto_ricerca",
+   "context": "Il titolare indica i probiotici in bustine per favorire l'equilibrio della flora batterica intestinale.",
+   "claim": "Indicazione del titolare: equilibrio della flora intestinale.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a diarrea con sangue, febbre alta o disidratazione.",
+   "source_url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-bustine/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "fermenti-lattici",
+   "product_code": "REAL-SUP-008",
+   "type": "contesto_ricerca",
+   "context": "Il titolare indica i probiotici in bustine per favorire l'equilibrio della flora batterica intestinale.",
+   "claim": "Indicazione del titolare: equilibrio della flora intestinale.",
+   "prerequisites": "Integratore: non sostituisce una dieta varia. Verificare terapie in corso, gravidanza e allattamento.",
+   "exclusions": "Non estendere a diarrea con sangue, febbre alta o disidratazione.",
+   "source_url": "https://dicofarm.com/it/linea-adulto/prodotti/probiotici/dicoflor-60-bustine/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "gonfiore-addominale",
+   "product_code": "REAL-DM-007",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare indica il dispositivo per la sindrome dell'intestino irritabile con dolore, gonfiore e irregolarità.",
+   "claim": "Indicazione del titolare: gonfiore nell'intestino irritabile già diagnosticato.",
+   "prerequisites": "Serve una diagnosi medica di intestino irritabile; non in gravidanza e allattamento.",
+   "exclusions": "Non estendere a gonfiore senza diagnosi, sangue nelle feci, calo di peso o febbre.",
+   "source_url": "https://www.aboca.com/it/prodotto/colilen-ibs-96-opercoli/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  },
+  {
+   "concept_id": "dolore-muscolare",
+   "product_code": "REAL-MED-021",
+   "type": "indicazione_etichetta",
+   "context": "Il titolare presenta il gel per dolori muscolari e articolari di natura reumatica o traumatica.",
+   "claim": "Indicazione del titolare: dolori muscolari (uso cutaneo).",
+   "prerequisites": "Verificare età, allergia a FANS o aspirina, gravidanza, ulcera, terapie anticoagulanti e il foglio illustrativo vigente.",
+   "exclusions": "Non estendere a dolore dopo trauma importante, gonfiore caldo o dolore che dura oltre pochi giorni.",
+   "source_url": "https://flector.it/flectorartro/",
+   "source_version": "Pagina ufficiale consultata 2026-11-19"
+  }
+ ]
+}

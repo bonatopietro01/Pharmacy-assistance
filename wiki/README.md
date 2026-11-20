@@ -17,3 +17,8 @@ I collegamenti candidati per dolore, pelle e veterinaria sono in `database/colle
 Il processo per vagliare nuovi termini è in [Revisione dei termini](REVISIONE_TERMINI.md). Al momento non esiste una coda runtime: audio, trascrizione e termini non verificati non vengono conservati né trasformati in alias.
 
 La ricerca restituisce pertinenza testuale e collegamenti documentati per la consultazione del farmacista. Le evidenze del dialogo sono temporanee: menzione, richiesta, proposta, accettazione, negazione, uso passato e correzione hanno significati distinti. Una fase `closing` o la frase «serve altro?» non prova una vendita né crea un abbinamento clinico. Vedi [glossario](GLOSSARIO.md) e [scenari e fonti](SCENARI_E_FONTI.md).
+
+
+## Protocolli di banco
+
+Formato e regole in [PROTOCOLLI_DI_BANCO.md](PROTOCOLLI_DI_BANCO.md). Una scheda `tipo = "protocollo"` pubblicata si carica nel catalogo con `python -m backend.protocolli pubblica <scheda>`; finché è in bozza il banco usa solo la domanda del lessico.
