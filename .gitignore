@@ -3,3 +3,5 @@ __pycache__/
 models/
 database/reintegro.sqlite3*
 database/wiki_vettori.sqlite3
+# collegamento locale con percorsi assoluti di questo PC
+*.lnk

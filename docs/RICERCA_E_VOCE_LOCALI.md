@@ -47,7 +47,7 @@ Configurazione facoltativa in `database/configurazione.json`:
 
 ## 2. Trascrizione con faster-whisper
 
-- Modulo: `backend/speech_faster_whisper.py`. Si sceglie in **Impostazioni → Motore di trascrizione locale → faster-whisper**. Vosk, Whisper.cpp e Ibrido restano invariati e il motore configurato non è stato cambiato.
+- Modulo: `backend/speech_faster_whisper.py`. Si sceglie in **Impostazioni → Motore di trascrizione locale → faster-whisper**. Vosk, Whisper.cpp e Ibrido restano invariati. Il predefinito è **Ibrido**: nella prova al banco del 21 novembre 2026 faster-whisper sulla CPU è risultato troppo lento (testo solo a fine frase, 4–5 s di attesa) e meno preciso. Ha senso solo con una GPU NVIDIA.
 - Il microfono è già catturato dal server Python, quindi l'audio non passa dal browser e resta in memoria. Non serve avviare altri servizi.
 - Lingua fissa italiano; filtro dei silenzi (Silero VAD integrato in faster-whisper) attivo; trascrizione **a fine frase** (dopo circa 0,9 s di silenzio), senza testi provvisori.
 - `initial_prompt` generato in automatico (massimo 1000 caratteri): nomi commerciali e principi attivi del catalogo, con priorità, più sigle, termini e titoli brevi della wiki finché c'è spazio.

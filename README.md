@@ -1,12 +1,14 @@
 # Sales Agents
 
+<img src="frontend/logo-512.png" alt="Sales Agents logo: a friendly pharmacist snake at the counter with a headset and a computer" width="160">
+
 ## Overview
 
 Sales Agents is a local prototype that helps a pharmacist consult product information during a conversation. It uses temporary speech recognition to find relevant entries in a local SQLite catalog and wiki, shown only on the pharmacist's screen.
 
 ## Quick start
 
-1. On Windows, run `AVVIA_BANCO.cmd`.
+1. On Windows, run `AVVIA_BANCO.cmd` (or double-click the **Sales Agents** shortcut with the snake icon, if present; it uses `frontend/logo.ico`).
 2. If needed, configure the microphone and speech engine in **Impostazioni** (Settings).
 3. Select **Inizia ascolto** (Start Listening). The microphone is never activated automatically.
 

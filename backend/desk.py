@@ -2914,6 +2914,8 @@ class Desk(BaseHTTPRequestHandler):
         "/barcode1d.js": ("barcode1d.js", "text/javascript"),
         "/revisione": ("revisione.html", "text/html"),
         "/revisione.js": ("revisione.js", "text/javascript"),
+        "/logo.svg": ("logo.svg", "image/svg+xml"),
+        "/favicon.ico": ("logo.ico", "image/x-icon"),
     }
 
     def log_message(self, *_):

@@ -1,5 +1,13 @@
 # TaskState
 
+## Aggiornamento 21 novembre 2026 — torna l'ibrido come motore predefinito
+
+Prova al banco dell'utente: con faster-whisper predefinito il microfono è «troppo lento» e «sbaglia», peggio dell'ibrido, che era «praticamente realtime». Causa: faster-whisper trascrive solo a fine frase (circa 0,9 s di silenzio) e poi impiega 4–5 s sulla CPU di questo PC (nessuna GPU NVIDIA); non ha testo provvisorio. L'ibrido mostra subito i partial di Vosk e usa Whisper.cpp solo per correggere i nomi di prodotto non riconosciuti.
+
+- `database/configurazione.json`: `speech_engine` torna a `ibrido`. faster-whisper resta selezionabile in Impostazioni, sconsigliato su questo PC senza GPU.
+- Vale al prossimo avvio del banco (il motore si legge all'avvio del server) oppure scegliendo «Ibrido» in Impostazioni.
+- La ricerca ibrida nella wiki non cambia.
+
 ## Aggiornamento 20 novembre 2026 — ricerca ibrida nella wiki e faster-whisper
 
 Richiesta dell'utente: ricerca nella wiki per significato, trascrizione più precisa, solo modelli locali e gratuiti. Lo scanner di documenti è stato **escluso per ora** dall'utente.
